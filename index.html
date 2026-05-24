@@ -177,7 +177,7 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 40px;
-        align-items: center;
+        align-items: start;
       }
       .hero-eyebrow {
         display: inline-flex;
@@ -394,7 +394,7 @@
       /* FLEET */
       .fleet-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
         gap: 16px;
       }
       .fleet-card {
@@ -1023,16 +1023,60 @@
         border-radius: 10px;
       }
 
+      /* ── TWO-COL CLASSES ── */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+      }
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+        max-width: 820px;
+        margin: 0 auto;
+      }
+      .two-col-wide {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: start;
+        max-width: 860px;
+        margin: 0 auto;
+      }
+
+      /* contact-grid (home): full width 1fr 1fr */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: start;
+      }
+
+      /* overlay contact: full-width, not constrained */
+      .ov-contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: start;
+      }
+
       @media (max-width: 900px) {
         .hero-inner,
-        .contact-grid {
+        .contact-grid,
+        .about-grid,
+        .two-col,
+        .two-col-wide,
+        .ov-contact-grid {
           grid-template-columns: 1fr;
         }
         .steps-grid {
           grid-template-columns: repeat(2, 1fr);
         }
         .fleet-grid {
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(2, 1fr) !important;
         }
         .why-grid,
         .services-grid {
@@ -1050,6 +1094,10 @@
         .nav-links {
           display: none;
         }
+        /* form date row: stack on mobile */
+        .field-row {
+          grid-template-columns: 1fr !important;
+        }
       }
       @media (max-width: 560px) {
         .fleet-grid,
@@ -1057,7 +1105,7 @@
         .why-grid,
         .services-grid,
         .steps-grid {
-          grid-template-columns: 1fr;
+          grid-template-columns: 1fr !important;
         }
         .stats-grid {
           grid-template-columns: repeat(2, 1fr);
@@ -1067,6 +1115,16 @@
         }
         section {
           padding: 48px 0;
+        }
+        /* prevent any horizontal overflow */
+        body {
+          overflow-x: hidden;
+        }
+        .container {
+          padding: 0 16px;
+        }
+        .hero {
+          padding: 48px 0 40px;
         }
       }
     </style>
@@ -1294,9 +1352,9 @@
               </div>
             </div>
             <div class="hero-btns">
-              <a href="#fleet" class="btn btn-primary"
-                ><i class="fas fa-car"></i> See Our Fleet</a
-              >
+              <button onclick="openAllCars()" class="btn btn-primary">
+                <i class="fas fa-th"></i> View All Cars
+              </button>
               <a href="https://wa.me/918015277899" class="btn btn-outline"
                 ><i class="fab fa-whatsapp"></i> WhatsApp Us</a
               >
@@ -1447,10 +1505,19 @@
 
         <!-- FILTER CHIPS + VIEW ALL -->
         <div
-          class="filter-chips"
-          style="justify-content: space-between; align-items: center"
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 24px;
+          "
         >
-          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <div
+            class="filter-chips"
+            style="margin: 0; flex-wrap: wrap; gap: 8px; display: flex"
+          >
             <div class="chip active" onclick="filterFleet('all', this)">
               <i class="fas fa-th-large"></i> All
             </div>
@@ -1490,15 +1557,7 @@
     <!-- ABOUT -->
     <section id="about" style="background: var(--bg-soft)">
       <div class="container">
-        <div
-          style="
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-          "
-          class="about-grid"
-        >
+        <div class="about-grid">
           <div>
             <div class="sec-label">About GV Cars</div>
             <h2 class="sec-title">Reliable Rides. Comfortable Journeys.</h2>
@@ -2178,32 +2237,33 @@
             >
           </div>
         </div>
-        <div class="footer-bottom">
-          <p>© 2026 GV Cars. All Rights Reserved.</p>
+        <div class="footer-bottom" style="flex-wrap: wrap; gap: 12px">
+          <p>
+            © 2026 GV Cars. All Rights Reserved. &nbsp;·&nbsp;
+            <a href="#" style="color: var(--text-soft); text-decoration: none"
+              >Terms</a
+            >
+            &nbsp;·&nbsp;
+            <a href="#" style="color: var(--text-soft); text-decoration: none"
+              >Privacy</a
+            >
+          </p>
           <p
             style="
               display: flex;
               align-items: center;
-              gap: 16px;
-              flex-wrap: wrap;
+              gap: 6px;
+              white-space: nowrap;
             "
           >
-            <a href="#" style="color: var(--text-soft); text-decoration: none"
-              >Terms & Conditions</a
-            >
-            <a href="#" style="color: var(--text-soft); text-decoration: none"
-              >Privacy Policy</a
-            >
-          </p>
-          <p style="display: flex; align-items: center; gap: 6px">
             <i
               class="fas fa-code"
-              style="color: var(--brand); font-size: 12px"
+              style="color: var(--brand); font-size: 11px"
             ></i>
             Designed by
             <strong style="color: var(--text); font-weight: 600"
               >&nbsp;Gaurav Nagalapuram</strong
-            >&nbsp;· Los Angeles · © 2026
+            >&nbsp;·&nbsp;Los Angeles&nbsp;·&nbsp;© 2026
           </p>
         </div>
       </div>
@@ -2321,9 +2381,128 @@
               >Contact</a
             >
           </div>
-          <a href="tel:+918015277899" class="nav-cta">
-            <i class="fas fa-phone-alt"></i> Call Now
-          </a>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <a href="tel:+918015277899" class="nav-cta">
+              <i class="fas fa-phone-alt"></i> Call Now
+            </a>
+            <button
+              class="overlay-mob-toggle"
+              onclick="
+                this.closest('.overlay-nav')
+                  .querySelector('.overlay-mob-menu')
+                  .classList.toggle('open')
+              "
+              style="
+                display: none;
+                background: none;
+                border: none;
+                font-size: 20px;
+                color: var(--text);
+                cursor: pointer;
+                padding: 4px;
+              "
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+        </div>
+        <!-- overlay mobile menu -->
+        <div
+          class="overlay-mob-menu"
+          style="
+            display: none;
+            border-top: 1px solid var(--border);
+            background: #fff;
+            padding: 16px 24px;
+          "
+        >
+          <div style="display: flex; flex-direction: column; gap: 14px">
+            <a
+              href="#about"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              style="
+                font-size: 15px;
+                color: var(--text-mid);
+                text-decoration: none;
+              "
+              >About</a
+            >
+            <a
+              href="#fleet"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              style="
+                font-size: 15px;
+                color: var(--text-mid);
+                text-decoration: none;
+              "
+              >Fleet</a
+            >
+            <a
+              href="#services"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              style="
+                font-size: 15px;
+                color: var(--text-mid);
+                text-decoration: none;
+              "
+              >Services</a
+            >
+            <a
+              href="#why"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              style="
+                font-size: 15px;
+                color: var(--text-mid);
+                text-decoration: none;
+              "
+              >Why Us</a
+            >
+            <a
+              href="#faq"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              style="
+                font-size: 15px;
+                color: var(--text-mid);
+                text-decoration: none;
+              "
+              >FAQs</a
+            >
+            <a
+              href="#contact"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              style="
+                font-size: 15px;
+                color: var(--text-mid);
+                text-decoration: none;
+              "
+              >Contact</a
+            >
+            <a
+              href="tel:+918015277899"
+              class="btn btn-primary"
+              style="margin-top: 4px; justify-content: center"
+            >
+              <i class="fas fa-phone-alt"></i> Call Now
+            </a>
+          </div>
         </div>
       </div>
       <!-- Scrollable content -->
@@ -2518,7 +2697,7 @@
             id="detail-similar"
             style="
               display: grid;
-              grid-template-columns: repeat(3, 1fr);
+              grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
               gap: 16px;
             "
           ></div>
@@ -2550,8 +2729,7 @@
       <!-- OVERLAY FOOTER (shared across overlays) -->
       <section
         id="ov-reviews"
-        style="background: var(--bg-soft); padding: 56px 0"
-        class="mt-5"
+        style="background: var(--bg-soft); padding: 56px 0; margin-top: 64px"
       >
         <div class="container">
           <div class="sec-label">Customer Reviews</div>
@@ -2615,7 +2793,7 @@
       </section>
       <section id="ov-contact" style="background: #fff; padding: 56px 0">
         <div class="container">
-          <div class="two-col-wide contact-render-target flex gap-1">
+          <div class="ov-contact-grid contact-render-target">
             <!-- rendered by renderContact() — same data, reused -->
           </div>
         </div>
@@ -2693,17 +2871,29 @@
               >
             </div>
           </div>
-          <div class="footer-bottom" style="margin-top: 28px">
-            <p>&copy; 2026 GV Cars. All Rights Reserved.</p>
-            <p style="display: flex; align-items: center; gap: 6px">
+          <div
+            class="footer-bottom"
+            style="margin-top: 28px; flex-wrap: wrap; gap: 12px"
+          >
+            <p style="white-space: nowrap">
+              &copy; 2026 GV Cars. All Rights Reserved.
+            </p>
+            <p
+              style="
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                white-space: nowrap;
+              "
+            >
               <i
                 class="fas fa-code"
-                style="color: var(--brand); font-size: 12px"
+                style="color: var(--brand); font-size: 11px"
               ></i
               >Designed by
               <strong style="color: var(--text)"
                 >&nbsp;Gaurav Nagalapuram</strong
-              >&nbsp;&middot; Los Angeles &middot; &copy; 2026
+              >&nbsp;&middot;&nbsp;Los Angeles&nbsp;&middot;&nbsp;&copy; 2026
             </p>
           </div>
         </div>
@@ -2821,40 +3011,152 @@
               >Contact</a
             >
           </div>
-          <a href="tel:+918015277899" class="nav-cta">
-            <i class="fas fa-phone-alt"></i> Call Now
-          </a>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <a href="tel:+918015277899" class="nav-cta">
+              <i class="fas fa-phone-alt"></i> Call Now
+            </a>
+            <button
+              class="overlay-mob-toggle"
+              onclick="
+                this.closest('.overlay-nav')
+                  .querySelector('.overlay-mob-menu')
+                  .classList.toggle('open')
+              "
+              style="
+                display: none;
+                background: none;
+                border: none;
+                font-size: 20px;
+                color: var(--text);
+                cursor: pointer;
+                padding: 4px;
+              "
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+        </div>
+        <!-- overlay mobile menu -->
+        <div
+          class="overlay-mob-menu"
+          style="
+            display: none;
+            border-top: 1px solid var(--border);
+            background: #fff;
+            padding: 16px 24px;
+          "
+        >
+          <div style="display: flex; flex-direction: column; gap: 14px">
+            <a
+              href="#about"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              style="
+                font-size: 15px;
+                color: var(--text-mid);
+                text-decoration: none;
+              "
+              >About</a
+            >
+            <a
+              href="#fleet"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              style="
+                font-size: 15px;
+                color: var(--text-mid);
+                text-decoration: none;
+              "
+              >Fleet</a
+            >
+            <a
+              href="#services"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              style="
+                font-size: 15px;
+                color: var(--text-mid);
+                text-decoration: none;
+              "
+              >Services</a
+            >
+            <a
+              href="#why"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              style="
+                font-size: 15px;
+                color: var(--text-mid);
+                text-decoration: none;
+              "
+              >Why Us</a
+            >
+            <a
+              href="#faq"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              style="
+                font-size: 15px;
+                color: var(--text-mid);
+                text-decoration: none;
+              "
+              >FAQs</a
+            >
+            <a
+              href="#contact"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              style="
+                font-size: 15px;
+                color: var(--text-mid);
+                text-decoration: none;
+              "
+              >Contact</a
+            >
+            <a
+              href="tel:+918015277899"
+              class="btn btn-primary"
+              style="margin-top: 4px; justify-content: center"
+            >
+              <i class="fas fa-phone-alt"></i> Call Now
+            </a>
+          </div>
         </div>
       </div>
       <div style="max-width: 1100px; margin: 0 auto; padding: 24px 24px 0">
         <!-- Back bar -->
-        <div
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 24px;
-            padding-top: 8px;
-            flex-wrap: wrap;
-            gap: 12px;
-          "
-        >
-          <button onclick="closeAllCars()" class="overlay-back-btn">
+        <div style="padding-top: 8px; margin-bottom: 20px">
+          <button
+            onclick="closeAllCars()"
+            class="overlay-back-btn"
+            style="margin-bottom: 16px"
+          >
             <i class="fas fa-arrow-left"></i> Back to Home
           </button>
-          <div>
-            <div class="sec-label" style="margin-bottom: 2px">Our Fleet</div>
-            <h2
-              style="
-                font-family: &quot;Lora&quot;, serif;
-                font-size: 26px;
-                color: var(--text);
-                line-height: 1.2;
-              "
-            >
-              All Cars
-            </h2>
-          </div>
+          <div class="sec-label" style="margin-bottom: 4px">Our Fleet</div>
+          <h2
+            style="
+              font-family: &quot;Lora&quot;, serif;
+              font-size: 26px;
+              color: var(--text);
+              line-height: 1.2;
+              margin-bottom: 0;
+            "
+          >
+            All Cars
+          </h2>
         </div>
 
         <!-- Category chips -->
@@ -3072,81 +3374,20 @@
           id="all-cars-grid"
           style="
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 16px;
             margin-bottom: 0;
           "
         ></div>
       </div>
 
-      <!-- OVERLAY FOOTER (shared across overlays) -->
+      <!-- GET IN TOUCH only (no reviews in all-cars overlay) -->
       <section
-        id="ov-reviews"
-        style="background: var(--bg-soft); padding: 56px 0"
+        id="ov-contact"
+        style="background: #fff; padding: 56px 0; margin-top: 56px"
       >
         <div class="container">
-          <div class="sec-label">Customer Reviews</div>
-          <h2 class="sec-title">What Our Customers Say</h2>
-          <p class="sec-desc" style="margin-bottom: 40px">
-            Honest feedback from real customers who have travelled with GV Cars.
-          </p>
-          <div
-            style="
-              display: grid;
-              grid-template-columns: repeat(3, 1fr);
-              gap: 16px;
-            "
-            class="ov-reviews-grid"
-          >
-            <div class="review-card">
-              <div class="stars">★★★★★</div>
-              <p class="review-text">
-                "Excellent service from GV Cars. The booking was straightforward
-                and the vehicle was in perfect condition. Highly recommended."
-              </p>
-              <div class="review-author">
-                <div class="avatar">D</div>
-                <div>
-                  <div class="author-name">Dhileep</div>
-                  <div class="author-date">Verified Customer</div>
-                </div>
-              </div>
-            </div>
-            <div class="review-card">
-              <div class="stars">★★★★★</div>
-              <p class="review-text">
-                "I hired a car for a family trip and GV Cars went above and
-                beyond. Clean, on-time, and professional throughout. Will use
-                again."
-              </p>
-              <div class="review-author">
-                <div class="avatar">R</div>
-                <div>
-                  <div class="author-name">Ramachandran</div>
-                  <div class="author-date">Verified Customer</div>
-                </div>
-              </div>
-            </div>
-            <div class="review-card">
-              <div class="stars">★★★★★</div>
-              <p class="review-text">
-                "Very impressed with the quality. Quick booking, clean car, no
-                hidden charges. One of the best rental services I have used."
-              </p>
-              <div class="review-author">
-                <div class="avatar">R</div>
-                <div>
-                  <div class="author-name">Raja</div>
-                  <div class="author-date">Verified Customer</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section id="ov-contact" style="background: #fff; padding: 56px 0">
-        <div class="container">
-          <div class="two-col-wide contact-render-target">
+          <div class="ov-contact-grid contact-render-target">
             <!-- rendered by renderContact() — same data, reused -->
           </div>
         </div>
@@ -3224,17 +3465,29 @@
               >
             </div>
           </div>
-          <div class="footer-bottom" style="margin-top: 28px">
-            <p>&copy; 2026 GV Cars. All Rights Reserved.</p>
-            <p style="display: flex; align-items: center; gap: 6px">
+          <div
+            class="footer-bottom"
+            style="margin-top: 28px; flex-wrap: wrap; gap: 12px"
+          >
+            <p style="white-space: nowrap">
+              &copy; 2026 GV Cars. All Rights Reserved.
+            </p>
+            <p
+              style="
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                white-space: nowrap;
+              "
+            >
               <i
                 class="fas fa-code"
-                style="color: var(--brand); font-size: 12px"
+                style="color: var(--brand); font-size: 11px"
               ></i
               >Designed by
               <strong style="color: var(--text)"
                 >&nbsp;Gaurav Nagalapuram</strong
-              >&nbsp;&middot; Los Angeles &middot; &copy; 2026
+              >&nbsp;&middot;&nbsp;Los Angeles&nbsp;&middot;&nbsp;&copy; 2026
             </p>
           </div>
         </div>
@@ -3255,6 +3508,7 @@
         }
         #all-cars-grid {
           grid-template-columns: repeat(2, 1fr) !important;
+          min-width: 0;
         }
       }
       @media (max-width: 460px) {
@@ -3460,6 +3714,7 @@
         }
         #all-cars-grid {
           grid-template-columns: repeat(2, 1fr) !important;
+          min-width: 0;
         }
       }
       @media (max-width: 460px) {
@@ -3834,7 +4089,7 @@
         document.getElementById("detail-categories").innerHTML = otherCats
           .map((cat) => {
             const m = CATEGORY_META[cat] || { icon: "fas fa-car", label: cat };
-            return `<div class="cat-card" onclick="openAllCars('${cat}')"><i class="${m.icon}"></i><span>${m.label}</span></div>`;
+            return `<div class="cat-card" onclick="closeDetail();openAllCars('${cat}')"><i class="${m.icon}"></i><span>${m.label}</span></div>`;
           })
           .join("");
 

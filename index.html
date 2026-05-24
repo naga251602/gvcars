@@ -1,0 +1,4139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GV Cars Chennai | Car Rental — Hatchback, SUV, Sedan, MUV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Lora:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --brand: #1a6b3c;
+        --brand-light: #e8f5ee;
+        --brand-mid: #2d8a52;
+        --accent: #f59e0b;
+        --text: #1a1a1a;
+        --text-mid: #4a4a4a;
+        --text-soft: #8a8a8a;
+        --border: #e4e4e4;
+        --bg: #ffffff;
+        --bg-soft: #f7f7f5;
+        --bg-card: #ffffff;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Outfit", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        font-size: 16px;
+        line-height: 1.6;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Lora", serif;
+        line-height: 1.25;
+      }
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      section {
+        padding: 72px 0;
+      }
+
+      /* TOPBAR */
+      .topbar {
+        background: var(--brand);
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 13px;
+        padding: 9px 0;
+      }
+      .topbar a {
+        color: rgba(255, 255, 255, 0.85);
+        text-decoration: none;
+      }
+      .topbar a:hover {
+        color: #fff;
+      }
+
+      /* NAV */
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: #fff;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 60px;
+      }
+      .logo {
+        font-family: "Lora", serif;
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--brand);
+        text-decoration: none;
+        letter-spacing: -0.3px;
+      }
+      .logo sup {
+        font-size: 10px;
+        vertical-align: super;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+      .nav-links a {
+        font-size: 14px;
+        color: var(--text-mid);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--brand);
+      }
+      .nav-cta {
+        background: var(--brand);
+        color: #fff;
+        padding: 9px 20px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        transition: background 0.2s;
+      }
+      .nav-cta:hover {
+        background: var(--brand-mid);
+      }
+
+      /* DROPDOWN */
+      .dropdown {
+        position: relative;
+      }
+      .dropdown-menu {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        min-width: 220px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        padding: 6px 0;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-4px);
+        transition: all 0.18s;
+        z-index: 200;
+      }
+      .dropdown:hover .dropdown-menu {
+        opacity: 1;
+        pointer-events: all;
+        transform: translateY(0);
+      }
+      .dropdown-menu a {
+        display: block;
+        padding: 8px 16px;
+        font-size: 13.5px;
+        color: var(--text-mid);
+        text-decoration: none;
+      }
+      .dropdown-menu a:hover {
+        background: var(--bg-soft);
+        color: var(--brand);
+      }
+
+      /* HERO */
+      .hero {
+        background: var(--bg-soft);
+        border-bottom: 1px solid var(--border);
+        padding: 72px 0 64px;
+      }
+      .hero-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+      }
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: var(--brand-light);
+        color: var(--brand);
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 5px 12px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+      }
+      .hero h1 {
+        font-size: clamp(32px, 4.5vw, 52px);
+        color: var(--text);
+        margin-bottom: 16px;
+        font-weight: 600;
+      }
+      .hero p {
+        font-size: 17px;
+        color: var(--text-mid);
+        line-height: 1.7;
+        max-width: 480px;
+        margin-bottom: 28px;
+        font-weight: 400;
+      }
+      .hero-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 32px;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid var(--border);
+        border-radius: 100px;
+        padding: 5px 13px;
+        font-size: 13px;
+        color: var(--text-mid);
+        background: #fff;
+      }
+      .pill i {
+        color: var(--brand);
+        font-size: 11px;
+      }
+      .hero-btns {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      /* BUTTONS */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: "Outfit", sans-serif;
+        font-weight: 600;
+        font-size: 15px;
+        padding: 13px 24px;
+        border-radius: 7px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .btn-primary {
+        background: var(--brand);
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: var(--brand-mid);
+      }
+      .btn-outline {
+        background: transparent;
+        color: var(--text);
+        border: 1.5px solid var(--border);
+      }
+      .btn-outline:hover {
+        border-color: var(--brand);
+        color: var(--brand);
+      }
+      .btn-wa {
+        background: #25d366;
+        color: #fff;
+      }
+      .btn-wa:hover {
+        background: #1fba59;
+      }
+      .btn-sm {
+        padding: 10px 18px;
+        font-size: 14px;
+      }
+
+      /* BOOKING FORM */
+      .form-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 28px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      }
+      .form-card h3 {
+        font-size: 18px;
+        margin-bottom: 4px;
+        color: var(--text);
+      }
+      .form-card p {
+        font-size: 13px;
+        color: var(--text-soft);
+        margin-bottom: 22px;
+      }
+      .field {
+        margin-bottom: 14px;
+      }
+      .field label {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--text-soft);
+        margin-bottom: 5px;
+      }
+      .field input,
+      .field select {
+        width: 100%;
+        padding: 11px 13px;
+        border: 1px solid var(--border);
+        border-radius: 7px;
+        font-family: "Outfit", sans-serif;
+        font-size: 14px;
+        color: var(--text);
+        background: #fff;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .field input:focus,
+      .field select:focus {
+        border-color: var(--brand);
+      }
+      .field input::placeholder {
+        color: #bbb;
+      }
+      .field-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      /* STATS */
+      .stats-bar {
+        background: var(--brand);
+        padding: 36px 0;
+      }
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0;
+      }
+      .stat {
+        text-align: center;
+        padding: 0 16px;
+        border-right: 1px solid rgba(255, 255, 255, 0.15);
+      }
+      .stat:last-child {
+        border-right: none;
+      }
+      .stat-n {
+        font-family: "Lora", serif;
+        font-size: 32px;
+        font-weight: 600;
+        color: #fff;
+        line-height: 1;
+      }
+      .stat-l {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.65);
+        margin-top: 4px;
+      }
+
+      /* SECTION LABEL */
+      .sec-label {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--brand);
+        margin-bottom: 8px;
+      }
+      .sec-title {
+        font-size: clamp(24px, 3vw, 36px);
+        color: var(--text);
+        margin-bottom: 12px;
+      }
+      .sec-desc {
+        font-size: 15.5px;
+        color: var(--text-mid);
+        line-height: 1.7;
+        max-width: 540px;
+      }
+
+      /* DIVIDER */
+      hr {
+        border: none;
+        border-top: 1px solid var(--border);
+      }
+
+      /* FLEET */
+      .fleet-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+      .fleet-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        transition:
+          box-shadow 0.2s,
+          border-color 0.2s;
+      }
+      .fleet-card:hover {
+        border-color: var(--brand);
+        box-shadow: 0 6px 24px rgba(26, 107, 60, 0.1);
+      }
+      .fleet-head {
+        background: var(--bg-soft);
+        padding: 28px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-bottom: 1px solid var(--border);
+        position: relative;
+      }
+      .fleet-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: var(--brand);
+        color: #fff;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 2px 9px;
+        border-radius: 4px;
+      }
+      .fleet-icon {
+        font-size: 48px;
+        color: var(--brand);
+        opacity: 0.7;
+        margin-bottom: 8px;
+      }
+      .fleet-category {
+        font-size: 11px;
+        color: var(--text-soft);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+      .fleet-body {
+        padding: 20px;
+      }
+      .fleet-body h3 {
+        font-size: 16px;
+        margin-bottom: 4px;
+        color: var(--text);
+      }
+      .fleet-price {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--brand);
+        margin: 10px 0;
+        font-family: "Outfit", sans-serif;
+      }
+      .fleet-price span {
+        font-size: 13px;
+        color: var(--text-soft);
+        font-weight: 400;
+      }
+      .fleet-features {
+        margin: 12px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .fleet-feat {
+        font-size: 13px;
+        color: var(--text-mid);
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .fleet-feat i {
+        color: var(--brand);
+        font-size: 10px;
+      }
+
+      /* FILTER CHIPS */
+      .filter-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 24px 0 0;
+      }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 16px;
+        border-radius: 100px;
+        font-size: 13.5px;
+        font-weight: 500;
+        border: 1.5px solid var(--border);
+        background: #fff;
+        color: var(--text-mid);
+        cursor: pointer;
+        transition: all 0.18s;
+        user-select: none;
+      }
+      .chip:hover {
+        border-color: var(--brand);
+        color: var(--brand);
+      }
+      .chip.active {
+        background: var(--brand);
+        color: #fff;
+        border-color: var(--brand);
+      }
+      .chip i {
+        font-size: 12px;
+      }
+
+      /* CAR IMAGE */
+      .fleet-car-img {
+        width: 100%;
+        height: 130px;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+        padding: 8px 12px;
+        transition: transform 0.3s;
+      }
+      .fleet-card:hover .fleet-car-img {
+        transform: scale(1.04);
+      }
+      .fleet-card[data-hidden="true"] {
+        display: none;
+      }
+
+      /* STEPS */
+      .steps-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-top: 48px;
+      }
+      .step-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 24px 18px;
+        position: relative;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+      .step-card:hover {
+        border-color: var(--brand);
+        box-shadow: 0 4px 16px rgba(26, 107, 60, 0.08);
+      }
+      .step-n {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--brand);
+        margin-bottom: 12px;
+      }
+      .step-icon {
+        font-size: 22px;
+        color: var(--brand);
+        margin-bottom: 12px;
+      }
+      .step-card h4 {
+        font-family: "Lora", serif;
+        font-size: 15px;
+        margin-bottom: 6px;
+        color: var(--text);
+      }
+      .step-card p {
+        font-size: 13px;
+        color: var(--text-soft);
+        line-height: 1.6;
+      }
+
+      .info-box {
+        background: #fffbeb;
+        border: 1px solid #fcd34d;
+        border-radius: 8px;
+        padding: 16px 20px;
+        margin-top: 32px;
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .info-box i {
+        color: #d97706;
+        margin-top: 3px;
+        font-size: 15px;
+        flex-shrink: 0;
+      }
+      .info-box p {
+        font-size: 13.5px;
+        color: #78350f;
+        line-height: 1.6;
+      }
+
+      /* SERVICES */
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 48px;
+      }
+      .service-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 24px;
+        transition: border-color 0.2s;
+      }
+      .service-card:hover {
+        border-color: var(--brand);
+      }
+      .service-icon {
+        font-size: 22px;
+        color: var(--brand);
+        margin-bottom: 12px;
+      }
+      .service-card h4 {
+        font-family: "Lora", serif;
+        font-size: 15.5px;
+        color: var(--text);
+        margin-bottom: 6px;
+      }
+      .service-card p {
+        font-size: 13.5px;
+        color: var(--text-soft);
+        line-height: 1.6;
+      }
+
+      /* WHY CARDS */
+      .why-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 48px;
+      }
+      .why-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 24px;
+        transition: border-color 0.2s;
+      }
+      .why-card:hover {
+        border-color: var(--brand);
+      }
+      .why-icon {
+        font-size: 22px;
+        color: var(--brand);
+        margin-bottom: 12px;
+      }
+      .why-card h4 {
+        font-family: "Lora", serif;
+        font-size: 15.5px;
+        color: var(--text);
+        margin-bottom: 6px;
+      }
+      .why-card p {
+        font-size: 13.5px;
+        color: var(--text-soft);
+        line-height: 1.6;
+      }
+
+      /* REVIEWS */
+      .reviews-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 48px;
+      }
+      .review-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 22px;
+        transition: border-color 0.2s;
+      }
+      .review-card:hover {
+        border-color: #d1d5db;
+      }
+      .stars {
+        color: #f59e0b;
+        font-size: 13px;
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+      }
+      .review-text {
+        font-size: 14px;
+        color: var(--text-mid);
+        line-height: 1.7;
+        margin-bottom: 16px;
+        font-style: italic;
+      }
+      .review-author {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--brand-light);
+        color: var(--brand);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 13px;
+        flex-shrink: 0;
+      }
+      .author-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+      }
+      .author-date {
+        font-size: 12px;
+        color: var(--text-soft);
+      }
+
+      /* LOCATIONS */
+      .loc-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 24px;
+      }
+      .loc-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 7px 13px;
+        font-size: 13.5px;
+        color: var(--text-mid);
+        text-decoration: none;
+        transition: all 0.2s;
+      }
+      .loc-tag i {
+        color: var(--brand);
+        font-size: 10px;
+      }
+      .loc-tag:hover {
+        border-color: var(--brand);
+        color: var(--brand);
+        background: var(--brand-light);
+      }
+
+      /* FAQ */
+      .faq-list {
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-width: 720px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .faq-item {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+        background: #fff;
+      }
+      .faq-q {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 20px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: "Outfit", sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text);
+        text-align: left;
+        gap: 12px;
+      }
+      .faq-q i {
+        color: var(--brand);
+        font-size: 13px;
+        flex-shrink: 0;
+        transition: transform 0.2s;
+      }
+      .faq-a {
+        display: none;
+        padding: 0 20px 16px;
+        font-size: 14px;
+        color: var(--text-mid);
+        line-height: 1.7;
+      }
+      .faq-item.open .faq-q i {
+        transform: rotate(45deg);
+      }
+      .faq-item.open .faq-a {
+        display: block;
+      }
+
+      /* CONTACT */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: start;
+      }
+      .contact-item {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        margin-bottom: 24px;
+      }
+      .contact-icon {
+        width: 38px;
+        height: 38px;
+        background: var(--brand-light);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--brand);
+        font-size: 15px;
+        flex-shrink: 0;
+      }
+      .contact-item h4 {
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--text-soft);
+        margin-bottom: 4px;
+      }
+      .contact-item a,
+      .contact-item p {
+        font-size: 14.5px;
+        color: var(--text-mid);
+        text-decoration: none;
+        display: block;
+        line-height: 1.6;
+      }
+      .contact-item a:hover {
+        color: var(--brand);
+      }
+      .map-wrap {
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        height: 300px;
+      }
+      .map-wrap iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        filter: grayscale(20%);
+      }
+
+      /* FOOTER */
+      footer {
+        background: var(--bg-soft);
+        border-top: 1px solid var(--border);
+        padding: 56px 0 28px;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1.2fr;
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+      .footer-brand p {
+        font-size: 14px;
+        color: var(--text-soft);
+        line-height: 1.7;
+        margin-top: 10px;
+        max-width: 260px;
+      }
+      .footer-col h5 {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text);
+        margin-bottom: 14px;
+      }
+      .footer-col a {
+        display: block;
+        font-size: 14px;
+        color: var(--text-soft);
+        text-decoration: none;
+        padding: 3px 0;
+        transition: color 0.2s;
+      }
+      .footer-col a:hover {
+        color: var(--brand);
+      }
+      .footer-bottom {
+        border-top: 1px solid var(--border);
+        padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .footer-bottom p {
+        font-size: 13px;
+        color: var(--text-soft);
+      }
+
+      /* WA FLOAT */
+      .wa-float {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 500;
+        width: 52px;
+        height: 52px;
+        background: #25d366;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 24px;
+        text-decoration: none;
+        box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .wa-float:hover {
+        transform: scale(1.08);
+        box-shadow: 0 6px 24px rgba(37, 211, 102, 0.4);
+      }
+
+      /* GO TOP */
+      .go-top {
+        position: fixed;
+        bottom: 84px;
+        right: 26px;
+        z-index: 500;
+        width: 40px;
+        height: 40px;
+        background: var(--brand);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 15px;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 3px 12px rgba(26, 107, 60, 0.28);
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 0.25s,
+          transform 0.25s;
+      }
+      .go-top.show {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .go-top:hover {
+        transform: translateY(-3px);
+      }
+
+      /* GOOGLE BADGE */
+      .g-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 10px 16px;
+        margin-top: 28px;
+      }
+      .g-badge .g-stars {
+        color: #f59e0b;
+        font-size: 14px;
+      }
+      .g-badge .g-n {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text);
+        font-family: "Lora", serif;
+      }
+      .g-badge .g-sub {
+        font-size: 12px;
+        color: var(--text-soft);
+      }
+
+      /* MOBILE NAV */
+      #mob-nav {
+        display: none;
+      }
+      #mob-nav.open {
+        display: block;
+      }
+
+      /* SCROLLBAR */
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f5f5f5;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--brand);
+        border-radius: 10px;
+      }
+
+      @media (max-width: 900px) {
+        .hero-inner,
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        .steps-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .fleet-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .why-grid,
+        .services-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .reviews-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .stats-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .nav-links {
+          display: none;
+        }
+      }
+      @media (max-width: 560px) {
+        .fleet-grid,
+        .reviews-grid,
+        .why-grid,
+        .services-grid,
+        .steps-grid {
+          grid-template-columns: 1fr;
+        }
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+        section {
+          padding: 48px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- FLOATING WA -->
+    <a
+      href="https://wa.me/918015277899"
+      class="wa-float"
+      title="Chat on WhatsApp"
+      target="_blank"
+    >
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- GO TO TOP -->
+    <button
+      class="go-top"
+      id="go-top"
+      onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+      title="Back to top"
+    >
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div
+        class="container"
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 8px;
+        "
+      >
+        <div style="display: flex; gap: 20px">
+          <a href="tel:+918015277899"
+            ><i
+              class="fas fa-phone-alt"
+              style="margin-right: 5px; font-size: 11px"
+            ></i
+            >+91 80152 77899</a
+          >
+          <a href="mailto:gvcarrentals@gmail.com"
+            ><i
+              class="fas fa-envelope"
+              style="margin-right: 5px; font-size: 11px"
+            ></i
+            >gvcarrentals@gmail.com</a
+          >
+        </div>
+        <div style="opacity: 0.75">
+          Open every day &nbsp;08:00 AM – 07:00 PM
+        </div>
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <nav>
+      <div class="container nav-inner">
+        <a href="#" class="logo">GV Cars</a>
+
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <div class="dropdown">
+            <a
+              href="#fleet"
+              style="display: flex; align-items: center; gap: 4px"
+              >Fleet
+              <i
+                class="fas fa-chevron-down"
+                style="font-size: 10px; opacity: 0.5"
+              ></i
+            ></a>
+            <div class="dropdown-menu">
+              <a href="#fleet">Hatchback</a>
+              <a href="#fleet">SUV</a>
+              <a href="#fleet">Sedan</a>
+              <a href="#fleet">MUV</a>
+            </div>
+          </div>
+          <a href="#services">Services</a>
+          <a href="#steps">How to Book</a>
+          <a href="#why">Why Us</a>
+          <a href="#faq">FAQs</a>
+          <a href="#contact">Contact</a>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 10px">
+          <a href="tel:+918015277899" class="nav-cta">
+            <i class="fas fa-phone-alt"></i> Call Now
+          </a>
+          <button
+            onclick="
+              document.getElementById('mob-nav').classList.toggle('open')
+            "
+            style="
+              display: none;
+              background: none;
+              border: none;
+              font-size: 20px;
+              color: var(--text);
+              cursor: pointer;
+              padding: 4px;
+            "
+            id="mob-toggle"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- MOBILE NAV -->
+      <div
+        id="mob-nav"
+        style="
+          border-top: 1px solid var(--border);
+          background: #fff;
+          padding: 16px 24px;
+        "
+      >
+        <div style="display: flex; flex-direction: column; gap: 14px">
+          <a
+            href="#about"
+            style="
+              font-size: 15px;
+              color: var(--text-mid);
+              text-decoration: none;
+            "
+            >About</a
+          >
+          <a
+            href="#fleet"
+            style="
+              font-size: 15px;
+              color: var(--text-mid);
+              text-decoration: none;
+            "
+            >Fleet</a
+          >
+          <a
+            href="#services"
+            style="
+              font-size: 15px;
+              color: var(--text-mid);
+              text-decoration: none;
+            "
+            >Services</a
+          >
+          <a
+            href="#steps"
+            style="
+              font-size: 15px;
+              color: var(--text-mid);
+              text-decoration: none;
+            "
+            >How to Book</a
+          >
+          <a
+            href="#why"
+            style="
+              font-size: 15px;
+              color: var(--text-mid);
+              text-decoration: none;
+            "
+            >Why Us</a
+          >
+          <a
+            href="#faq"
+            style="
+              font-size: 15px;
+              color: var(--text-mid);
+              text-decoration: none;
+            "
+            >FAQs</a
+          >
+          <a
+            href="#contact"
+            style="
+              font-size: 15px;
+              color: var(--text-mid);
+              text-decoration: none;
+            "
+            >Contact</a
+          >
+          <a
+            href="tel:+918015277899"
+            class="btn btn-primary"
+            style="margin-top: 4px; justify-content: center"
+          >
+            <i class="fas fa-phone-alt"></i> Call Us Now
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="container">
+        <div class="hero-inner">
+          <!-- LEFT -->
+          <div>
+            <div class="hero-eyebrow">
+              <i class="fas fa-star" style="font-size: 10px"></i> Trusted Car
+              Rental in Chennai — Since 2014
+            </div>
+            <h1>Vehicles for Hire<br />That You'll Love</h1>
+            <p>
+              GV Cars offers comfortable, well-maintained vehicles for daily
+              travel, airport transfers, corporate trips, and long-distance
+              journeys. Professional service, fair prices, every time.
+            </p>
+            <div class="hero-pills">
+              <div class="pill">
+                <i class="fas fa-check"></i> Doorstep Delivery
+              </div>
+              <div class="pill">
+                <i class="fas fa-check"></i> No Hidden Charges
+              </div>
+              <div class="pill"><i class="fas fa-check"></i> 24/7 Support</div>
+              <div class="pill">
+                <i class="fas fa-check"></i> Driver Available
+              </div>
+            </div>
+            <div class="hero-btns">
+              <a href="#fleet" class="btn btn-primary"
+                ><i class="fas fa-car"></i> See Our Fleet</a
+              >
+              <a href="https://wa.me/918015277899" class="btn btn-outline"
+                ><i class="fab fa-whatsapp"></i> WhatsApp Us</a
+              >
+            </div>
+
+            <!-- GOOGLE BADGE -->
+            <div class="g-badge">
+              <div
+                style="
+                  font-size: 18px;
+                  font-weight: 800;
+                  font-family: sans-serif;
+                "
+              >
+                <span style="color: #4285f4">G</span
+                ><span style="color: #ea4335">o</span
+                ><span style="color: #fbbc05">o</span
+                ><span style="color: #4285f4">g</span
+                ><span style="color: #34a853">l</span
+                ><span style="color: #ea4335">e</span>
+              </div>
+              <div
+                style="width: 1px; height: 28px; background: var(--border)"
+              ></div>
+              <div>
+                <div style="display: flex; align-items: center; gap: 6px">
+                  <span class="g-n">4.8</span>
+                  <span class="g-stars">★★★★★</span>
+                </div>
+                <div class="g-sub">Verified customer reviews</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOOKING FORM -->
+          <div class="form-card">
+            <h3>Book Your Journey</h3>
+            <p>Fill in your details and we'll get back to you shortly.</p>
+            <form id="booking-form" onsubmit="handleBookingSubmit(event)">
+              <div class="field">
+                <label>Full Name</label>
+                <input
+                  type="text"
+                  id="book-name"
+                  placeholder="Your name"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label>Mobile Number</label>
+                <input
+                  type="tel"
+                  id="book-phone"
+                  placeholder="+91 98765 43210"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label>Email Address</label>
+                <input
+                  type="email"
+                  id="book-email"
+                  placeholder="you@email.com"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label>Car Type</label>
+                <select id="book-car">
+                  <option value="" disabled selected>Select a car type</option>
+                  <option>Hatchback</option>
+                  <option>SUV</option>
+                  <option>Sedan</option>
+                  <option>MUV</option>
+                </select>
+              </div>
+              <div class="field field-row">
+                <div>
+                  <label>Pickup Date</label>
+                  <input type="date" id="book-pickup" />
+                </div>
+                <div>
+                  <label>Drop Date</label>
+                  <input type="date" id="book-drop" />
+                </div>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                style="width: 100%; justify-content: center; margin-top: 6px"
+              >
+                <i class="fas fa-paper-plane"></i> Send Enquiry
+              </button>
+              <p
+                style="
+                  font-size: 12px;
+                  color: var(--text-soft);
+                  text-align: center;
+                  margin-top: 10px;
+                "
+              >
+                <i class="fas fa-lock" style="font-size: 10px"></i> Your details
+                are kept private. No spam.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-bar">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat">
+            <div class="stat-n">10+</div>
+            <div class="stat-l">Years in Business</div>
+          </div>
+          <div class="stat">
+            <div class="stat-n">99%</div>
+            <div class="stat-l">Happy Clients</div>
+          </div>
+          <div class="stat">
+            <div class="stat-n">4.8★</div>
+            <div class="stat-l">Customer Rating</div>
+          </div>
+          <div class="stat">
+            <div class="stat-n">4</div>
+            <div class="stat-l">Vehicle Categories</div>
+          </div>
+          <div class="stat">
+            <div class="stat-n">24/7</div>
+            <div class="stat-l">Customer Support</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLEET — second section after stats -->
+    <section id="fleet" style="background: #fff">
+      <div class="container">
+        <div class="sec-label">Our Fleet</div>
+        <h2 class="sec-title">Choose Your Ride</h2>
+        <p class="sec-desc">
+          Pick from our range of well-maintained hatchbacks, sedans, SUVs, and
+          MUVs. Clear pricing, no surprises, delivered to your door.
+        </p>
+
+        <!-- FILTER CHIPS + VIEW ALL -->
+        <div
+          class="filter-chips"
+          style="justify-content: space-between; align-items: center"
+        >
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <div class="chip active" onclick="filterFleet('all', this)">
+              <i class="fas fa-th-large"></i> All
+            </div>
+            <div class="chip" onclick="filterFleet('hatchback', this)">
+              <i class="fas fa-car"></i> Hatchback
+            </div>
+            <div class="chip" onclick="filterFleet('sedan', this)">
+              <i class="fas fa-taxi"></i> Sedan
+            </div>
+            <div class="chip" onclick="filterFleet('suv', this)">
+              <i class="fas fa-truck"></i> SUV
+            </div>
+            <div class="chip" onclick="filterFleet('muv', this)">
+              <i class="fas fa-shuttle-van"></i> MUV
+            </div>
+            <div class="chip" onclick="filterFleet('mini', this)">
+              <i class="fas fa-charging-station"></i> Mini
+            </div>
+          </div>
+          <button
+            class="btn btn-outline btn-sm"
+            onclick="openAllCars()"
+            style="white-space: nowrap; flex-shrink: 0"
+          >
+            <i class="fas fa-th"></i> View All Cars
+          </button>
+        </div>
+
+        <div class="fleet-grid" id="fleet-grid" style="margin-top: 32px">
+          <!-- Rendered by renderFleet() from SITE_DATA.cars -->
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- ABOUT -->
+    <section id="about" style="background: var(--bg-soft)">
+      <div class="container">
+        <div
+          style="
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+          "
+          class="about-grid"
+        >
+          <div>
+            <div class="sec-label">About GV Cars</div>
+            <h2 class="sec-title">Reliable Rides. Comfortable Journeys.</h2>
+            <p class="sec-desc" style="margin-bottom: 16px">
+              GV Cars is a trusted car rental service based in Chennai, founded
+              by <strong>Suneetha Nagalapuram</strong>. We are committed to
+              making travel simple, reliable, and affordable for everyone —
+              whether it is a short city ride or a long-distance trip.
+            </p>
+            <p class="sec-desc" style="margin-bottom: 16px">
+              We understand how important it is to arrive on time, travel in
+              comfort, and feel safe throughout your journey. That is why every
+              vehicle in our fleet is well maintained and every driver is
+              experienced and verified.
+            </p>
+            <p class="sec-desc" style="margin-bottom: 28px">
+              From daily commutes and airport transfers to corporate travel and
+              outstation trips, our flexible rental plans are designed to suit
+              all kinds of travel needs.
+            </p>
+            <a href="#fleet" class="btn btn-primary"
+              ><i class="fas fa-car-side"></i> Browse Fleet</a
+            >
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px">
+            <div
+              style="
+                background: #fff;
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 28px 20px;
+                text-align: center;
+              "
+            >
+              <i
+                class="fas fa-car"
+                style="
+                  font-size: 36px;
+                  color: var(--brand);
+                  opacity: 0.8;
+                  margin-bottom: 10px;
+                  display: block;
+                "
+              ></i>
+              <div
+                style="
+                  font-size: 13px;
+                  font-weight: 600;
+                  color: var(--text-mid);
+                "
+              >
+                City & Daily Travel
+              </div>
+            </div>
+            <div
+              style="
+                background: #fff;
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 28px 20px;
+                text-align: center;
+              "
+            >
+              <i
+                class="fas fa-plane-departure"
+                style="
+                  font-size: 36px;
+                  color: var(--brand);
+                  opacity: 0.8;
+                  margin-bottom: 10px;
+                  display: block;
+                "
+              ></i>
+              <div
+                style="
+                  font-size: 13px;
+                  font-weight: 600;
+                  color: var(--text-mid);
+                "
+              >
+                Airport Transfers
+              </div>
+            </div>
+            <div
+              style="
+                background: #fff;
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 28px 20px;
+                text-align: center;
+              "
+            >
+              <i
+                class="fas fa-briefcase"
+                style="
+                  font-size: 36px;
+                  color: var(--brand);
+                  opacity: 0.8;
+                  margin-bottom: 10px;
+                  display: block;
+                "
+              ></i>
+              <div
+                style="
+                  font-size: 13px;
+                  font-weight: 600;
+                  color: var(--text-mid);
+                "
+              >
+                Corporate Travel
+              </div>
+            </div>
+            <div
+              style="
+                background: #fff;
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 28px 20px;
+                text-align: center;
+              "
+            >
+              <i
+                class="fas fa-road"
+                style="
+                  font-size: 36px;
+                  color: var(--brand);
+                  opacity: 0.8;
+                  margin-bottom: 10px;
+                  display: block;
+                "
+              ></i>
+              <div
+                style="
+                  font-size: 13px;
+                  font-weight: 600;
+                  color: var(--text-mid);
+                "
+              >
+                Outstation Trips
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- SERVICES -->
+    <section id="services" style="background: #fff">
+      <div class="container">
+        <div class="sec-label">What We Offer</div>
+        <h2 class="sec-title">Our Services</h2>
+        <p class="sec-desc">
+          GV Cars provides a full range of car rental services across Chennai —
+          built around your travel needs, not the other way round.
+        </p>
+
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon"><i class="fas fa-user-tie"></i></div>
+            <h4>With Driver Service</h4>
+            <p>
+              Sit back and relax while one of our professional, experienced
+              drivers takes you to your destination safely and on time.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><i class="fas fa-calendar-day"></i></div>
+            <h4>Daily Travel</h4>
+            <p>
+              Need a car for everyday use? Our flexible daily rental options are
+              ideal for personal errands and regular local travel.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><i class="fas fa-briefcase"></i></div>
+            <h4>Corporate Travel</h4>
+            <p>
+              Dependable, punctual transport for employee commutes, client
+              visits, and business meetings across the city.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><i class="fas fa-plane-arrival"></i></div>
+            <h4>Airport Transfers</h4>
+            <p>
+              Timely pickup and drop at the airport. No last-minute stress —
+              just a comfortable, reliable ride when you need it most.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><i class="fas fa-calendar-alt"></i></div>
+            <h4>Monthly Packages</h4>
+            <p>
+              Affordable monthly rental plans for businesses and individuals who
+              need regular, long-term travel solutions.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-map-marked-alt"></i>
+            </div>
+            <h4>Outstation Trips</h4>
+            <p>
+              Planning a trip outside Chennai? Our well-maintained vehicles
+              ensure a safe and comfortable long-distance journey.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><i class="fas fa-car-crash"></i></div>
+            <h4>Car Rental</h4>
+            <p>
+              Flexible and affordable car hire for local and outstation travel.
+              Choose from a wide range of vehicles to suit your needs.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><i class="fas fa-file-contract"></i></div>
+            <h4>Car Leasing</h4>
+            <p>
+              Long-term rental and leasing options for businesses and
+              individuals at competitive, transparent rates.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><i class="fas fa-star"></i></div>
+            <h4>Special Projects</h4>
+            <p>
+              Customised travel solutions for events, corporate requirements,
+              and special occasions — tailored to your exact needs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- HOW TO BOOK -->
+    <section id="steps" style="background: var(--bg-soft)">
+      <div class="container">
+        <div class="sec-label">How to Book</div>
+        <h2 class="sec-title">Ready in Just a Few Steps</h2>
+        <p class="sec-desc">
+          Booking a car with GV Cars is quick and simple. Here is how it works.
+        </p>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-n">Step 01</div>
+            <div class="step-icon"><i class="fas fa-phone-alt"></i></div>
+            <h4>Make a Reservation</h4>
+            <p>
+              Call us or chat with us via WhatsApp or live support to make your
+              advance booking. Our team will help you pick the right vehicle.
+            </p>
+          </div>
+          <div class="step-card">
+            <div class="step-n">Step 02</div>
+            <div class="step-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <h4>Pick Up the Car</h4>
+            <p>
+              Collect your vehicle from our pickup point, or choose doorstep
+              delivery and we will bring it to your preferred location on time.
+            </p>
+          </div>
+          <div class="step-card">
+            <div class="step-n">Step 03</div>
+            <div class="step-icon"><i class="fas fa-steering-wheel"></i></div>
+            <h4>Drive Yourself</h4>
+            <p>
+              Take the wheel and enjoy your journey with family or friends. Our
+              cars are clean, well maintained, and ready to go.
+            </p>
+          </div>
+          <div class="step-card">
+            <div class="step-n">Step 04</div>
+            <div class="step-icon"><i class="fas fa-smile"></i></div>
+            <h4>Enjoy Your Trip</h4>
+            <p>
+              Have a great journey. Once you return the car, any applicable
+              refund will be processed straight away — no fuss.
+            </p>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <i class="fas fa-info-circle"></i>
+          <p>
+            <strong>Good to know:</strong> You can book anytime by calling
+            <strong>+91 80152 77899</strong> or
+            <strong>+91 80152 90099</strong>. Our team is available every day
+            from 08:00 AM to 07:00 PM, with 24/7 support for urgent enquiries.
+          </p>
+        </div>
+
+        <div style="margin-top: 28px; text-align: center">
+          <a href="https://wa.me/918015277899" class="btn btn-wa"
+            ><i class="fab fa-whatsapp"></i> Book on WhatsApp</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- WHY US -->
+    <section id="why" style="background: #fff">
+      <div class="container">
+        <div class="sec-label">Why Choose GV Cars</div>
+        <h2 class="sec-title">Trusted Car Rental Experts in Chennai</h2>
+        <p class="sec-desc">
+          We combine reliability, affordability, and genuine care for our
+          customers to deliver a travel experience that feels effortless every
+          time.
+        </p>
+
+        <div class="why-grid">
+          <div class="why-card">
+            <div class="why-icon"><i class="fas fa-clock"></i></div>
+            <h4>Easy Booking Process</h4>
+            <p>
+              Simply call or message us to reserve your car. We handle
+              everything and deliver the vehicle straight to your door.
+            </p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon"><i class="fas fa-truck"></i></div>
+            <h4>Doorstep Delivery</h4>
+            <p>
+              We bring the car to your chosen location at the right time — so
+              there is no need to travel to a pickup point.
+            </p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon"><i class="fas fa-rupee-sign"></i></div>
+            <h4>No Hidden Charges</h4>
+            <p>
+              We are fully transparent with our pricing. You will only ever pay
+              what was agreed — nothing extra, no surprises.
+            </p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon"><i class="fas fa-undo-alt"></i></div>
+            <h4>Instant Refund</h4>
+            <p>
+              Once you return the vehicle, any refund due is processed
+              immediately. Quick, straightforward, and hassle-free.
+            </p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon"><i class="fas fa-headset"></i></div>
+            <h4>24/7 Support</h4>
+            <p>
+              Our team is available around the clock to help with bookings,
+              questions, or any support you need during your trip.
+            </p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+            <h4>Verified Drivers</h4>
+            <p>
+              All our drivers are experienced, professional, and thoroughly
+              verified — so you can travel with complete confidence.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- LOCATIONS -->
+    <section id="locations" style="background: var(--bg-soft)">
+      <div class="container">
+        <div class="sec-label">Where We Serve</div>
+        <h2 class="sec-title">GV Cars Across Chennai</h2>
+        <p class="sec-desc">
+          We provide pickup and delivery across all major areas in the city.
+          Find your nearest location below.
+        </p>
+        <div class="loc-grid">
+          <a href="#" class="loc-tag"
+            ><i class="fas fa-map-pin"></i> Anna Nagar</a
+          >
+          <a href="#" class="loc-tag"
+            ><i class="fas fa-map-pin"></i> Arumbakkam</a
+          >
+          <a href="#" class="loc-tag"><i class="fas fa-map-pin"></i> Porur</a>
+          <a href="#" class="loc-tag"
+            ><i class="fas fa-map-pin"></i> Velachery</a
+          >
+          <a href="#" class="loc-tag"><i class="fas fa-map-pin"></i> OMR</a>
+          <a href="#" class="loc-tag"><i class="fas fa-map-pin"></i> ECR</a>
+          <a href="#" class="loc-tag"><i class="fas fa-map-pin"></i> T Nagar</a>
+          <a href="#" class="loc-tag"
+            ><i class="fas fa-map-pin"></i> Tambaram</a
+          >
+          <a href="#" class="loc-tag"
+            ><i class="fas fa-map-pin"></i> Ambattur</a
+          >
+          <a href="#" class="loc-tag"
+            ><i class="fas fa-map-pin"></i> Mogappair</a
+          >
+          <a href="#" class="loc-tag"
+            ><i class="fas fa-map-pin"></i> Koyambedu</a
+          >
+          <a href="#" class="loc-tag"
+            ><i class="fas fa-map-pin"></i> Vadapalani</a
+          >
+          <a href="#" class="loc-tag"><i class="fas fa-map-pin"></i> Guindy</a>
+          <a href="#" class="loc-tag"><i class="fas fa-map-pin"></i> Adyar</a>
+          <a href="#" class="loc-tag"
+            ><i class="fas fa-map-pin"></i> Kathirvedu</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- REVIEWS -->
+    <section id="reviews" style="background: #fff">
+      <div class="container">
+        <div class="sec-label">Customer Reviews</div>
+        <h2 class="sec-title">What Our Customers Say</h2>
+        <p class="sec-desc">
+          Honest feedback from real customers who have travelled with GV Cars.
+        </p>
+
+        <div class="reviews-grid">
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">
+              "Excellent service from GV Cars. The booking was straightforward
+              and the vehicle was in perfect condition. Highly recommended for
+              anyone looking for reliable car hire in Chennai."
+            </p>
+            <div class="review-author">
+              <div class="avatar">D</div>
+              <div>
+                <div class="author-name">Dhileep</div>
+                <div class="author-date">Verified Customer</div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">
+              "I hired a car for a family trip and GV Cars went above and
+              beyond. The car was clean, delivery was on time, and the service
+              felt very professional throughout. Will definitely use again."
+            </p>
+            <div class="review-author">
+              <div class="avatar">R</div>
+              <div>
+                <div class="author-name">Ramachandran</div>
+                <div class="author-date">Verified Customer</div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">
+              "GV Cars made my trip completely hassle-free. Their leasing option
+              is flexible and affordable, and the customer support team was very
+              helpful throughout."
+            </p>
+            <div class="review-author">
+              <div class="avatar">M</div>
+              <div>
+                <div class="author-name">Muthu</div>
+                <div class="author-date">Verified Customer</div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">
+              "Very impressed with the overall quality. The car was well looked
+              after and the booking process was quick and easy. One of the best
+              car rental services I have used in Chennai."
+            </p>
+            <div class="review-author">
+              <div class="avatar">R</div>
+              <div>
+                <div class="author-name">Raja</div>
+                <div class="author-date">Verified Customer</div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">
+              "I use GV Cars regularly for business travel. They are always on
+              time and the vehicles are top quality. A trustworthy and
+              dependable service that I would recommend without hesitation."
+            </p>
+            <div class="review-author">
+              <div class="avatar">V</div>
+              <div>
+                <div class="author-name">Vijay</div>
+                <div class="author-date">Verified Customer</div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">
+              "Booked a car for an outstation trip and the whole experience was
+              smooth from start to finish. Transparent pricing, clean car, and a
+              team that actually picks up the phone."
+            </p>
+            <div class="review-author">
+              <div class="avatar">K</div>
+              <div>
+                <div class="author-name">Karthik</div>
+                <div class="author-date">Verified Customer</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- FAQ -->
+    <section id="faq" style="background: var(--bg-soft)">
+      <div class="container" style="max-width: 760px">
+        <div style="text-align: center; margin-bottom: 40px">
+          <div class="sec-label">FAQs</div>
+          <h2 class="sec-title">Common Questions</h2>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              How do I book a car with GV Cars? <i class="fas fa-plus"></i>
+            </button>
+            <div class="faq-a">
+              You can book a car by calling us directly on
+              <strong>+91 80152 77899</strong> or
+              <strong>+91 80152 90099</strong>, or by sending us a message on
+              WhatsApp. You can also fill in the enquiry form on this page and
+              our team will get back to you promptly.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Do you offer airport pickup and drop services?
+              <i class="fas fa-plus"></i>
+            </button>
+            <div class="faq-a">
+              Yes, we provide reliable and punctual airport pickup and drop
+              services across Chennai. Just let us know your flight details when
+              you book and we will arrange everything.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Are your drivers experienced and verified?
+              <i class="fas fa-plus"></i>
+            </button>
+            <div class="faq-a">
+              Yes. All GV Cars drivers are experienced, professional, and fully
+              verified. Your safety and comfort are our top priority on every
+              journey.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Do you offer outstation travel? <i class="fas fa-plus"></i>
+            </button>
+            <div class="faq-a">
+              Yes, we offer comfortable and affordable outstation travel across
+              Tamil Nadu and neighbouring states. Our well-maintained vehicles
+              are fully prepared for long-distance trips.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Are there any hidden charges? <i class="fas fa-plus"></i>
+            </button>
+            <div class="faq-a">
+              No. We operate with complete price transparency. The price we
+              quote is the price you pay — no hidden fees, no unexpected extras.
+              Any additional service costs are clearly communicated upfront.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Do you deliver the car to my location? <i class="fas fa-plus"></i>
+            </button>
+            <div class="faq-a">
+              Yes. We offer doorstep delivery to your preferred location across
+              Chennai. Simply share your address at the time of booking and we
+              will bring the car to you on time.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Do you offer monthly rental plans? <i class="fas fa-plus"></i>
+            </button>
+            <div class="faq-a">
+              Yes. We have affordable monthly rental packages for individuals
+              and businesses who need a car on a regular basis. Get in touch to
+              discuss a plan that suits your needs.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- CONTACT -->
+    <section id="contact" style="background: #fff">
+      <div class="container">
+        <div class="contact-grid contact-render-target" id="contact-section">
+          <!-- Rendered by renderContact() from SITE_DATA.contact -->
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a
+              href="#"
+              class="logo"
+              style="display: inline-block; margin-bottom: 0"
+              >GV Cars</a
+            >
+            <p>
+              Chennai's trusted car rental service since 2014. Professional
+              drivers, well-maintained vehicles, and a team that genuinely cares
+              about your journey.
+            </p>
+          </div>
+          <div class="footer-col">
+            <h5>Quick Links</h5>
+            <a href="#">Home</a>
+            <a href="#about">About Us</a>
+            <a href="#fleet">Our Fleet</a>
+            <a href="#services">Services</a>
+            <a href="#why">Why GV Cars</a>
+            <a href="#faq">FAQs</a>
+            <a href="#contact">Contact</a>
+          </div>
+          <div class="footer-col">
+            <h5>Fleet</h5>
+            <a href="#">Hatchback</a>
+            <a href="#">SUV</a>
+            <a href="#">Sedan</a>
+            <a href="#">MUV</a>
+            <a href="#">Monthly Packages</a>
+            <a href="#">Car Leasing</a>
+          </div>
+          <div class="footer-col">
+            <h5>Contact</h5>
+            <a href="tel:+918015277899">+91 80152 77899</a>
+            <a href="tel:+918015290099">+91 80152 90099</a>
+            <a href="mailto:gvcarrentals@gmail.com">gvcarrentals@gmail.com</a>
+            <a
+              href="#"
+              style="
+                margin-top: 8px;
+                display: block;
+                font-size: 12.5px;
+                color: var(--text-soft);
+                pointer-events: none;
+              "
+              >No. 25 & 26, Raj Enclave,<br />Kathirvedu, Chennai 600066</a
+            >
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2026 GV Cars. All Rights Reserved.</p>
+          <p
+            style="
+              display: flex;
+              align-items: center;
+              gap: 16px;
+              flex-wrap: wrap;
+            "
+          >
+            <a href="#" style="color: var(--text-soft); text-decoration: none"
+              >Terms & Conditions</a
+            >
+            <a href="#" style="color: var(--text-soft); text-decoration: none"
+              >Privacy Policy</a
+            >
+          </p>
+          <p style="display: flex; align-items: center; gap: 6px">
+            <i
+              class="fas fa-code"
+              style="color: var(--brand); font-size: 12px"
+            ></i>
+            Designed by
+            <strong style="color: var(--text); font-weight: 600"
+              >&nbsp;Gaurav Nagalapuram</strong
+            >&nbsp;· Los Angeles · © 2026
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ============================================================
+     CAR DETAIL OVERLAY  z-index: 700 (above all-cars overlay)
+     Opened by openCarDetail(idx). Closed by closeDetail().
+     ============================================================ -->
+    <div
+      id="car-detail-overlay"
+      style="
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 700;
+        background: #fff;
+        overflow-y: auto;
+        flex-direction: column;
+      "
+    >
+      <!-- Sticky nav inside overlay -->
+      <!-- OVERLAY TOPBAR + NAV (shared across overlays) -->
+      <div class="topbar" style="flex-shrink: 0">
+        <div
+          class="container"
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+          "
+        >
+          <div style="display: flex; gap: 20px">
+            <a href="tel:+918015277899"
+              ><i
+                class="fas fa-phone-alt"
+                style="margin-right: 5px; font-size: 11px"
+              ></i
+              >+91 80152 77899</a
+            >
+            <a href="mailto:gvcarrentals@gmail.com"
+              ><i
+                class="fas fa-envelope"
+                style="margin-right: 5px; font-size: 11px"
+              ></i
+              >gvcarrentals@gmail.com</a
+            >
+          </div>
+          <div style="opacity: 0.75">
+            Open every day &nbsp;08:00 AM – 07:00 PM
+          </div>
+        </div>
+      </div>
+      <div class="overlay-nav">
+        <div class="container nav-inner">
+          <a
+            href="#"
+            class="logo"
+            onclick="
+              closeDetail();
+              closeAllCars();
+              return false;
+            "
+            >GV Cars</a
+          >
+          <div class="nav-links">
+            <a
+              href="#about"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              >About</a
+            >
+            <a
+              href="#fleet"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              >Fleet</a
+            >
+            <a
+              href="#services"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              >Services</a
+            >
+            <a
+              href="#why"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              >Why Us</a
+            >
+            <a
+              href="#faq"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              >FAQs</a
+            >
+            <a
+              href="#contact"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              >Contact</a
+            >
+          </div>
+          <a href="tel:+918015277899" class="nav-cta">
+            <i class="fas fa-phone-alt"></i> Call Now
+          </a>
+        </div>
+      </div>
+      <!-- Scrollable content -->
+      <div style="max-width: 960px; margin: 0 auto; padding: 24px 24px 0">
+        <!-- Back bar -->
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+            padding-top: 8px;
+          "
+        >
+          <button onclick="closeDetail()" class="overlay-back-btn">
+            <i class="fas fa-arrow-left"></i> Back
+          </button>
+          <span
+            id="detail-breadcrumb"
+            style="font-size: 13px; color: var(--text-soft)"
+          ></span>
+        </div>
+
+        <!-- Gallery + Info -->
+        <div
+          style="
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 40px;
+            align-items: start;
+          "
+          class="detail-layout"
+        >
+          <!-- LEFT: Gallery -->
+          <div>
+            <div
+              style="
+                border-radius: 12px;
+                overflow: hidden;
+                border: 1px solid var(--border);
+                background: var(--bg-soft);
+                position: relative;
+                aspect-ratio: 16/9;
+              "
+            >
+              <img
+                id="detail-main-img"
+                src=""
+                alt=""
+                style="
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  transition: opacity 0.3s ease;
+                "
+              />
+              <button
+                onclick="detailGalleryStep(-1)"
+                class="gal-arrow"
+                style="left: 12px"
+              >
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button
+                onclick="detailGalleryStep(1)"
+                class="gal-arrow"
+                style="right: 12px"
+              >
+                <i class="fas fa-chevron-right"></i>
+              </button>
+              <div
+                id="detail-progress"
+                style="
+                  position: absolute;
+                  bottom: 0;
+                  left: 0;
+                  height: 3px;
+                  background: var(--brand);
+                  width: 0%;
+                "
+              ></div>
+            </div>
+            <!-- Thumbnails — always visible, no toggle -->
+            <div
+              id="detail-thumbs"
+              style="
+                display: flex;
+                gap: 8px;
+                margin-top: 12px;
+                justify-content: center;
+                min-height: 60px;
+              "
+            ></div>
+          </div>
+
+          <!-- RIGHT: Info -->
+          <div>
+            <div
+              id="detail-badge"
+              style="
+                display: inline-block;
+                font-size: 11px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.07em;
+                padding: 3px 10px;
+                border-radius: 4px;
+                margin-bottom: 12px;
+                color: #fff;
+                background: var(--brand);
+              "
+            ></div>
+            <h2
+              id="detail-name"
+              style="
+                font-family: &quot;Lora&quot;, serif;
+                font-size: 28px;
+                font-weight: 600;
+                color: var(--text);
+                margin-bottom: 6px;
+              "
+            ></h2>
+            <div
+              id="detail-price"
+              style="
+                font-size: 26px;
+                font-weight: 700;
+                color: var(--brand);
+                font-family: &quot;Outfit&quot;, sans-serif;
+                margin-bottom: 20px;
+              "
+            ></div>
+            <div
+              id="detail-specs"
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom: 28px;
+              "
+            ></div>
+            <a
+              href="#contact"
+              onclick="closeDetail()"
+              class="btn btn-primary"
+              style="
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 12px;
+                display: flex;
+              "
+            >
+              <i class="fas fa-paper-plane"></i> Enquire Now
+            </a>
+            <a
+              id="detail-wa"
+              href="#"
+              class="btn btn-wa"
+              style="width: 100%; justify-content: center; display: flex"
+            >
+              <i class="fab fa-whatsapp"></i> Ask on WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <!-- Similar Cars -->
+        <div style="margin-top: 56px">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin-bottom: 20px;
+              flex-wrap: wrap;
+              gap: 12px;
+            "
+          >
+            <h3
+              style="
+                font-family: &quot;Lora&quot;, serif;
+                font-size: 22px;
+                color: var(--text);
+              "
+            >
+              Similar Cars
+            </h3>
+            <button onclick="openAllCars()" class="btn btn-outline btn-sm">
+              <i class="fas fa-th"></i> View All Cars
+            </button>
+          </div>
+          <div
+            id="detail-similar"
+            style="
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 16px;
+            "
+          ></div>
+        </div>
+
+        <!-- Other Categories -->
+        <div style="margin-top: 48px; margin-bottom: 0">
+          <h3
+            style="
+              font-family: &quot;Lora&quot;, serif;
+              font-size: 22px;
+              color: var(--text);
+              margin-bottom: 20px;
+            "
+          >
+            Explore Other Categories
+          </h3>
+          <div
+            id="detail-categories"
+            style="
+              display: grid;
+              grid-template-columns: repeat(4, 1fr);
+              gap: 12px;
+            "
+          ></div>
+        </div>
+      </div>
+
+      <!-- OVERLAY FOOTER (shared across overlays) -->
+      <section
+        id="ov-reviews"
+        style="background: var(--bg-soft); padding: 56px 0"
+        class="mt-5"
+      >
+        <div class="container">
+          <div class="sec-label">Customer Reviews</div>
+          <h2 class="sec-title">What Our Customers Say</h2>
+          <p class="sec-desc" style="margin-bottom: 40px">
+            Honest feedback from real customers who have travelled with GV Cars.
+          </p>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 16px;
+            "
+            class="ov-reviews-grid"
+          >
+            <div class="review-card">
+              <div class="stars">★★★★★</div>
+              <p class="review-text">
+                "Excellent service from GV Cars. The booking was straightforward
+                and the vehicle was in perfect condition. Highly recommended."
+              </p>
+              <div class="review-author">
+                <div class="avatar">D</div>
+                <div>
+                  <div class="author-name">Dhileep</div>
+                  <div class="author-date">Verified Customer</div>
+                </div>
+              </div>
+            </div>
+            <div class="review-card">
+              <div class="stars">★★★★★</div>
+              <p class="review-text">
+                "I hired a car for a family trip and GV Cars went above and
+                beyond. Clean, on-time, and professional throughout. Will use
+                again."
+              </p>
+              <div class="review-author">
+                <div class="avatar">R</div>
+                <div>
+                  <div class="author-name">Ramachandran</div>
+                  <div class="author-date">Verified Customer</div>
+                </div>
+              </div>
+            </div>
+            <div class="review-card">
+              <div class="stars">★★★★★</div>
+              <p class="review-text">
+                "Very impressed with the quality. Quick booking, clean car, no
+                hidden charges. One of the best rental services I have used."
+              </p>
+              <div class="review-author">
+                <div class="avatar">R</div>
+                <div>
+                  <div class="author-name">Raja</div>
+                  <div class="author-date">Verified Customer</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="ov-contact" style="background: #fff; padding: 56px 0">
+        <div class="container">
+          <div class="two-col-wide contact-render-target flex gap-1">
+            <!-- rendered by renderContact() — same data, reused -->
+          </div>
+        </div>
+      </section>
+      <footer
+        style="
+          background: var(--bg-soft);
+          border-top: 1px solid var(--border);
+          padding: 40px 0 24px;
+        "
+      >
+        <div class="container">
+          <div class="footer-grid">
+            <div class="footer-brand">
+              <a
+                href="#"
+                class="logo"
+                onclick="
+                  closeDetail();
+                  closeAllCars();
+                  return false;
+                "
+                >GV Cars</a
+              >
+              <p>
+                Chennai&#39;s trusted car rental service since 2014.
+                Professional drivers, well-maintained vehicles.
+              </p>
+            </div>
+            <div class="footer-col">
+              <h5>Quick Links</h5>
+              <a
+                href="#"
+                onclick="
+                  closeDetail();
+                  closeAllCars();
+                "
+                >Home</a
+              ><a
+                href="#about"
+                onclick="
+                  closeDetail();
+                  closeAllCars();
+                "
+                >About</a
+              ><a
+                href="#fleet"
+                onclick="
+                  closeDetail();
+                  closeAllCars();
+                "
+                >Fleet</a
+              ><a
+                href="#contact"
+                onclick="
+                  closeDetail();
+                  closeAllCars();
+                "
+                >Contact</a
+              >
+            </div>
+            <div class="footer-col">
+              <h5>Fleet</h5>
+              <a href="#" onclick="openAllCars('hatchback')">Hatchback</a
+              ><a href="#" onclick="openAllCars('suv')">SUV</a
+              ><a href="#" onclick="openAllCars('sedan')">Sedan</a
+              ><a href="#" onclick="openAllCars('muv')">MUV</a>
+            </div>
+            <div class="footer-col">
+              <h5>Contact</h5>
+              <a href="tel:+918015277899">+91 80152 77899</a
+              ><a href="tel:+918015290099">+91 80152 90099</a
+              ><a href="mailto:gvcarrentals@gmail.com"
+                >gvcarrentals@gmail.com</a
+              >
+            </div>
+          </div>
+          <div class="footer-bottom" style="margin-top: 28px">
+            <p>&copy; 2026 GV Cars. All Rights Reserved.</p>
+            <p style="display: flex; align-items: center; gap: 6px">
+              <i
+                class="fas fa-code"
+                style="color: var(--brand); font-size: 12px"
+              ></i
+              >Designed by
+              <strong style="color: var(--text)"
+                >&nbsp;Gaurav Nagalapuram</strong
+              >&nbsp;&middot; Los Angeles &middot; &copy; 2026
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- ============================================================
+     ALL CARS OVERLAY  z-index: 650
+     Opened by openAllCars(cat?). Closed by closeAllCars().
+     ============================================================ -->
+    <div
+      id="all-cars-overlay"
+      style="
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 650;
+        background: #fff;
+        overflow-y: auto;
+        flex-direction: column;
+      "
+    >
+      <!-- OVERLAY TOPBAR + NAV (shared across overlays) -->
+      <div class="topbar" style="flex-shrink: 0">
+        <div
+          class="container"
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+          "
+        >
+          <div style="display: flex; gap: 20px">
+            <a href="tel:+918015277899"
+              ><i
+                class="fas fa-phone-alt"
+                style="margin-right: 5px; font-size: 11px"
+              ></i
+              >+91 80152 77899</a
+            >
+            <a href="mailto:gvcarrentals@gmail.com"
+              ><i
+                class="fas fa-envelope"
+                style="margin-right: 5px; font-size: 11px"
+              ></i
+              >gvcarrentals@gmail.com</a
+            >
+          </div>
+          <div style="opacity: 0.75">
+            Open every day &nbsp;08:00 AM – 07:00 PM
+          </div>
+        </div>
+      </div>
+      <div class="overlay-nav">
+        <div class="container nav-inner">
+          <a
+            href="#"
+            class="logo"
+            onclick="
+              closeDetail();
+              closeAllCars();
+              return false;
+            "
+            >GV Cars</a
+          >
+          <div class="nav-links">
+            <a
+              href="#about"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              >About</a
+            >
+            <a
+              href="#fleet"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              >Fleet</a
+            >
+            <a
+              href="#services"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              >Services</a
+            >
+            <a
+              href="#why"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              >Why Us</a
+            >
+            <a
+              href="#faq"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              >FAQs</a
+            >
+            <a
+              href="#contact"
+              onclick="
+                closeDetail();
+                closeAllCars();
+              "
+              >Contact</a
+            >
+          </div>
+          <a href="tel:+918015277899" class="nav-cta">
+            <i class="fas fa-phone-alt"></i> Call Now
+          </a>
+        </div>
+      </div>
+      <div style="max-width: 1100px; margin: 0 auto; padding: 24px 24px 0">
+        <!-- Back bar -->
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding-top: 8px;
+            flex-wrap: wrap;
+            gap: 12px;
+          "
+        >
+          <button onclick="closeAllCars()" class="overlay-back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+          </button>
+          <div>
+            <div class="sec-label" style="margin-bottom: 2px">Our Fleet</div>
+            <h2
+              style="
+                font-family: &quot;Lora&quot;, serif;
+                font-size: 26px;
+                color: var(--text);
+                line-height: 1.2;
+              "
+            >
+              All Cars
+            </h2>
+          </div>
+        </div>
+
+        <!-- Category chips -->
+        <div
+          style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px"
+          id="all-cars-chips"
+        >
+          <div class="chip active" onclick="filterAllCars('all', this)">
+            <i class="fas fa-th-large"></i> All
+          </div>
+          <div class="chip" onclick="filterAllCars('hatchback', this)">
+            <i class="fas fa-car"></i> Hatchback
+          </div>
+          <div class="chip" onclick="filterAllCars('sedan', this)">
+            <i class="fas fa-taxi"></i> Sedan
+          </div>
+          <div class="chip" onclick="filterAllCars('suv', this)">
+            <i class="fas fa-truck"></i> SUV
+          </div>
+          <div class="chip" onclick="filterAllCars('muv', this)">
+            <i class="fas fa-shuttle-van"></i> MUV
+          </div>
+          <div class="chip" onclick="filterAllCars('mini', this)">
+            <i class="fas fa-charging-station"></i> Mini
+          </div>
+        </div>
+
+        <!-- Date + Cost filters -->
+        <div
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 28px;
+            padding: 16px;
+            background: var(--bg-soft);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            align-items: flex-end;
+          "
+        >
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <label
+              style="
+                font-size: 11px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.07em;
+                color: var(--text-soft);
+              "
+              >Pickup Date</label
+            >
+            <input
+              type="date"
+              id="ac-pickup"
+              style="
+                padding: 9px 12px;
+                border: 1px solid var(--border);
+                border-radius: 7px;
+                font-family: &quot;Outfit&quot;, sans-serif;
+                font-size: 14px;
+                color: var(--text);
+                outline: none;
+              "
+              onfocus="this.style.borderColor = 'var(--brand)'"
+              onblur="this.style.borderColor = 'var(--border)'"
+            />
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <label
+              style="
+                font-size: 11px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.07em;
+                color: var(--text-soft);
+              "
+              >Drop Date</label
+            >
+            <input
+              type="date"
+              id="ac-drop"
+              style="
+                padding: 9px 12px;
+                border: 1px solid var(--border);
+                border-radius: 7px;
+                font-family: &quot;Outfit&quot;, sans-serif;
+                font-size: 14px;
+                color: var(--text);
+                outline: none;
+              "
+              onfocus="this.style.borderColor = 'var(--brand)'"
+              onblur="this.style.borderColor = 'var(--border)'"
+            />
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <label
+              style="
+                font-size: 11px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.07em;
+                color: var(--text-soft);
+              "
+              >Min Price (₹/day)</label
+            >
+            <input
+              type="number"
+              id="ac-min"
+              placeholder="0"
+              min="0"
+              step="100"
+              style="
+                padding: 9px 12px;
+                border: 1px solid var(--border);
+                border-radius: 7px;
+                font-family: &quot;Outfit&quot;, sans-serif;
+                font-size: 14px;
+                color: var(--text);
+                outline: none;
+                width: 130px;
+              "
+              onfocus="this.style.borderColor = 'var(--brand)'"
+              onblur="this.style.borderColor = 'var(--border)'"
+            />
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <label
+              style="
+                font-size: 11px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.07em;
+                color: var(--text-soft);
+              "
+              >Max Price (₹/day)</label
+            >
+            <input
+              type="number"
+              id="ac-max"
+              placeholder="Any"
+              min="0"
+              step="100"
+              style="
+                padding: 9px 12px;
+                border: 1px solid var(--border);
+                border-radius: 7px;
+                font-family: &quot;Outfit&quot;, sans-serif;
+                font-size: 14px;
+                color: var(--text);
+                outline: none;
+                width: 130px;
+              "
+              onfocus="this.style.borderColor = 'var(--brand)'"
+              onblur="this.style.borderColor = 'var(--border)'"
+            />
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <label
+              style="
+                font-size: 11px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.07em;
+                color: var(--text-soft);
+              "
+              >Sort By</label
+            >
+            <select
+              id="ac-sort"
+              onchange="applyAllCarsFilters()"
+              style="
+                padding: 9px 12px;
+                border: 1px solid var(--border);
+                border-radius: 7px;
+                font-family: &quot;Outfit&quot;, sans-serif;
+                font-size: 14px;
+                color: var(--text);
+                background: #fff;
+                outline: none;
+              "
+              onfocus="this.style.borderColor = 'var(--brand)'"
+              onblur="this.style.borderColor = 'var(--border)'"
+            >
+              <option value="default">Default</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+            </select>
+          </div>
+          <button
+            onclick="applyAllCarsFilters()"
+            class="btn btn-primary btn-sm"
+          >
+            <i class="fas fa-search"></i> Apply
+          </button>
+          <button
+            onclick="resetAllCarsFilters()"
+            class="btn btn-outline btn-sm"
+          >
+            <i class="fas fa-times"></i> Reset
+          </button>
+          <div
+            id="ac-results-count"
+            style="
+              font-size: 13px;
+              color: var(--text-soft);
+              margin-left: auto;
+              align-self: center;
+            "
+          ></div>
+        </div>
+
+        <!-- Cars grid — same fleet-card style as home -->
+        <div
+          id="all-cars-grid"
+          style="
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 0;
+          "
+        ></div>
+      </div>
+
+      <!-- OVERLAY FOOTER (shared across overlays) -->
+      <section
+        id="ov-reviews"
+        style="background: var(--bg-soft); padding: 56px 0"
+      >
+        <div class="container">
+          <div class="sec-label">Customer Reviews</div>
+          <h2 class="sec-title">What Our Customers Say</h2>
+          <p class="sec-desc" style="margin-bottom: 40px">
+            Honest feedback from real customers who have travelled with GV Cars.
+          </p>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 16px;
+            "
+            class="ov-reviews-grid"
+          >
+            <div class="review-card">
+              <div class="stars">★★★★★</div>
+              <p class="review-text">
+                "Excellent service from GV Cars. The booking was straightforward
+                and the vehicle was in perfect condition. Highly recommended."
+              </p>
+              <div class="review-author">
+                <div class="avatar">D</div>
+                <div>
+                  <div class="author-name">Dhileep</div>
+                  <div class="author-date">Verified Customer</div>
+                </div>
+              </div>
+            </div>
+            <div class="review-card">
+              <div class="stars">★★★★★</div>
+              <p class="review-text">
+                "I hired a car for a family trip and GV Cars went above and
+                beyond. Clean, on-time, and professional throughout. Will use
+                again."
+              </p>
+              <div class="review-author">
+                <div class="avatar">R</div>
+                <div>
+                  <div class="author-name">Ramachandran</div>
+                  <div class="author-date">Verified Customer</div>
+                </div>
+              </div>
+            </div>
+            <div class="review-card">
+              <div class="stars">★★★★★</div>
+              <p class="review-text">
+                "Very impressed with the quality. Quick booking, clean car, no
+                hidden charges. One of the best rental services I have used."
+              </p>
+              <div class="review-author">
+                <div class="avatar">R</div>
+                <div>
+                  <div class="author-name">Raja</div>
+                  <div class="author-date">Verified Customer</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="ov-contact" style="background: #fff; padding: 56px 0">
+        <div class="container">
+          <div class="two-col-wide contact-render-target">
+            <!-- rendered by renderContact() — same data, reused -->
+          </div>
+        </div>
+      </section>
+      <footer
+        style="
+          background: var(--bg-soft);
+          border-top: 1px solid var(--border);
+          padding: 40px 0 24px;
+        "
+      >
+        <div class="container">
+          <div class="footer-grid">
+            <div class="footer-brand">
+              <a
+                href="#"
+                class="logo"
+                onclick="
+                  closeDetail();
+                  closeAllCars();
+                  return false;
+                "
+                >GV Cars</a
+              >
+              <p>
+                Chennai&#39;s trusted car rental service since 2014.
+                Professional drivers, well-maintained vehicles.
+              </p>
+            </div>
+            <div class="footer-col">
+              <h5>Quick Links</h5>
+              <a
+                href="#"
+                onclick="
+                  closeDetail();
+                  closeAllCars();
+                "
+                >Home</a
+              ><a
+                href="#about"
+                onclick="
+                  closeDetail();
+                  closeAllCars();
+                "
+                >About</a
+              ><a
+                href="#fleet"
+                onclick="
+                  closeDetail();
+                  closeAllCars();
+                "
+                >Fleet</a
+              ><a
+                href="#contact"
+                onclick="
+                  closeDetail();
+                  closeAllCars();
+                "
+                >Contact</a
+              >
+            </div>
+            <div class="footer-col">
+              <h5>Fleet</h5>
+              <a href="#" onclick="openAllCars('hatchback')">Hatchback</a
+              ><a href="#" onclick="openAllCars('suv')">SUV</a
+              ><a href="#" onclick="openAllCars('sedan')">Sedan</a
+              ><a href="#" onclick="openAllCars('muv')">MUV</a>
+            </div>
+            <div class="footer-col">
+              <h5>Contact</h5>
+              <a href="tel:+918015277899">+91 80152 77899</a
+              ><a href="tel:+918015290099">+91 80152 90099</a
+              ><a href="mailto:gvcarrentals@gmail.com"
+                >gvcarrentals@gmail.com</a
+              >
+            </div>
+          </div>
+          <div class="footer-bottom" style="margin-top: 28px">
+            <p>&copy; 2026 GV Cars. All Rights Reserved.</p>
+            <p style="display: flex; align-items: center; gap: 6px">
+              <i
+                class="fas fa-code"
+                style="color: var(--brand); font-size: 12px"
+              ></i
+              >Designed by
+              <strong style="color: var(--text)"
+                >&nbsp;Gaurav Nagalapuram</strong
+              >&nbsp;&middot; Los Angeles &middot; &copy; 2026
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <style>
+      /* ---- OVERLAY RESPONSIVE ---- */
+      @media (max-width: 900px) {
+        .detail-layout {
+          grid-template-columns: 1fr !important;
+        }
+        #detail-similar {
+          grid-template-columns: repeat(2, 1fr) !important;
+        }
+        #detail-categories {
+          grid-template-columns: repeat(2, 1fr) !important;
+        }
+        #all-cars-grid {
+          grid-template-columns: repeat(2, 1fr) !important;
+        }
+      }
+      @media (max-width: 460px) {
+        #detail-similar,
+        #all-cars-grid {
+          grid-template-columns: 1fr !important;
+        }
+      }
+
+      /* ---- MINI CARD (used in similar + all-cars grids) ---- */
+      .mini-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        cursor: pointer;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+      .mini-card:hover {
+        border-color: var(--brand);
+        box-shadow: 0 4px 16px rgba(26, 107, 60, 0.1);
+      }
+      .mini-card img {
+        width: 100%;
+        height: 110px;
+        object-fit: cover;
+        display: block;
+        background: var(--bg-soft);
+      }
+      .mini-card-body {
+        padding: 12px 14px;
+      }
+      .mini-card-name {
+        font-family: "Lora", serif;
+        font-size: 14px;
+        color: var(--text);
+        margin-bottom: 3px;
+      }
+      .mini-card-price {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--brand);
+      }
+      .mini-card-cat {
+        font-size: 11px;
+        color: var(--text-soft);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      /* ---- CATEGORY CARD ---- */
+      .cat-card {
+        background: var(--bg-soft);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 20px 16px;
+        text-align: center;
+        cursor: pointer;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+      }
+      .cat-card:hover {
+        border-color: var(--brand);
+        background: var(--brand-light);
+      }
+      .cat-card i {
+        font-size: 28px;
+        color: var(--brand);
+        margin-bottom: 8px;
+        display: block;
+      }
+      .cat-card span {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-mid);
+        text-transform: capitalize;
+      }
+
+      /* ---- DETAIL SPEC ROW ---- */
+      .detail-spec {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        background: var(--bg-soft);
+        border-radius: 8px;
+        font-size: 14px;
+        color: var(--text-mid);
+      }
+      .detail-spec i {
+        color: var(--brand);
+        width: 18px;
+        text-align: center;
+        font-size: 15px;
+      }
+
+      /* ---- THUMBNAIL DOT ---- */
+      .thumb-dot {
+        width: 52px;
+        height: 52px;
+        border-radius: 6px;
+        overflow: hidden;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: border-color 0.2s;
+        flex-shrink: 0;
+      }
+      .thumb-dot img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .thumb-dot.active {
+        border-color: var(--brand);
+      }
+
+      /* ---- OVERLAY NAV (sticky top bar inside overlays) ---- */
+      .overlay-nav {
+        background: #fff;
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      /* ---- OVERLAY BACK BUTTON ---- */
+      .overlay-back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: none;
+        border: 1px solid var(--border);
+        border-radius: 7px;
+        padding: 9px 16px;
+        font-family: "Outfit", sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-mid);
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .overlay-back-btn:hover {
+        border-color: var(--brand);
+        color: var(--brand);
+      }
+
+      /* ---- GALLERY ARROW BUTTONS ---- */
+      .gal-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid var(--border);
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+      }
+      .gal-arrow:hover {
+        background: #fff;
+      }
+
+      /* ---- THUMBNAIL ROW — always visible ---- */
+      #detail-thumbs {
+        display: flex !important;
+        visibility: visible !important;
+      }
+      .thumb-dot {
+        width: 64px;
+        height: 64px;
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+        border: 2px solid var(--border);
+        transition: border-color 0.2s;
+        flex-shrink: 0;
+        background: var(--bg-soft);
+      }
+      .thumb-dot img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .thumb-dot.active {
+        border-color: var(--brand);
+      }
+
+      /* ---- OV-REVIEWS-GRID RESPONSIVE ---- */
+      @media (max-width: 700px) {
+        .ov-reviews-grid {
+          grid-template-columns: 1fr !important;
+        }
+        #all-cars-grid {
+          grid-template-columns: repeat(2, 1fr) !important;
+        }
+      }
+      @media (max-width: 460px) {
+        #all-cars-grid {
+          grid-template-columns: 1fr !important;
+        }
+      }
+    </style>
+    <script>
+      /* ============================================================
+       *  SITE DATA — single source of truth.
+       *  Edit contact or cars here; the whole page re-renders.
+       * ============================================================ */
+      const SITE_DATA = {
+        contact: {
+          heading: "Contact Us",
+          subheading:
+            "Our team is available every day from 08:00 AM to 07:00 PM, with 24/7 support for urgent travel needs. We are always happy to help.",
+          address:
+            "No. 25 & 26, Raj Enclave, 3rd Cross Street,<br>Square Northern Alley, Kathirvedu \u2014 600066",
+          phones: ["+91 80152 77899", "+91 80152 90099"],
+          email: "gvcarrentals@gmail.com",
+          hours:
+            "Monday \u2013 Sunday: 08:00 AM \u2013 07:00 PM<br>24/7 support available for urgent bookings",
+          mapEmbed:
+            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.5!2d80.26!3d13.06!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zS2F0aGlydmVkdSBDaGVubmFp!5e0!3m2!1sen!2sin!4v1700000000",
+          whatsapp: "918015277899",
+        },
+        cars: [
+          {
+            name: "Maruti Swift",
+            category: "hatchback",
+            badge: "Hatchback",
+            images: [
+              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn1.acedms.com%2Fq75%2Fuploads%2Fcategory%2FMaruti-Suzuki%2F20250627054823000000-1055133902569541505.png.webp%3Fwidth%3D1080&f=1&nofb=1&ipt=993a0921ea228ad653a796000abe74ade3882cdcd0719c62762e834553fb340b",
+              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn1.acedms.com%2Fq75%2Fuploads%2Fcategory%2FMaruti-Suzuki%2F20250627054823000000-1055133902569541505.png.webp%3Fwidth%3D1080&f=1&nofb=1&ipt=993a0921ea228ad653a796000abe74ade3882cdcd0719c62762e834553fb340b",
+              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn1.acedms.com%2Fq75%2Fuploads%2Fcategory%2FMaruti-Suzuki%2F20250627054823000000-1055133902569541505.png.webp%3Fwidth%3D1080&f=1&nofb=1&ipt=993a0921ea228ad653a796000abe74ade3882cdcd0719c62762e834553fb340b",
+            ],
+            icon: "fas fa-car",
+            price: "\u20b92,500",
+            unit: "/ day",
+            highlight: false,
+            specs: [
+              { icon: "fas fa-users", label: "4\u20135 Passengers" },
+              { icon: "fas fa-cog", label: "Manual / Automatic" },
+              { icon: "fas fa-gas-pump", label: "Petrol / CNG" },
+              { icon: "fas fa-road", label: "City & daily travel" },
+            ],
+          },
+          {
+            name: "Maruti WagonR",
+            category: "mini hatchback",
+            badge: "Mini",
+            badgeColor: "#0369a1",
+            images: [
+              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fp7.hiclipart.com%2Fpreview%2F294%2F550%2F362%2Fmaruti-suzuki-suzuki-wagon-r-car-suzuki.jpg&f=1&nofb=1&ipt=48751626281f44944f4047abc7367b8d175bb902c4476dc337508d33fa8ab92e",
+              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fp7.hiclipart.com%2Fpreview%2F294%2F550%2F362%2Fmaruti-suzuki-suzuki-wagon-r-car-suzuki.jpg&f=1&nofb=1&ipt=48751626281f44944f4047abc7367b8d175bb902c4476dc337508d33fa8ab92e",
+              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fp7.hiclipart.com%2Fpreview%2F294%2F550%2F362%2Fmaruti-suzuki-suzuki-wagon-r-car-suzuki.jpg&f=1&nofb=1&ipt=48751626281f44944f4047abc7367b8d175bb902c4476dc337508d33fa8ab92e",
+            ],
+            icon: "fas fa-car",
+            price: "\u20b92,500",
+            unit: "/ day",
+            highlight: false,
+            specs: [
+              { icon: "fas fa-users", label: "4\u20135 Passengers" },
+              { icon: "fas fa-cog", label: "Manual / Automatic" },
+              { icon: "fas fa-gas-pump", label: "Petrol / CNG" },
+              { icon: "fas fa-road", label: "Great for city errands" },
+            ],
+          },
+          {
+            name: "Toyota Innova Crysta",
+            category: "muv",
+            badge: "MUV",
+            images: [
+              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F020%2F188%2F849%2Foriginal%2Ftoyota-innova-crysta-top-model-2393cc-automatic-transmission-turbo-engine-6-speed-gear-free-png.png&f=1&nofb=1&ipt=21c08a874d19547e18595ad4b21e99bfa6b36d2ec074c9415070a6af403a166e",
+              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F020%2F188%2F849%2Foriginal%2Ftoyota-innova-crysta-top-model-2393cc-automatic-transmission-turbo-engine-6-speed-gear-free-png.png&f=1&nofb=1&ipt=21c08a874d19547e18595ad4b21e99bfa6b36d2ec074c9415070a6af403a166e",
+              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F020%2F188%2F849%2Foriginal%2Ftoyota-innova-crysta-top-model-2393cc-automatic-transmission-turbo-engine-6-speed-gear-free-png.png&f=1&nofb=1&ipt=21c08a874d19547e18595ad4b21e99bfa6b36d2ec074c9415070a6af403a166e",
+            ],
+            icon: "fas fa-shuttle-van",
+            price: "\u20b94,000",
+            unit: "/ day",
+            highlight: false,
+            specs: [
+              { icon: "fas fa-users", label: "6\u20137 Passengers" },
+              { icon: "fas fa-cog", label: "Manual / Automatic" },
+              { icon: "fas fa-gas-pump", label: "Diesel" },
+              { icon: "fas fa-road", label: "Family & group trips" },
+            ],
+          },
+          {
+            name: "Toyota Fortuner",
+            category: "suv",
+            badge: "SUV",
+            badgeColor: "#f59e0b",
+            images: [
+              "https://imgd.aeplcdn.com/664x374/n/cw/ec/44709/fortuner-exterior-right-front-three-quarter-19.jpeg?isig=0&q=80",
+              "https://imgd.aeplcdn.com/664x374/n/cw/ec/44709/fortuner-exterior-right-rear-three-quarter-2.jpeg?isig=0&q=80",
+              "https://imgd.aeplcdn.com/664x374/n/cw/ec/44709/fortuner-interior-dashboard.jpeg?isig=0&q=80",
+            ],
+            icon: "fas fa-truck",
+            price: "\u20b92,600",
+            unit: "/ day",
+            highlight: true,
+            specs: [
+              { icon: "fas fa-users", label: "4\u20135 Passengers" },
+              { icon: "fas fa-cog", label: "Automatic" },
+              { icon: "fas fa-gas-pump", label: "Diesel / Petrol" },
+              { icon: "fas fa-road", label: "Long drives & outstation" },
+            ],
+          },
+          {
+            name: "Honda City",
+            category: "sedan",
+            badge: "Sedan",
+            images: [
+              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftoppng.com%2Fuploads%2Fpreview%2Fhonda-city-car-images-11563175955eorrduaac4.png&f=1&nofb=1&ipt=bc86fe55dd407a3b2f66b77e5a2675d24dd1649fb2bdc41eee42cfaad09ab906",
+              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftoppng.com%2Fuploads%2Fpreview%2Fhonda-city-car-images-11563175955eorrduaac4.png&f=1&nofb=1&ipt=bc86fe55dd407a3b2f66b77e5a2675d24dd1649fb2bdc41eee42cfaad09ab906",
+              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftoppng.com%2Fuploads%2Fpreview%2Fhonda-city-car-images-11563175955eorrduaac4.png&f=1&nofb=1&ipt=bc86fe55dd407a3b2f66b77e5a2675d24dd1649fb2bdc41eee42cfaad09ab906",
+            ],
+            icon: "fas fa-taxi",
+            price: "\u20b92,800",
+            unit: "/ day",
+            highlight: false,
+            specs: [
+              { icon: "fas fa-users", label: "4\u20135 Passengers" },
+              { icon: "fas fa-cog", label: "Manual / CVT" },
+              { icon: "fas fa-gas-pump", label: "Petrol" },
+              { icon: "fas fa-briefcase", label: "Business & airport trips" },
+            ],
+          },
+          {
+            name: "Maruti Dzire",
+            category: "sedan",
+            badge: "Sedan",
+            images: [
+              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdni.autocarindia.com%2Futils%2FImageResizer.ashx%3Fn%3Dhttps%3A%2F%2Fcms.haymarketindia.net%2Fmodel%2Fuploads%2Fmodelimages%2FMaruti-Suzuki-New-Dzire-111120241412.jpg&f=1&nofb=1&ipt=681948f1374790c0c8790854b9f91c969d1b30a7e73cd063786a682e688bbcbd",
+              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdni.autocarindia.com%2Futils%2FImageResizer.ashx%3Fn%3Dhttps%3A%2F%2Fcms.haymarketindia.net%2Fmodel%2Fuploads%2Fmodelimages%2FMaruti-Suzuki-New-Dzire-111120241412.jpg&f=1&nofb=1&ipt=681948f1374790c0c8790854b9f91c969d1b30a7e73cd063786a682e688bbcbd",
+              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdni.autocarindia.com%2Futils%2FImageResizer.ashx%3Fn%3Dhttps%3A%2F%2Fcms.haymarketindia.net%2Fmodel%2Fuploads%2Fmodelimages%2FMaruti-Suzuki-New-Dzire-111120241412.jpg&f=1&nofb=1&ipt=681948f1374790c0c8790854b9f91c969d1b30a7e73cd063786a682e688bbcbd",
+            ],
+            icon: "fas fa-taxi",
+            price: "\u20b92,800",
+            unit: "/ day",
+            highlight: false,
+            specs: [
+              { icon: "fas fa-users", label: "4\u20135 Passengers" },
+              { icon: "fas fa-cog", label: "Manual / Automatic" },
+              { icon: "fas fa-gas-pump", label: "Petrol / CNG" },
+              { icon: "fas fa-road", label: "Comfortable & fuel-efficient" },
+            ],
+          },
+          {
+            name: "Mahindra XUV700",
+            category: "suv",
+            badge: "SUV",
+            badgeColor: "#f59e0b",
+            images: [
+              "https://imgd.aeplcdn.com/664x374/n/cw/ec/42355/xuv700-exterior-right-front-three-quarter.jpeg?isig=0&q=80",
+              "https://imgd.aeplcdn.com/664x374/n/cw/ec/42355/xuv700-exterior-right-rear-three-quarter-2.jpeg?isig=0&q=80",
+              "https://imgd.aeplcdn.com/664x374/n/cw/ec/42355/xuv700-interior-dashboard.jpeg?isig=0&q=80",
+            ],
+            icon: "fas fa-truck",
+            price: "\u20b92,600",
+            unit: "/ day",
+            highlight: true,
+            specs: [
+              { icon: "fas fa-users", label: "4\u20135 Passengers" },
+              { icon: "fas fa-cog", label: "Manual / Automatic" },
+              { icon: "fas fa-gas-pump", label: "Petrol / Diesel" },
+              { icon: "fas fa-road", label: "Premium family SUV" },
+            ],
+          },
+          {
+            name: "Kia Carens",
+            category: "muv",
+            badge: "MUV",
+            images: [
+              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.autocarindia.com%2Fmmv_images%2Fcolors%2F20250523110610_Kia_Carens_Clavis_Sparkling_Silver%5B1%5D.png%3Fw%3D728%26q%3D75&f=1&nofb=1&ipt=2c836320ebb84be87771932b30563e14d4868b3851c5d503d08ae3cdb89b4da1",
+              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.autocarindia.com%2Fmmv_images%2Fcolors%2F20250523110610_Kia_Carens_Clavis_Sparkling_Silver%5B1%5D.png%3Fw%3D728%26q%3D75&f=1&nofb=1&ipt=2c836320ebb84be87771932b30563e14d4868b3851c5d503d08ae3cdb89b4da1",
+              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.autocarindia.com%2Fmmv_images%2Fcolors%2F20250523110610_Kia_Carens_Clavis_Sparkling_Silver%5B1%5D.png%3Fw%3D728%26q%3D75&f=1&nofb=1&ipt=2c836320ebb84be87771932b30563e14d4868b3851c5d503d08ae3cdb89b4da1",
+            ],
+            icon: "fas fa-shuttle-van",
+            price: "\u20b94,000",
+            unit: "/ day",
+            highlight: false,
+            specs: [
+              { icon: "fas fa-users", label: "6\u20137 Passengers" },
+              { icon: "fas fa-cog", label: "Manual / Automatic" },
+              { icon: "fas fa-gas-pump", label: "Petrol / Diesel" },
+              { icon: "fas fa-road", label: "Spacious & comfortable" },
+            ],
+          },
+        ],
+      };
+
+      const CATEGORY_META = {
+        hatchback: { icon: "fas fa-car", label: "Hatchback" },
+        mini: { icon: "fas fa-charging-station", label: "Mini" },
+        sedan: { icon: "fas fa-taxi", label: "Sedan" },
+        suv: { icon: "fas fa-truck", label: "SUV" },
+        muv: { icon: "fas fa-shuttle-van", label: "MUV" },
+      };
+
+      /* ============================================================
+       *  GALLERY STATE
+       * ============================================================ */
+      let _imgs = [],
+        _idx = 0,
+        _timer = null,
+        _raf = null;
+      const DELAY = 3500;
+
+      /* ============================================================
+       *  SHARED FLEET CARD HTML
+       *  Used by renderFleet() (home) AND renderAllCarsGrid() (overlay).
+       *  Identical card markup — one function, two consumers.
+       *  context: 'home' keeps fleet-card click = openCarDetail
+       *            'all'  same behaviour
+       * ============================================================ */
+      function fleetCardHTML(car, idx) {
+        const specsHTML = car.specs
+          .map(
+            (s) =>
+              `<div class="fleet-feat"><i class="${s.icon}"></i> ${s.label}</div>`,
+          )
+          .join("");
+        const badgeStyle = car.badgeColor
+          ? `style="background:${car.badgeColor};"`
+          : "";
+        const cardBorder = car.highlight ? "border-color:var(--brand);" : "";
+        const btnClass = car.highlight ? "btn-primary" : "btn-outline";
+        const thumb = car.images[0];
+        return `
+      <div class="fleet-card" data-category="${car.category}"
+           style="cursor:pointer;${cardBorder}" onclick="openCarDetail(${idx})">
+        <div class="fleet-head" style="padding:0;overflow:hidden;height:160px;position:relative;">
+          <div class="fleet-badge" ${badgeStyle}
+               style="position:absolute;top:10px;left:10px;z-index:2;">${car.badge}</div>
+          <img src="${thumb}" alt="${car.name}"
+            style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s;"
+            onmouseover="this.style.transform='scale(1.05)'"
+            onmouseout="this.style.transform='scale(1)'"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div style="display:none;width:100%;height:100%;align-items:center;
+                      justify-content:center;background:var(--bg-soft);">
+            <i class="${car.icon}" style="font-size:52px;color:var(--brand);opacity:.5;"></i>
+          </div>
+        </div>
+        <div class="fleet-body">
+          <h3 style="font-size:15px;">${car.name}</h3>
+          <div class="fleet-price">${car.price} <span>${car.unit}</span></div>
+          <div class="fleet-features">${specsHTML}</div>
+          <div onclick="event.stopPropagation();openCarDetail(${idx})"
+               class="btn ${btnClass} btn-sm"
+               style="width:100%;justify-content:center;margin-top:14px;display:flex;">
+            View Details
+          </div>
+          <a href="#contact"
+             onclick="event.stopPropagation();closeDetail();closeAllCars();"
+             class="btn btn-outline btn-sm"
+             style="width:100%;justify-content:center;margin-top:8px;display:flex;">
+            <i class="fas fa-paper-plane"></i> Enquire Now
+          </a>
+        </div>
+      </div>`;
+      }
+
+      /* ============================================================
+       *  RENDER — HOME FLEET GRID
+       * ============================================================ */
+      function renderFleet() {
+        const grid = document.getElementById("fleet-grid");
+        if (!grid) return;
+        grid.innerHTML = SITE_DATA.cars
+          .map((car, idx) => fleetCardHTML(car, idx))
+          .join("");
+      }
+
+      /* ============================================================
+       *  RENDER — CONTACT SECTION (reused in home + both overlays)
+       * ============================================================ */
+      function renderContact() {
+        /* Render into ALL containers with class "contact-render-target" */
+        document.querySelectorAll(".contact-render-target").forEach((el) => {
+          const c = SITE_DATA.contact;
+          const phonesHTML = c.phones
+            .map((p) => `<a href="tel:+${p.replace(/\D/g, "")}">${p}</a>`)
+            .join("");
+          el.innerHTML = `
+        <div>
+          <div class="sec-label">Get in Touch</div>
+          <h2 class="sec-title">${c.heading}</h2>
+          <p style="font-size:15px;color:var(--text-mid);margin-bottom:32px;line-height:1.7;">${c.subheading}</p>
+          <div class="contact-item"><div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div><div><h4>Address</h4><p>${c.address}</p></div></div>
+          <div class="contact-item"><div class="contact-icon"><i class="fas fa-phone-alt"></i></div><div><h4>Phone</h4>${phonesHTML}</div></div>
+          <div class="contact-item"><div class="contact-icon"><i class="fas fa-envelope"></i></div><div><h4>Email</h4><a href="mailto:${c.email}">${c.email}</a></div></div>
+          <div class="contact-item"><div class="contact-icon"><i class="fas fa-clock"></i></div><div><h4>Hours</h4><p>${c.hours}</p></div></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;">
+            <a href="tel:+${c.phones[0].replace(/\D/g, "")}" class="btn btn-primary"><i class="fas fa-phone-alt"></i> Call Now</a>
+            <a href="https://wa.me/${c.whatsapp}" class="btn btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+          </div>
+        </div>
+        <div>
+          <div class="map-wrap">
+            <iframe src="${c.mapEmbed}" allowfullscreen loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade" title="GV Cars Location"></iframe>
+          </div>
+          <p style="font-size:12.5px;color:var(--text-soft);margin-top:10px;text-align:center;">
+            <i class="fas fa-map-marker-alt" style="color:var(--brand);"></i>
+            ${c.address.replace("<br>", ", ")}
+          </p>
+        </div>`;
+        });
+      }
+
+      /* ============================================================
+       *  OPEN CAR DETAIL OVERLAY (z-index 700)
+       * ============================================================ */
+      function openCarDetail(idx) {
+        const car = SITE_DATA.cars[idx];
+        if (!car) return;
+        stopGallery();
+        _imgs = car.images;
+        _idx = 0;
+
+        /* Populate fields */
+        document.getElementById("detail-breadcrumb").textContent =
+          `Home \u203a Fleet \u203a ${car.name}`;
+        document.getElementById("detail-name").textContent = car.name;
+        document.getElementById("detail-price").textContent =
+          `${car.price} ${car.unit}`;
+        const badge = document.getElementById("detail-badge");
+        badge.textContent = car.badge;
+        badge.style.background = car.badgeColor || "var(--brand)";
+
+        const waMsg = encodeURIComponent(
+          `Hi, I'd like to enquire about the ${car.name} (${car.price} ${car.unit}).`,
+        );
+        document.getElementById("detail-wa").href =
+          `https://wa.me/${SITE_DATA.contact.whatsapp}?text=${waMsg}`;
+
+        document.getElementById("detail-specs").innerHTML = car.specs
+          .map(
+            (s) =>
+              `<div class="detail-spec"><i class="${s.icon}"></i>${s.label}</div>`,
+          )
+          .join("");
+
+        /* Build gallery thumbnails immediately and persistently */
+        buildGallery();
+
+        /* Similar cars — same primary category, exclude self, max 3 */
+        const pCat = car.category.split(" ")[0];
+        const similar = SITE_DATA.cars
+          .filter((c, i) => i !== idx && c.category.includes(pCat))
+          .slice(0, 3);
+        /* Use full fleet cards for similar cars too */
+        document.getElementById("detail-similar").innerHTML = similar.length
+          ? similar
+              .map((c) => fleetCardHTML(c, SITE_DATA.cars.indexOf(c)))
+              .join("")
+          : `<p style="color:var(--text-soft);font-size:14px;grid-column:1/-1;">No similar cars found.</p>`;
+
+        /* Other categories */
+        const otherCats = [
+          ...new Set(
+            SITE_DATA.cars
+              .filter((c, i) => i !== idx)
+              .map((c) => c.category.split(" ")[0]),
+          ),
+        ].filter((cat) => !car.category.includes(cat));
+        document.getElementById("detail-categories").innerHTML = otherCats
+          .map((cat) => {
+            const m = CATEGORY_META[cat] || { icon: "fas fa-car", label: cat };
+            return `<div class="cat-card" onclick="openAllCars('${cat}')"><i class="${m.icon}"></i><span>${m.label}</span></div>`;
+          })
+          .join("");
+
+        /* Render contact into overlay contact target */
+        renderContact();
+
+        document.getElementById("car-detail-overlay").style.display = "flex";
+        document.getElementById("car-detail-overlay").scrollTop = 0;
+        document.body.style.overflow = "hidden";
+        startGallery();
+      }
+
+      function closeDetail() {
+        stopGallery();
+        document.getElementById("car-detail-overlay").style.display = "none";
+        document.body.style.overflow = "";
+      }
+
+      /* ============================================================
+       *  GALLERY — build main img + persistent thumbnail row
+       * ============================================================ */
+      function buildGallery() {
+        const mainImg = document.getElementById("detail-main-img");
+        const thumbsEl = document.getElementById("detail-thumbs");
+        mainImg.src = _imgs[_idx];
+        mainImg.style.opacity = "1";
+
+        /* Build thumbnails as block-level elements that stay visible */
+        thumbsEl.innerHTML = _imgs
+          .map(
+            (src, i) => `
+      <div class="thumb-dot ${i === 0 ? "active" : ""}" onclick="galleryGoTo(${i})"
+           style="display:block;">
+        <img src="${src}" alt=""
+          onerror="this.parentElement.style.visibility='hidden'"/>
+      </div>`,
+          )
+          .join("");
+      }
+
+      function galleryGoTo(i) {
+        _idx = (i + _imgs.length) % _imgs.length;
+        const mainImg = document.getElementById("detail-main-img");
+        mainImg.style.opacity = "0";
+        setTimeout(() => {
+          mainImg.src = _imgs[_idx];
+          mainImg.style.opacity = "1";
+        }, 180);
+        document
+          .querySelectorAll(".thumb-dot")
+          .forEach((el, j) => el.classList.toggle("active", j === _idx));
+        stopGallery();
+        startGallery();
+      }
+
+      function detailGalleryStep(dir) {
+        galleryGoTo(_idx + dir);
+      }
+
+      function startGallery() {
+        if (_imgs.length < 2) return;
+        const bar = document.getElementById("detail-progress");
+        let t0 = null;
+        bar.style.width = "0%";
+        function tick(ts) {
+          if (!t0) t0 = ts;
+          const pct = Math.min(((ts - t0) / DELAY) * 100, 100);
+          bar.style.width = pct + "%";
+          if (pct < 100) _raf = requestAnimationFrame(tick);
+        }
+        _raf = requestAnimationFrame(tick);
+        _timer = setInterval(() => galleryGoTo(_idx + 1), DELAY);
+      }
+
+      function stopGallery() {
+        clearInterval(_timer);
+        cancelAnimationFrame(_raf);
+        _timer = _raf = null;
+        const bar = document.getElementById("detail-progress");
+        if (bar) bar.style.width = "0%";
+      }
+
+      /* ============================================================
+       *  ALL CARS OVERLAY (z-index 650)
+       * ============================================================ */
+      /* Tracks current active category for the all-cars overlay */
+      let _acCat = "all";
+
+      function openAllCars(filterCat) {
+        _acCat = filterCat || "all";
+        applyAllCarsFilters();
+
+        /* Sync chips */
+        document
+          .querySelectorAll("#all-cars-chips .chip")
+          .forEach((c) => c.classList.remove("active"));
+        const chips = document.querySelectorAll("#all-cars-chips .chip");
+        const target =
+          _acCat === "all"
+            ? chips[0]
+            : [...chips].find((c) =>
+                (c.getAttribute("onclick") || "").includes(`'${_acCat}'`),
+              );
+        if (target) target.classList.add("active");
+
+        /* Render contact into overlay */
+        renderContact();
+
+        document.getElementById("all-cars-overlay").style.display = "flex";
+        document.getElementById("all-cars-overlay").scrollTop = 0;
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeAllCars() {
+        document.getElementById("all-cars-overlay").style.display = "none";
+        /* Don't clear body overflow if detail overlay is open */
+        if (
+          document.getElementById("car-detail-overlay").style.display === "none"
+        ) {
+          document.body.style.overflow = "";
+        }
+      }
+
+      /* Chip filter handler for all-cars overlay */
+      function filterAllCars(cat, el) {
+        _acCat = cat;
+        document
+          .querySelectorAll("#all-cars-chips .chip")
+          .forEach((c) => c.classList.remove("active"));
+        el.classList.add("active");
+        applyAllCarsFilters();
+      }
+
+      /* Apply category + date + cost + sort filters together */
+      function applyAllCarsFilters() {
+        const minVal = parseFloat(document.getElementById("ac-min").value) || 0;
+        const maxVal =
+          parseFloat(document.getElementById("ac-max").value) || Infinity;
+        const sortBy = document.getElementById("ac-sort").value;
+
+        /* Filter by category */
+        let filtered =
+          _acCat === "all"
+            ? [...SITE_DATA.cars]
+            : SITE_DATA.cars.filter((c) => c.category.includes(_acCat));
+
+        /* Filter by price range — extract numeric value from price string e.g. '₹2,500' */
+        filtered = filtered.filter((c) => {
+          const num = parseFloat(c.price.replace(/[^\d.]/g, ""));
+          return num >= minVal && num <= maxVal;
+        });
+
+        /* Sort */
+        if (sortBy === "price-asc")
+          filtered.sort(
+            (a, b) =>
+              parseFloat(a.price.replace(/[^\d.]/g, "")) -
+              parseFloat(b.price.replace(/[^\d.]/g, "")),
+          );
+        if (sortBy === "price-desc")
+          filtered.sort(
+            (a, b) =>
+              parseFloat(b.price.replace(/[^\d.]/g, "")) -
+              parseFloat(a.price.replace(/[^\d.]/g, "")),
+          );
+
+        /* Render using the shared fleetCardHTML — same cards as home page */
+        const grid = document.getElementById("all-cars-grid");
+        grid.innerHTML = filtered.length
+          ? filtered
+              .map((car) => fleetCardHTML(car, SITE_DATA.cars.indexOf(car)))
+              .join("")
+          : `<p style="color:var(--text-soft);font-size:14px;grid-column:1/-1;padding:32px 0;">No cars match the selected filters.</p>`;
+
+        /* Update result count */
+        const cnt = document.getElementById("ac-results-count");
+        if (cnt)
+          cnt.textContent = `${filtered.length} car${filtered.length !== 1 ? "s" : ""} found`;
+      }
+
+      function resetAllCarsFilters() {
+        document.getElementById("ac-min").value = "";
+        document.getElementById("ac-max").value = "";
+        document.getElementById("ac-pickup").value = "";
+        document.getElementById("ac-drop").value = "";
+        document.getElementById("ac-sort").value = "default";
+        applyAllCarsFilters();
+      }
+
+      /* ============================================================
+       *  HOME FLEET CHIPS
+       * ============================================================ */
+      function filterFleet(category, el) {
+        document
+          .querySelectorAll("#fleet .chip")
+          .forEach((c) => c.classList.remove("active"));
+        el.classList.add("active");
+        document.querySelectorAll("#fleet-grid .fleet-card").forEach((card) => {
+          const cats = card.getAttribute("data-category") || "";
+          card.style.display =
+            category === "all" || cats.includes(category) ? "" : "none";
+        });
+      }
+
+      /* ============================================================
+       *  BOOKING FORM
+       * ============================================================ */
+      function handleBookingSubmit(event) {
+        event.preventDefault();
+        const payload = {
+          name: document.getElementById("book-name").value.trim(),
+          phone: document.getElementById("book-phone").value.trim(),
+          email: document.getElementById("book-email").value.trim(),
+          carType: document.getElementById("book-car").value,
+          pickup: document.getElementById("book-pickup").value,
+          drop: document.getElementById("book-drop").value,
+          sentAt: new Date().toISOString(),
+        };
+        if (!payload.name || !payload.phone || !payload.email) {
+          showFormMessage(
+            "Please fill in your name, phone, and email.",
+            "error",
+          );
+          return;
+        }
+        /*
+         * TODO: Replace with real submission.
+         * Option A REST:     fetch('/api/enquiry',{method:'POST',body:JSON.stringify(payload)});
+         * Option B EmailJS:  emailjs.send('SERVICE_ID','TEMPLATE_ID',payload);
+         * Option C WhatsApp: window.open(`https://wa.me/${SITE_DATA.contact.whatsapp}?text=...`);
+         */
+        console.log("[GV Cars] Booking payload:", payload);
+        document.getElementById("booking-form").reset();
+        showFormMessage("Thanks! We will get back to you shortly.", "success");
+      }
+
+      function showFormMessage(text, type) {
+        const old = document.getElementById("form-msg");
+        if (old) old.remove();
+        const msg = document.createElement("p");
+        msg.id = "form-msg";
+        msg.textContent = text;
+        const ok = type === "success";
+        msg.style.cssText = `font-size:13px;text-align:center;margin-top:10px;padding:8px 12px;border-radius:6px;
+      ${ok ? "background:#e8f5ee;color:#1a6b3c;border:1px solid #a7d7b8;" : "background:#fef2f2;color:#b91c1c;border:1px solid #fca5a5;"}`;
+        document.getElementById("booking-form").appendChild(msg);
+        setTimeout(() => msg.remove(), 5000);
+      }
+
+      /* ============================================================
+       *  FAQ ACCORDION
+       * ============================================================ */
+      function toggleFaq(btn) {
+        const item = btn.closest(".faq-item");
+        const isOpen = item.classList.contains("open");
+        document
+          .querySelectorAll(".faq-item")
+          .forEach((i) => i.classList.remove("open"));
+        if (!isOpen) item.classList.add("open");
+      }
+
+      /* ============================================================
+       *  GO-TO-TOP
+       * ============================================================ */
+      const goTop = document.getElementById("go-top");
+      window.addEventListener("scroll", () => {
+        goTop.classList.toggle("show", window.scrollY > 400);
+      });
+
+      /* ============================================================
+       *  MOBILE NAV
+       * ============================================================ */
+      function checkMobile() {
+        const btn = document.getElementById("mob-toggle");
+        if (!btn) return;
+        if (window.innerWidth <= 900) btn.style.display = "block";
+        else {
+          btn.style.display = "none";
+          document.getElementById("mob-nav").classList.remove("open");
+        }
+      }
+      checkMobile();
+      window.addEventListener("resize", checkMobile);
+
+      /* Escape key closes any open overlay */
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeDetail();
+          closeAllCars();
+        }
+      });
+
+      /* ============================================================
+       *  INIT
+       * ============================================================ */
+      document.addEventListener("DOMContentLoaded", () => {
+        renderFleet(); /* home fleet cards           */
+        renderContact(); /* home + overlay contact data */
+      });
+    </script>
+  </body>
+</html>

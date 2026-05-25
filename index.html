@@ -72,11 +72,22 @@
         color: #fff;
       }
 
-      /* NAV */
-      nav {
+      /* NAV — rendered into #home-nav / #detail-nav / #allcars-nav by renderNav() */
+      #home-nav {
         position: sticky;
         top: 0;
         z-index: 100;
+      }
+      /* overlay navs are inside fixed overlays so sticky works from their scroll root */
+      #detail-nav,
+      #allcars-nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+      nav,
+      .overlay-nav,
+      .nav-bar-inner {
         background: #fff;
         border-bottom: 1px solid var(--border);
       }
@@ -1003,11 +1014,18 @@
         color: var(--text-soft);
       }
 
-      /* MOBILE NAV */
+      /* MOBILE NAV — old home nav (kept for safety) */
       #mob-nav {
         display: none;
       }
       #mob-nav.open {
+        display: block;
+      }
+      /* renderNav mobile menus */
+      .nav-mob-menu {
+        display: none;
+      }
+      .nav-mob-menu.open {
         display: block;
       }
 
@@ -1150,178 +1168,8 @@
       <i class="fas fa-chevron-up"></i>
     </button>
 
-    <!-- TOP BAR -->
-    <div class="topbar">
-      <div
-        class="container"
-        style="
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 8px;
-        "
-      >
-        <div style="display: flex; gap: 20px">
-          <a href="tel:+918015277899"
-            ><i
-              class="fas fa-phone-alt"
-              style="margin-right: 5px; font-size: 11px"
-            ></i
-            >+91 80152 77899</a
-          >
-          <a href="mailto:gvcarrentals@gmail.com"
-            ><i
-              class="fas fa-envelope"
-              style="margin-right: 5px; font-size: 11px"
-            ></i
-            >gvcarrentals@gmail.com</a
-          >
-        </div>
-        <div style="opacity: 0.75">
-          Open every day &nbsp;08:00 AM – 07:00 PM
-        </div>
-      </div>
-    </div>
-
-    <!-- NAV -->
-    <nav>
-      <div class="container nav-inner">
-        <a href="#" class="logo">GV Cars</a>
-
-        <div class="nav-links">
-          <a href="#about">About</a>
-          <div class="dropdown">
-            <a
-              href="#fleet"
-              style="display: flex; align-items: center; gap: 4px"
-              >Fleet
-              <i
-                class="fas fa-chevron-down"
-                style="font-size: 10px; opacity: 0.5"
-              ></i
-            ></a>
-            <div class="dropdown-menu">
-              <a href="#fleet">Hatchback</a>
-              <a href="#fleet">SUV</a>
-              <a href="#fleet">Sedan</a>
-              <a href="#fleet">MUV</a>
-            </div>
-          </div>
-          <a href="#services">Services</a>
-          <a href="#steps">How to Book</a>
-          <a href="#why">Why Us</a>
-          <a href="#faq">FAQs</a>
-          <a href="#contact">Contact</a>
-        </div>
-
-        <div style="display: flex; align-items: center; gap: 10px">
-          <a href="tel:+918015277899" class="nav-cta">
-            <i class="fas fa-phone-alt"></i> Call Now
-          </a>
-          <button
-            onclick="
-              document.getElementById('mob-nav').classList.toggle('open')
-            "
-            style="
-              display: none;
-              background: none;
-              border: none;
-              font-size: 20px;
-              color: var(--text);
-              cursor: pointer;
-              padding: 4px;
-            "
-            id="mob-toggle"
-          >
-            <i class="fas fa-bars"></i>
-          </button>
-        </div>
-      </div>
-
-      <!-- MOBILE NAV -->
-      <div
-        id="mob-nav"
-        style="
-          border-top: 1px solid var(--border);
-          background: #fff;
-          padding: 16px 24px;
-        "
-      >
-        <div style="display: flex; flex-direction: column; gap: 14px">
-          <a
-            href="#about"
-            style="
-              font-size: 15px;
-              color: var(--text-mid);
-              text-decoration: none;
-            "
-            >About</a
-          >
-          <a
-            href="#fleet"
-            style="
-              font-size: 15px;
-              color: var(--text-mid);
-              text-decoration: none;
-            "
-            >Fleet</a
-          >
-          <a
-            href="#services"
-            style="
-              font-size: 15px;
-              color: var(--text-mid);
-              text-decoration: none;
-            "
-            >Services</a
-          >
-          <a
-            href="#steps"
-            style="
-              font-size: 15px;
-              color: var(--text-mid);
-              text-decoration: none;
-            "
-            >How to Book</a
-          >
-          <a
-            href="#why"
-            style="
-              font-size: 15px;
-              color: var(--text-mid);
-              text-decoration: none;
-            "
-            >Why Us</a
-          >
-          <a
-            href="#faq"
-            style="
-              font-size: 15px;
-              color: var(--text-mid);
-              text-decoration: none;
-            "
-            >FAQs</a
-          >
-          <a
-            href="#contact"
-            style="
-              font-size: 15px;
-              color: var(--text-mid);
-              text-decoration: none;
-            "
-            >Contact</a
-          >
-          <a
-            href="tel:+918015277899"
-            class="btn btn-primary"
-            style="margin-top: 4px; justify-content: center"
-          >
-            <i class="fas fa-phone-alt"></i> Call Us Now
-          </a>
-        </div>
-      </div>
-    </nav>
+    <!-- TOP BAR + NAV — rendered by renderNav('home-nav','home') -->
+    <div id="home-nav"></div>
 
     <!-- HERO -->
     <div class="hero">
@@ -2285,226 +2133,8 @@
         flex-direction: column;
       "
     >
-      <!-- Sticky nav inside overlay -->
-      <!-- OVERLAY TOPBAR + NAV (shared across overlays) -->
-      <div class="topbar" style="flex-shrink: 0">
-        <div
-          class="container"
-          style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-          "
-        >
-          <div style="display: flex; gap: 20px">
-            <a href="tel:+918015277899"
-              ><i
-                class="fas fa-phone-alt"
-                style="margin-right: 5px; font-size: 11px"
-              ></i
-              >+91 80152 77899</a
-            >
-            <a href="mailto:gvcarrentals@gmail.com"
-              ><i
-                class="fas fa-envelope"
-                style="margin-right: 5px; font-size: 11px"
-              ></i
-              >gvcarrentals@gmail.com</a
-            >
-          </div>
-          <div style="opacity: 0.75">
-            Open every day &nbsp;08:00 AM – 07:00 PM
-          </div>
-        </div>
-      </div>
-      <div class="overlay-nav">
-        <div class="container nav-inner">
-          <a
-            href="#"
-            class="logo"
-            onclick="
-              closeDetail();
-              closeAllCars();
-              return false;
-            "
-            >GV Cars</a
-          >
-          <div class="nav-links">
-            <a
-              href="#about"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              >About</a
-            >
-            <a
-              href="#fleet"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              >Fleet</a
-            >
-            <a
-              href="#services"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              >Services</a
-            >
-            <a
-              href="#why"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              >Why Us</a
-            >
-            <a
-              href="#faq"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              >FAQs</a
-            >
-            <a
-              href="#contact"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              >Contact</a
-            >
-          </div>
-          <div style="display: flex; align-items: center; gap: 10px">
-            <a href="tel:+918015277899" class="nav-cta">
-              <i class="fas fa-phone-alt"></i> Call Now
-            </a>
-            <button
-              class="overlay-mob-toggle"
-              onclick="
-                this.closest('.overlay-nav')
-                  .querySelector('.overlay-mob-menu')
-                  .classList.toggle('open')
-              "
-              style="
-                display: none;
-                background: none;
-                border: none;
-                font-size: 20px;
-                color: var(--text);
-                cursor: pointer;
-                padding: 4px;
-              "
-            >
-              <i class="fas fa-bars"></i>
-            </button>
-          </div>
-        </div>
-        <!-- overlay mobile menu -->
-        <div
-          class="overlay-mob-menu"
-          style="
-            display: none;
-            border-top: 1px solid var(--border);
-            background: #fff;
-            padding: 16px 24px;
-          "
-        >
-          <div style="display: flex; flex-direction: column; gap: 14px">
-            <a
-              href="#about"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              style="
-                font-size: 15px;
-                color: var(--text-mid);
-                text-decoration: none;
-              "
-              >About</a
-            >
-            <a
-              href="#fleet"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              style="
-                font-size: 15px;
-                color: var(--text-mid);
-                text-decoration: none;
-              "
-              >Fleet</a
-            >
-            <a
-              href="#services"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              style="
-                font-size: 15px;
-                color: var(--text-mid);
-                text-decoration: none;
-              "
-              >Services</a
-            >
-            <a
-              href="#why"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              style="
-                font-size: 15px;
-                color: var(--text-mid);
-                text-decoration: none;
-              "
-              >Why Us</a
-            >
-            <a
-              href="#faq"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              style="
-                font-size: 15px;
-                color: var(--text-mid);
-                text-decoration: none;
-              "
-              >FAQs</a
-            >
-            <a
-              href="#contact"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              style="
-                font-size: 15px;
-                color: var(--text-mid);
-                text-decoration: none;
-              "
-              >Contact</a
-            >
-            <a
-              href="tel:+918015277899"
-              class="btn btn-primary"
-              style="margin-top: 4px; justify-content: center"
-            >
-              <i class="fas fa-phone-alt"></i> Call Now
-            </a>
-          </div>
-        </div>
-      </div>
+      <!-- NAV — rendered by renderNav('detail-nav','overlay') -->
+      <div id="detail-nav"></div>
       <!-- Scrollable content -->
       <div style="max-width: 960px; margin: 0 auto; padding: 24px 24px 0">
         <!-- Back bar -->
@@ -2916,225 +2546,8 @@
         flex-direction: column;
       "
     >
-      <!-- OVERLAY TOPBAR + NAV (shared across overlays) -->
-      <div class="topbar" style="flex-shrink: 0">
-        <div
-          class="container"
-          style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-          "
-        >
-          <div style="display: flex; gap: 20px">
-            <a href="tel:+918015277899"
-              ><i
-                class="fas fa-phone-alt"
-                style="margin-right: 5px; font-size: 11px"
-              ></i
-              >+91 80152 77899</a
-            >
-            <a href="mailto:gvcarrentals@gmail.com"
-              ><i
-                class="fas fa-envelope"
-                style="margin-right: 5px; font-size: 11px"
-              ></i
-              >gvcarrentals@gmail.com</a
-            >
-          </div>
-          <div style="opacity: 0.75">
-            Open every day &nbsp;08:00 AM – 07:00 PM
-          </div>
-        </div>
-      </div>
-      <div class="overlay-nav">
-        <div class="container nav-inner">
-          <a
-            href="#"
-            class="logo"
-            onclick="
-              closeDetail();
-              closeAllCars();
-              return false;
-            "
-            >GV Cars</a
-          >
-          <div class="nav-links">
-            <a
-              href="#about"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              >About</a
-            >
-            <a
-              href="#fleet"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              >Fleet</a
-            >
-            <a
-              href="#services"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              >Services</a
-            >
-            <a
-              href="#why"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              >Why Us</a
-            >
-            <a
-              href="#faq"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              >FAQs</a
-            >
-            <a
-              href="#contact"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              >Contact</a
-            >
-          </div>
-          <div style="display: flex; align-items: center; gap: 10px">
-            <a href="tel:+918015277899" class="nav-cta">
-              <i class="fas fa-phone-alt"></i> Call Now
-            </a>
-            <button
-              class="overlay-mob-toggle"
-              onclick="
-                this.closest('.overlay-nav')
-                  .querySelector('.overlay-mob-menu')
-                  .classList.toggle('open')
-              "
-              style="
-                display: none;
-                background: none;
-                border: none;
-                font-size: 20px;
-                color: var(--text);
-                cursor: pointer;
-                padding: 4px;
-              "
-            >
-              <i class="fas fa-bars"></i>
-            </button>
-          </div>
-        </div>
-        <!-- overlay mobile menu -->
-        <div
-          class="overlay-mob-menu"
-          style="
-            display: none;
-            border-top: 1px solid var(--border);
-            background: #fff;
-            padding: 16px 24px;
-          "
-        >
-          <div style="display: flex; flex-direction: column; gap: 14px">
-            <a
-              href="#about"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              style="
-                font-size: 15px;
-                color: var(--text-mid);
-                text-decoration: none;
-              "
-              >About</a
-            >
-            <a
-              href="#fleet"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              style="
-                font-size: 15px;
-                color: var(--text-mid);
-                text-decoration: none;
-              "
-              >Fleet</a
-            >
-            <a
-              href="#services"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              style="
-                font-size: 15px;
-                color: var(--text-mid);
-                text-decoration: none;
-              "
-              >Services</a
-            >
-            <a
-              href="#why"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              style="
-                font-size: 15px;
-                color: var(--text-mid);
-                text-decoration: none;
-              "
-              >Why Us</a
-            >
-            <a
-              href="#faq"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              style="
-                font-size: 15px;
-                color: var(--text-mid);
-                text-decoration: none;
-              "
-              >FAQs</a
-            >
-            <a
-              href="#contact"
-              onclick="
-                closeDetail();
-                closeAllCars();
-              "
-              style="
-                font-size: 15px;
-                color: var(--text-mid);
-                text-decoration: none;
-              "
-              >Contact</a
-            >
-            <a
-              href="tel:+918015277899"
-              class="btn btn-primary"
-              style="margin-top: 4px; justify-content: center"
-            >
-              <i class="fas fa-phone-alt"></i> Call Now
-            </a>
-          </div>
-        </div>
-      </div>
+      <!-- NAV — rendered by renderNav('allcars-nav','overlay') -->
+      <div id="allcars-nav"></div>
       <div style="max-width: 1100px; margin: 0 auto; padding: 24px 24px 0">
         <!-- Back bar -->
         <div style="padding-top: 8px; margin-bottom: 20px">
@@ -3629,14 +3042,7 @@
         border-color: var(--brand);
       }
 
-      /* ---- OVERLAY NAV (sticky top bar inside overlays) ---- */
-      .overlay-nav {
-        background: #fff;
-        border-bottom: 1px solid var(--border);
-        position: sticky;
-        top: 0;
-        z-index: 10;
-      }
+      /* ---- OVERLAY NAV — sticky handled by shared nav, .overlay-nav CSS above ---- */
 
       /* ---- OVERLAY BACK BUTTON ---- */
       .overlay-back-btn {
@@ -4362,14 +3768,175 @@
       /* ============================================================
        *  MOBILE NAV
        * ============================================================ */
+      /* ============================================================
+       *  renderNav(containerId, context)
+       *  ─────────────────────────────────────────────────────────
+       *  Single source for topbar + navbar + mobile nav markup.
+       *  Used in three places:
+       *    renderNav('home-nav',    'home')    — home page
+       *    renderNav('detail-nav',  'overlay') — car detail overlay
+       *    renderNav('allcars-nav', 'overlay') — all cars overlay
+       *
+       *  context = 'home'    → links are plain anchors, logo href="#"
+       *  context = 'overlay' → links also call closeDetail()+closeAllCars()
+       * ============================================================ */
+      function renderNav(containerId, context) {
+        /* ── renderNav ─────────────────────────────────────────────
+         *  Writes topbar + navbar + mobile menu into a container div.
+         *  context = 'home'    → plain links
+         *  context = 'overlay' → links prepend closeDetail()+closeAllCars()
+         * ────────────────────────────────────────────────────────── */
+        const el = document.getElementById(containerId);
+        if (!el) return;
+
+        const mobMenuId = containerId + "-mob-menu";
+        const mobToggleId = containerId + "-mob-toggle";
+
+        /* onclick prefix for overlay links */
+        const oc = context === "overlay" ? "closeDetail();closeAllCars();" : "";
+        const ocRet =
+          context === "overlay"
+            ? "closeDetail();closeAllCars();return false;"
+            : "";
+
+        /* ── Nav link definitions ──────────────────────────────────
+         * Edit here to update ALL three navbars at once.
+         * ─────────────────────────────────────────────────────── */
+        const NAV_LINKS = [
+          { href: "#about", label: "About" },
+          {
+            href: "#fleet",
+            label: "Fleet",
+            dropdown: [
+              { href: "#fleet", label: "Hatchback" },
+              { href: "#fleet", label: "SUV" },
+              { href: "#fleet", label: "Sedan" },
+              { href: "#fleet", label: "MUV" },
+            ],
+          },
+          { href: "#services", label: "Services" },
+          { href: "#steps", label: "How to Book" },
+          { href: "#why", label: "Why Us" },
+          { href: "#faq", label: "FAQs" },
+          { href: "#contact", label: "Contact" },
+        ];
+
+        /* Desktop links */
+        const desktopLinks = NAV_LINKS.map((l) => {
+          if (l.dropdown) {
+            const items = l.dropdown
+              .map(
+                (d) =>
+                  '<a href="' +
+                  d.href +
+                  '" onclick="' +
+                  oc +
+                  '">' +
+                  d.label +
+                  "</a>",
+              )
+              .join("");
+            return (
+              '<div class="dropdown">' +
+              '<a href="' +
+              l.href +
+              '" onclick="' +
+              oc +
+              '" style="display:flex;align-items:center;gap:4px;">' +
+              l.label +
+              ' <i class="fas fa-chevron-down" style="font-size:10px;opacity:.5;"></i></a>' +
+              '<div class="dropdown-menu">' +
+              items +
+              "</div>" +
+              "</div>"
+            );
+          }
+          return (
+            '<a href="' + l.href + '" onclick="' + oc + '">' + l.label + "</a>"
+          );
+        }).join("");
+
+        /* Mobile links */
+        const mobileLinks = NAV_LINKS.map(
+          (l) =>
+            '<a href="' +
+            l.href +
+            '" onclick="' +
+            oc +
+            '" style="font-size:15px;color:var(--text-mid);text-decoration:none;">' +
+            l.label +
+            "</a>",
+        ).join("");
+
+        /* Build HTML as a plain string — no template literals with dynamic tags */
+        const html =
+          "" +
+          /* ── TOPBAR ── */
+          '<div class="topbar">' +
+          '<div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">' +
+          '<div style="display:flex;gap:20px;">' +
+          '<a href="tel:+918015277899"><i class="fas fa-phone-alt" style="margin-right:5px;font-size:11px;"></i>+91 80152 77899</a>' +
+          '<a href="mailto:gvcarrentals@gmail.com"><i class="fas fa-envelope" style="margin-right:5px;font-size:11px;"></i>gvcarrentals@gmail.com</a>' +
+          "</div>" +
+          '<div style="opacity:.75;">Open every day &nbsp;08:00 AM &ndash; 07:00 PM</div>' +
+          "</div>" +
+          "</div>" +
+          /* ── NAVBAR ── */
+          '<div class="nav-bar-inner">' +
+          '<div class="container nav-inner">' +
+          '<a href="#" class="logo" onclick="' +
+          ocRet +
+          '">GV Cars</a>' +
+          '<div class="nav-links">' +
+          desktopLinks +
+          "</div>" +
+          '<div style="display:flex;align-items:center;gap:10px;">' +
+          '<a href="tel:+918015277899" class="nav-cta"><i class="fas fa-phone-alt"></i> Call Now</a>' +
+          '<button id="' +
+          mobToggleId +
+          '"' +
+          ' style="display:none;background:none;border:none;font-size:20px;color:var(--text);cursor:pointer;padding:4px;"' +
+          " onclick=\"document.getElementById('" +
+          mobMenuId +
+          "').classList.toggle('open')\">" +
+          '<i class="fas fa-bars"></i>' +
+          "</button>" +
+          "</div>" +
+          "</div>" +
+          /* ── MOBILE MENU ── */
+          '<div id="' +
+          mobMenuId +
+          '" class="nav-mob-menu" style="border-top:1px solid var(--border);background:#fff;padding:16px 24px;">' +
+          '<div style="display:flex;flex-direction:column;gap:14px;">' +
+          mobileLinks +
+          '<a href="tel:+918015277899" class="btn btn-primary" style="margin-top:4px;justify-content:center;"><i class="fas fa-phone-alt"></i> Call Now</a>' +
+          "</div>" +
+          "</div>" +
+          "</div>";
+
+        el.innerHTML = html;
+      }
+
+      /* ============================================================
+       *  MOBILE NAV TOGGLE — works for all three nav instances
+       * ============================================================ */
       function checkMobile() {
-        const btn = document.getElementById("mob-toggle");
-        if (!btn) return;
-        if (window.innerWidth <= 900) btn.style.display = "block";
-        else {
-          btn.style.display = "none";
-          document.getElementById("mob-nav").classList.remove("open");
-        }
+        /* Manage toggle button visibility for every renderNav instance */
+        [
+          "home-nav-mob-toggle",
+          "detail-nav-mob-toggle",
+          "allcars-nav-mob-toggle",
+        ].forEach((id) => {
+          const btn = document.getElementById(id);
+          if (!btn) return;
+          btn.style.display = window.innerWidth <= 900 ? "block" : "none";
+          if (window.innerWidth > 900) {
+            const menu = document.getElementById(
+              id.replace("-mob-toggle", "-mob-menu"),
+            );
+            if (menu) menu.classList.remove("open");
+          }
+        });
       }
       checkMobile();
       window.addEventListener("resize", checkMobile);
@@ -4386,8 +3953,18 @@
        *  INIT
        * ============================================================ */
       document.addEventListener("DOMContentLoaded", () => {
-        renderFleet(); /* home fleet cards           */
-        renderContact(); /* home + overlay contact data */
+        renderNav("home-nav", "home"); /* home topbar + navbar + mobile nav  */
+        renderNav(
+          "detail-nav",
+          "overlay",
+        ); /* car detail overlay navbar          */
+        renderNav(
+          "allcars-nav",
+          "overlay",
+        ); /* all cars overlay navbar            */
+        renderFleet(); /* home fleet cards                   */
+        renderContact(); /* home + overlay contact sections    */
+        checkMobile(); /* set correct toggle button state    */
       });
     </script>
   </body>

@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GV Cars — Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ── RESET & TOKENS ───────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --brand:       #1a6b3c;
+      --brand-light: #e8f5ee;
+      --brand-mid:   #2d8a52;
+      --brand-dark:  #134f2d;
+      --accent:      #f59e0b;
+      --danger:      #ef4444;
+      --info:        #3b82f6;
+      --purple:      #8b5cf6;
+      --text:        #111827;
+      --text-mid:    #4b5563;
+      --text-soft:   #9ca3af;
+      --border:      #e5e7eb;
+      --bg:          #f9fafb;
+      --surface:     #ffffff;
+      --sidebar-w:   240px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+
+    /* ── LAYOUT ───────────────────────────────────────────── */
+    .app { display: flex; min-height: 100vh; }
+
+    /* ── SIDEBAR ──────────────────────────────────────────── */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--brand-dark);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 200;
+      transition: transform .25s;
+    }
+    .sidebar-logo {
+      display: flex; align-items: center; gap: 10px;
+      padding: 22px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .sidebar-logo-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: var(--brand); display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 16px; flex-shrink: 0;
+    }
+    .sidebar-logo-text { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -.3px; }
+    .sidebar-logo-sub  { font-size: 10px; color: rgba(255,255,255,.45); letter-spacing: .05em; text-transform: uppercase; }
+
+    .sidebar-section { padding: 20px 12px 6px; }
+    .sidebar-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.35); padding: 0 8px; margin-bottom: 6px; }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 12px; border-radius: 8px;
+      color: rgba(255,255,255,.65); font-size: 13.5px; font-weight: 500;
+      cursor: pointer; transition: all .15s; text-decoration: none; margin-bottom: 2px;
+    }
+    .nav-item i { width: 18px; text-align: center; font-size: 14px; flex-shrink: 0; }
+    .nav-item:hover { background: rgba(255,255,255,.08); color: #fff; }
+    .nav-item.active { background: var(--brand); color: #fff; }
+    .nav-badge {
+      margin-left: auto; background: var(--accent); color: #000;
+      font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 100px;
+    }
+
+    .sidebar-footer {
+      margin-top: auto; padding: 16px 12px;
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .sidebar-user {
+      display: flex; align-items: center; gap: 10px; padding: 8px;
+      border-radius: 8px; cursor: pointer; transition: background .15s;
+    }
+    .sidebar-user:hover { background: rgba(255,255,255,.07); }
+    .sidebar-avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--brand); display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: 13px; flex-shrink: 0;
+    }
+    .sidebar-user-name { font-size: 13px; font-weight: 600; color: #fff; }
+    .sidebar-user-role { font-size: 11px; color: rgba(255,255,255,.4); }
+
+    /* ── MAIN ─────────────────────────────────────────────── */
+    .main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ── TOPBAR ───────────────────────────────────────────── */
+    .topbar {
+      height: 60px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+      padding: 0 28px; gap: 16px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .topbar-title { font-size: 16px; font-weight: 700; color: var(--text); flex: 1; }
+    .topbar-search {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+      padding: 8px 14px; width: 280px;
+    }
+    .topbar-search i { color: var(--text-soft); font-size: 13px; }
+    .topbar-search input {
+      border: none; background: none; outline: none;
+      font-family: 'Outfit', sans-serif; font-size: 13.5px; color: var(--text);
+      width: 100%;
+    }
+    .topbar-search input::placeholder { color: var(--text-soft); }
+    .topbar-actions { display: flex; align-items: center; gap: 10px; }
+    .topbar-btn {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: var(--bg); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--text-mid); font-size: 14px;
+      position: relative; transition: all .15s;
+    }
+    .topbar-btn:hover { border-color: var(--brand); color: var(--brand); }
+    .notif-dot {
+      position: absolute; top: 6px; right: 6px;
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--danger); border: 1.5px solid #fff;
+    }
+
+    /* ── PAGE CONTENT ─────────────────────────────────────── */
+    .page { padding: 28px; flex: 1; }
+    .page-header { margin-bottom: 24px; }
+    .page-header h1 { font-size: 22px; font-weight: 700; color: var(--text); }
+    .page-header p { font-size: 13.5px; color: var(--text-soft); margin-top: 3px; }
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── STAT CARDS ───────────────────────────────────────── */
+    .stat-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 24px; }
+    .stat-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 20px; display: flex; align-items: flex-start; gap: 14px;
+      transition: box-shadow .2s;
+    }
+    .stat-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.07); }
+    .stat-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .stat-body { flex: 1; min-width: 0; }
+    .stat-label { font-size: 12px; color: var(--text-soft); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+    .stat-value { font-size: 28px; font-weight: 800; color: var(--text); line-height: 1.1; margin: 4px 0 2px; }
+    .stat-delta { font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+    .delta-up   { color: var(--brand); }
+    .delta-down { color: var(--danger); }
+
+    /* ── TABLE ────────────────────────────────────────────── */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+    }
+    .card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 20px; border-bottom: 1px solid var(--border); gap: 12px; flex-wrap: wrap;
+    }
+    .card-title { font-size: 15px; font-weight: 700; color: var(--text); }
+    .card-subtitle { font-size: 12.5px; color: var(--text-soft); margin-top: 1px; }
+    .card-body { padding: 20px; }
+
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .07em; color: var(--text-soft);
+      padding: 10px 16px; border-bottom: 1px solid var(--border);
+      background: var(--bg); white-space: nowrap;
+    }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background .15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--bg); }
+    tbody td { padding: 13px 16px; font-size: 13.5px; color: var(--text-mid); vertical-align: middle; }
+
+    /* ── BADGES ───────────────────────────────────────────── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 100px;
+      text-transform: uppercase; letter-spacing: .04em;
+    }
+    .badge-green  { background: #dcfce7; color: #166534; }
+    .badge-yellow { background: #fef9c3; color: #854d0e; }
+    .badge-red    { background: #fee2e2; color: #991b1b; }
+    .badge-blue   { background: #dbeafe; color: #1e40af; }
+    .badge-purple { background: #ede9fe; color: #5b21b6; }
+    .badge-gray   { background: #f3f4f6; color: #374151; }
+
+    /* ── BUTTONS ──────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: 'Outfit', sans-serif; font-size: 13.5px; font-weight: 600;
+      padding: 9px 18px; border-radius: 8px; border: none; cursor: pointer; transition: all .15s;
+    }
+    .btn-primary { background: var(--brand); color: #fff; }
+    .btn-primary:hover { background: var(--brand-mid); }
+    .btn-outline { background: transparent; color: var(--text-mid); border: 1px solid var(--border); }
+    .btn-outline:hover { border-color: var(--brand); color: var(--brand); }
+    .btn-danger  { background: #fee2e2; color: var(--danger); border: 1px solid #fca5a5; }
+    .btn-danger:hover { background: var(--danger); color: #fff; }
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .btn-icon { padding: 7px; width: 32px; height: 32px; justify-content: center; }
+
+    /* ── GRID LAYOUTS ─────────────────────────────────────── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+    .three-col { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .col-main { display: grid; grid-template-columns: 1fr 340px; gap: 20px; align-items: start; }
+
+    /* ── FLEET CARD ───────────────────────────────────────── */
+    .fleet-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; transition: box-shadow .2s, border-color .2s;
+    }
+    .fleet-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.08); border-color: var(--brand); }
+    .fleet-img {
+      width: 100%; height: 140px; object-fit: cover;
+      background: var(--bg);
+    }
+    .fleet-img-placeholder {
+      width: 100%; height: 140px; background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      color: #d1d5db; font-size: 48px;
+    }
+    .fleet-body { padding: 16px; }
+    .fleet-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .fleet-cat  { font-size: 11.5px; color: var(--text-soft); margin-bottom: 10px; text-transform: uppercase; letter-spacing: .05em; }
+    .fleet-price { font-size: 18px; font-weight: 800; color: var(--brand); }
+    .fleet-price span { font-size: 12px; font-weight: 400; color: var(--text-soft); }
+    .fleet-actions { display: flex; gap: 6px; margin-top: 12px; }
+
+    /* ── ENQUIRY ROW ──────────────────────────────────────── */
+    .enquiry-car { display: flex; align-items: center; gap: 10px; }
+    .enquiry-car img { width: 44px; height: 36px; object-fit: cover; border-radius: 6px; background: var(--bg); }
+    .enquiry-car-name { font-size: 13px; font-weight: 600; color: var(--text); }
+    .enquiry-car-cat  { font-size: 11px; color: var(--text-soft); }
+
+    /* ── FORM ─────────────────────────────────────────────── */
+    .form-group { margin-bottom: 16px; }
+    .form-label { display: block; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--text-soft); margin-bottom: 6px; }
+    .form-input {
+      width: 100%; padding: 10px 13px; border: 1px solid var(--border); border-radius: 8px;
+      font-family: 'Outfit', sans-serif; font-size: 14px; color: var(--text);
+      background: var(--surface); outline: none; transition: border-color .2s;
+    }
+    .form-input:focus { border-color: var(--brand); }
+    .form-input::placeholder { color: #d1d5db; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-actions { display: flex; gap: 10px; margin-top: 20px; }
+
+    /* ── CHART BARS ───────────────────────────────────────── */
+    .chart-wrap { padding: 8px 0; }
+    .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .bar-label { font-size: 12px; color: var(--text-mid); width: 80px; text-align: right; flex-shrink: 0; }
+    .bar-track { flex: 1; background: var(--bg); border-radius: 100px; height: 8px; overflow: hidden; }
+    .bar-fill  { height: 100%; border-radius: 100px; background: var(--brand); transition: width .6s ease; }
+    .bar-val   { font-size: 12px; font-weight: 700; color: var(--text); width: 40px; flex-shrink: 0; }
+
+    /* ── DONUT ────────────────────────────────────────────── */
+    .donut-wrap { display: flex; align-items: center; gap: 24px; padding: 8px 0; }
+    .donut-legend { display: flex; flex-direction: column; gap: 8px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--text-mid); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── ACTIVITY FEED ────────────────────────────────────── */
+    .activity-list { display: flex; flex-direction: column; gap: 0; }
+    .activity-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 14px 0; border-bottom: 1px solid var(--border);
+    }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-icon {
+      width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 14px;
+    }
+    .activity-text { font-size: 13px; color: var(--text-mid); line-height: 1.5; }
+    .activity-text strong { color: var(--text); font-weight: 600; }
+    .activity-time { font-size: 11.5px; color: var(--text-soft); margin-top: 2px; }
+
+    /* ── MINI METRIC ──────────────────────────────────────── */
+    .mini-metric {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+    }
+    .mini-metric:last-child { border-bottom: none; }
+    .mini-metric-label { font-size: 13px; color: var(--text-mid); display: flex; align-items: center; gap: 8px; }
+    .mini-metric-label i { color: var(--text-soft); font-size: 13px; }
+    .mini-metric-val { font-size: 14px; font-weight: 700; color: var(--text); }
+
+    /* ── MODAL ────────────────────────────────────────────── */
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(0,0,0,.45);
+      z-index: 400; display: flex; align-items: center; justify-content: center;
+      padding: 24px; opacity: 0; pointer-events: none; transition: opacity .2s;
+    }
+    .modal-backdrop.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--surface); border-radius: 14px;
+      width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,.2);
+      transform: translateY(20px); transition: transform .2s;
+    }
+    .modal-backdrop.open .modal { transform: translateY(0); }
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 24px; border-bottom: 1px solid var(--border);
+    }
+    .modal-title { font-size: 16px; font-weight: 700; color: var(--text); }
+    .modal-body { padding: 24px; }
+    .modal-close {
+      background: none; border: none; cursor: pointer;
+      color: var(--text-soft); font-size: 18px; padding: 4px;
+      border-radius: 6px; transition: color .15s;
+    }
+    .modal-close:hover { color: var(--danger); }
+
+    /* ── TOAST ────────────────────────────────────────────── */
+    .toast-area { position: fixed; bottom: 24px; right: 24px; z-index: 500; display: flex; flex-direction: column; gap: 10px; }
+    .toast {
+      display: flex; align-items: center; gap: 12px;
+      background: #1f2937; color: #fff; padding: 14px 18px; border-radius: 10px;
+      font-size: 13.5px; min-width: 260px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.2);
+      animation: slideIn .25s ease;
+    }
+    .toast.success { border-left: 4px solid var(--brand); }
+    .toast.error   { border-left: 4px solid var(--danger); }
+    .toast.info    { border-left: 4px solid var(--info); }
+    @keyframes slideIn { from { opacity:0; transform:translateX(20px); } to { opacity:1; transform:none; } }
+
+    /* ── SEARCH / FILTER BAR ──────────────────────────────── */
+    .filter-bar {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .filter-input {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+      padding: 8px 13px; flex: 1; min-width: 200px;
+    }
+    .filter-input i { color: var(--text-soft); font-size: 13px; }
+    .filter-input input { border: none; background: none; outline: none; font-family:'Outfit',sans-serif; font-size:13.5px; color:var(--text); width:100%; }
+    .filter-input input::placeholder { color: var(--text-soft); }
+    .filter-select {
+      padding: 8px 13px; border: 1px solid var(--border); border-radius: 8px;
+      font-family:'Outfit',sans-serif; font-size:13.5px; color:var(--text); background:var(--surface);
+      outline: none; cursor: pointer;
+    }
+
+    /* ── CONTACT INFO ─────────────────────────────────────── */
+    .info-row { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .info-row:last-child { border-bottom: none; }
+    .info-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--brand-light); display: flex; align-items: center; justify-content: center; color: var(--brand); font-size: 14px; flex-shrink: 0; }
+    .info-label { font-size: 11px; color: var(--text-soft); text-transform: uppercase; letter-spacing:.05em; font-weight: 700; margin-bottom: 2px; }
+    .info-value { font-size: 13.5px; color: var(--text); line-height: 1.5; }
+    .info-value a { color: var(--brand); text-decoration: none; }
+
+    /* ── MOBILE ───────────────────────────────────────────── */
+    .mob-menu-btn {
+      display: none; background: none; border: none; cursor: pointer;
+      color: var(--text); font-size: 20px; padding: 4px;
+    }
+    @media (max-width: 900px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .main { margin-left: 0; }
+      .mob-menu-btn { display: block; }
+      .topbar-search { display: none; }
+      .stat-grid { grid-template-columns: repeat(2,1fr); }
+      .two-col, .col-main { grid-template-columns: 1fr; }
+      .three-col { grid-template-columns: repeat(2,1fr); }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .stat-grid { grid-template-columns: 1fr; }
+      .three-col { grid-template-columns: 1fr; }
+      .page { padding: 16px; }
+    }
+
+    /* ── SIDEBAR OVERLAY (mobile) ─────────────────────────── */
+    .sidebar-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 199;
+    }
+    .sidebar-overlay.open { display: block; }
+
+    /* ── MISC ─────────────────────────────────────────────── */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+    .text-brand { color: var(--brand); }
+    .text-danger { color: var(--danger); }
+    .text-muted { color: var(--text-soft); }
+    .fw-700 { font-weight: 700; }
+    .mt-4 { margin-top: 4px; }
+    .mt-8 { margin-top: 8px; }
+    .mt-16 { margin-top: 16px; }
+    .mt-20 { margin-top: 20px; }
+    .mb-16 { margin-bottom: 16px; }
+    .flex { display: flex; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .gap-8 { gap: 8px; }
+    .gap-12 { gap: 12px; }
+    .avatar {
+      width: 34px; height: 34px; border-radius: 50%; background: var(--brand-light);
+      color: var(--brand); display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 13px; flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── SIDEBAR OVERLAY (mobile) ───────────────────────────── -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<!-- ── SIDEBAR ────────────────────────────────────────────── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-icon"><i class="fas fa-car"></i></div>
+    <div>
+      <div class="sidebar-logo-text">GV Cars</div>
+      <div class="sidebar-logo-sub">Admin Dashboard</div>
+    </div>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Main</div>
+    <a class="nav-item active" onclick="showPage('dashboard',this)">
+      <i class="fas fa-th-large"></i> Overview
+    </a>
+    <a class="nav-item" onclick="showPage('enquiries',this)">
+      <i class="fas fa-inbox"></i> Enquiries
+      <span class="nav-badge" id="enquiry-badge">7</span>
+    </a>
+    <a class="nav-item" onclick="showPage('fleet',this)">
+      <i class="fas fa-car-side"></i> Fleet
+    </a>
+    <a class="nav-item" onclick="showPage('bookings',this)">
+      <i class="fas fa-calendar-check"></i> Bookings
+    </a>
+    <a class="nav-item" onclick="showPage('customers',this)">
+      <i class="fas fa-users"></i> Customers
+    </a>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Manage</div>
+    <a class="nav-item" onclick="showPage('content',this)">
+      <i class="fas fa-edit"></i> Site Content
+    </a>
+    <a class="nav-item" onclick="showPage('contact-info',this)">
+      <i class="fas fa-address-card"></i> Contact Info
+    </a>
+    <a class="nav-item" onclick="showPage('analytics',this)">
+      <i class="fas fa-chart-bar"></i> Analytics
+    </a>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">System</div>
+    <a class="nav-item" href="smilecars-redesign.html" target="_blank">
+      <i class="fas fa-external-link-alt"></i> View Website
+    </a>
+    <a class="nav-item" onclick="showPage('settings',this)">
+      <i class="fas fa-cog"></i> Settings
+    </a>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="sidebar-avatar">GV</div>
+      <div>
+        <div class="sidebar-user-name">Admin</div>
+        <div class="sidebar-user-role">GV Cars Chennai</div>
+      </div>
+      <i class="fas fa-ellipsis-h" style="margin-left:auto;color:rgba(255,255,255,.3);font-size:13px;"></i>
+    </div>
+  </div>
+</aside>
+
+<!-- ── MAIN ────────────────────────────────────────────────── -->
+<div class="main">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <button class="mob-menu-btn" onclick="openSidebar()"><i class="fas fa-bars"></i></button>
+    <div class="topbar-title" id="topbar-title">Overview</div>
+    <div class="topbar-search">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Search enquiries, bookings, cars…" oninput="globalSearch(this.value)"/>
+    </div>
+    <div class="topbar-actions">
+      <div class="topbar-btn" title="Notifications" onclick="showToast('3 new enquiries received','info')">
+        <i class="fas fa-bell"></i>
+        <div class="notif-dot"></div>
+      </div>
+      <div class="topbar-btn" title="Dark mode (coming soon)" onclick="showToast('Dark mode coming soon','info')">
+        <i class="fas fa-moon"></i>
+      </div>
+      <div class="topbar-btn" title="Profile">
+        <i class="fas fa-user-circle"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       PAGE: OVERVIEW / DASHBOARD
+  ════════════════════════════════════════════════════════ -->
+  <div class="page active" id="page-dashboard" style="padding:28px;">
+
+    <div class="page-header">
+      <h1>Good morning, Admin 👋</h1>
+      <p>Here's what's happening with GV Cars today — Sunday, 24 May 2026.</p>
+    </div>
+
+    <!-- Stat Cards -->
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#dcfce7;color:#16a34a;"><i class="fas fa-inbox"></i></div>
+        <div class="stat-body">
+          <div class="stat-label">New Enquiries</div>
+          <div class="stat-value">7</div>
+          <div class="stat-delta delta-up"><i class="fas fa-arrow-up" style="font-size:10px;"></i> 3 since yesterday</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#dbeafe;color:#2563eb;"><i class="fas fa-calendar-check"></i></div>
+        <div class="stat-body">
+          <div class="stat-label">Active Bookings</div>
+          <div class="stat-value">12</div>
+          <div class="stat-delta delta-up"><i class="fas fa-arrow-up" style="font-size:10px;"></i> 2 new today</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#fef9c3;color:#ca8a04;"><i class="fas fa-rupee-sign"></i></div>
+        <div class="stat-body">
+          <div class="stat-label">Revenue (May)</div>
+          <div class="stat-value">₹1.2L</div>
+          <div class="stat-delta delta-up"><i class="fas fa-arrow-up" style="font-size:10px;"></i> 18% vs Apr</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#ede9fe;color:#7c3aed;"><i class="fas fa-car"></i></div>
+        <div class="stat-body">
+          <div class="stat-label">Cars Available</div>
+          <div class="stat-value">6/8</div>
+          <div class="stat-delta" style="color:var(--text-soft);">2 currently rented</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Middle row -->
+    <div class="col-main" style="margin-bottom:20px;">
+
+      <!-- Recent Enquiries -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Recent Enquiries</div>
+            <div class="card-subtitle">Last 7 days</div>
+          </div>
+          <button class="btn btn-sm btn-outline" onclick="showPage('enquiries', document.querySelector('[onclick*=enquiries]'))">
+            View All <i class="fas fa-arrow-right" style="font-size:11px;"></i>
+          </button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Car</th>
+              <th>Dates</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="dashboard-enquiry-rows"></tbody>
+        </table>
+      </div>
+
+      <!-- Quick stats sidebar -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+
+        <!-- Category breakdown -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Enquiries by Category</div>
+          </div>
+          <div class="card-body">
+            <div class="chart-wrap" id="category-bars"></div>
+          </div>
+        </div>
+
+        <!-- Quick links -->
+        <div class="card">
+          <div class="card-header"><div class="card-title">Quick Actions</div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:8px;">
+            <button class="btn btn-primary" onclick="openModal('add-enquiry-modal')"><i class="fas fa-plus"></i> Add Enquiry</button>
+            <button class="btn btn-outline" onclick="openModal('add-car-modal')"><i class="fas fa-car"></i> Add Car</button>
+            <button class="btn btn-outline" onclick="showPage('contact-info', document.querySelector('[onclick*=contact-info]'))"><i class="fas fa-edit"></i> Edit Contact Info</button>
+            <a href="smilecars-redesign.html" target="_blank" class="btn btn-outline"><i class="fas fa-external-link-alt"></i> View Live Site</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Activity feed -->
+    <div class="two-col">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Recent Activity</div></div>
+        <div class="card-body">
+          <div class="activity-list" id="activity-feed"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Fleet Status</div></div>
+        <div class="card-body">
+          <div id="fleet-status-list"></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /page-dashboard -->
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PAGE: ENQUIRIES
+  ════════════════════════════════════════════════════════ -->
+  <div class="page" id="page-enquiries" style="padding:28px;">
+    <div class="flex items-center justify-between mb-16">
+      <div class="page-header" style="margin-bottom:0;">
+        <h1>Enquiries</h1>
+        <p>Manage all incoming booking requests</p>
+      </div>
+      <button class="btn btn-primary" onclick="openModal('add-enquiry-modal')">
+        <i class="fas fa-plus"></i> New Enquiry
+      </button>
+    </div>
+
+    <div class="filter-bar">
+      <div class="filter-input">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search by name, car, phone…" oninput="filterEnquiries(this.value)"/>
+      </div>
+      <select class="filter-select" onchange="filterEnquiriesByStatus(this.value)">
+        <option value="">All Statuses</option>
+        <option value="New">New</option>
+        <option value="Contacted">Contacted</option>
+        <option value="Confirmed">Confirmed</option>
+        <option value="Completed">Completed</option>
+        <option value="Cancelled">Cancelled</option>
+      </select>
+      <select class="filter-select" onchange="filterEnquiriesByCar(this.value)" id="car-filter-select">
+        <option value="">All Cars</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Customer</th>
+            <th>Car</th>
+            <th>Pickup</th>
+            <th>Drop</th>
+            <th>Status</th>
+            <th>Received</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="enquiries-table-body"></tbody>
+      </table>
+    </div>
+  </div><!-- /page-enquiries -->
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PAGE: FLEET
+  ════════════════════════════════════════════════════════ -->
+  <div class="page" id="page-fleet" style="padding:28px;">
+    <div class="flex items-center justify-between mb-16">
+      <div class="page-header" style="margin-bottom:0;">
+        <h1>Fleet</h1>
+        <p>Manage your vehicles — edit prices, images, and specs</p>
+      </div>
+      <button class="btn btn-primary" onclick="openModal('add-car-modal')">
+        <i class="fas fa-plus"></i> Add Car
+      </button>
+    </div>
+
+    <div class="filter-bar">
+      <div class="filter-input">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search by name or category…" oninput="filterFleetCards(this.value)"/>
+      </div>
+      <select class="filter-select" onchange="filterFleetCards('',this.value)">
+        <option value="">All Categories</option>
+        <option value="hatchback">Hatchback</option>
+        <option value="sedan">Sedan</option>
+        <option value="suv">SUV</option>
+        <option value="muv">MUV</option>
+        <option value="mini">Mini</option>
+      </select>
+    </div>
+
+    <div class="three-col" id="fleet-cards-grid" style="margin-top:8px;"></div>
+  </div><!-- /page-fleet -->
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PAGE: BOOKINGS
+  ════════════════════════════════════════════════════════ -->
+  <div class="page" id="page-bookings" style="padding:28px;">
+    <div class="flex items-center justify-between mb-16">
+      <div class="page-header" style="margin-bottom:0;">
+        <h1>Bookings</h1>
+        <p>All confirmed and ongoing rentals</p>
+      </div>
+    </div>
+    <div class="card">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Customer</th><th>Car</th><th>Pickup</th><th>Drop</th><th>Days</th><th>Amount</th><th>Status</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="bookings-table-body"></tbody>
+      </table>
+    </div>
+  </div><!-- /page-bookings -->
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PAGE: CUSTOMERS
+  ════════════════════════════════════════════════════════ -->
+  <div class="page" id="page-customers" style="padding:28px;">
+    <div class="page-header">
+      <h1>Customers</h1>
+      <p>Everyone who has enquired or booked with GV Cars</p>
+    </div>
+    <div class="filter-bar">
+      <div class="filter-input">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search by name, email, or phone…" oninput="filterCustomers(this.value)"/>
+      </div>
+    </div>
+    <div class="card">
+      <table>
+        <thead>
+          <tr><th>Customer</th><th>Phone</th><th>Email</th><th>Total Bookings</th><th>Last Booking</th><th>Status</th></tr>
+        </thead>
+        <tbody id="customers-table-body"></tbody>
+      </table>
+    </div>
+  </div><!-- /page-customers -->
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PAGE: SITE CONTENT
+  ════════════════════════════════════════════════════════ -->
+  <div class="page" id="page-content" style="padding:28px;">
+    <div class="page-header">
+      <h1>Site Content</h1>
+      <p>Update the hero section, reviews, and FAQ displayed on the website</p>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Hero Section</div></div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">Headline</label>
+            <input class="form-input" value="Vehicles for Hire That You'll Love"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Sub-headline</label>
+            <textarea class="form-input" rows="3" style="resize:vertical;">GV Cars offers comfortable, well-maintained vehicles for daily travel, airport transfers, corporate trips, and long-distance journeys.</textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Google Rating</label>
+            <input class="form-input" value="4.8"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Review Count Label</label>
+            <input class="form-input" value="Verified customer reviews"/>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" onclick="showToast('Hero section saved','success')"><i class="fas fa-save"></i> Save</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Stats Bar</div></div>
+        <div class="card-body" id="stats-editor"></div>
+      </div>
+    </div>
+    <div class="card mt-20">
+      <div class="card-header">
+        <div class="card-title">Customer Reviews</div>
+        <button class="btn btn-sm btn-outline" onclick="openModal('add-review-modal')"><i class="fas fa-plus"></i> Add Review</button>
+      </div>
+      <div class="card-body">
+        <div id="reviews-editor"></div>
+      </div>
+    </div>
+  </div><!-- /page-content -->
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PAGE: CONTACT INFO
+  ════════════════════════════════════════════════════════ -->
+  <div class="page" id="page-contact-info" style="padding:28px;">
+    <div class="page-header">
+      <h1>Contact Information</h1>
+      <p>Update the details shown in the Contact section of the website</p>
+    </div>
+    <div class="col-main">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Edit Contact Details</div></div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label">Address</label>
+            <textarea class="form-input" rows="2" id="ci-address">No. 25 &amp; 26, Raj Enclave, 3rd Cross Street, Kathirvedu — 600066</textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Phone 1</label>
+              <input class="form-input" id="ci-phone1" value="+91 80152 77899"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone 2</label>
+              <input class="form-input" id="ci-phone2" value="+91 80152 90099"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-input" id="ci-email" value="gvcarrentals@gmail.com"/>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Opening Time</label>
+              <input class="form-input" id="ci-open" value="08:00 AM"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Closing Time</label>
+              <input class="form-input" id="ci-close" value="07:00 PM"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">WhatsApp Number (digits only)</label>
+            <input class="form-input" id="ci-wa" value="918015277899"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Google Maps Embed URL</label>
+            <input class="form-input" id="ci-map" value="https://www.google.com/maps/embed?pb=..."/>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" onclick="saveContactInfo()"><i class="fas fa-save"></i> Save Changes</button>
+            <button class="btn btn-outline" onclick="showToast('Changes discarded','info')">Discard</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="position:sticky;top:80px;">
+        <div class="card-header"><div class="card-title">Current Values</div></div>
+        <div class="card-body" id="contact-preview"></div>
+      </div>
+    </div>
+  </div><!-- /page-contact-info -->
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PAGE: ANALYTICS
+  ════════════════════════════════════════════════════════ -->
+  <div class="page" id="page-analytics" style="padding:28px;">
+    <div class="page-header">
+      <h1>Analytics</h1>
+      <p>Enquiry and booking trends for GV Cars</p>
+    </div>
+    <div class="stat-grid" style="margin-bottom:24px;">
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#dcfce7;color:#16a34a;"><i class="fas fa-chart-line"></i></div>
+        <div class="stat-body"><div class="stat-label">Total Enquiries</div><div class="stat-value">84</div><div class="stat-delta delta-up"><i class="fas fa-arrow-up" style="font-size:10px;"></i> 24% this month</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#dbeafe;color:#2563eb;"><i class="fas fa-handshake"></i></div>
+        <div class="stat-body"><div class="stat-label">Conversion Rate</div><div class="stat-value">61%</div><div class="stat-delta delta-up"><i class="fas fa-arrow-up" style="font-size:10px;"></i> up from 54%</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#fef9c3;color:#ca8a04;"><i class="fas fa-rupee-sign"></i></div>
+        <div class="stat-body"><div class="stat-label">Avg Booking Value</div><div class="stat-value">₹8,400</div><div class="stat-delta delta-up"><i class="fas fa-arrow-up" style="font-size:10px;"></i> ₹600 vs last month</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#ede9fe;color:#7c3aed;"><i class="fas fa-star"></i></div>
+        <div class="stat-body"><div class="stat-label">Avg Rating</div><div class="stat-value">4.8★</div><div class="stat-delta" style="color:var(--text-soft);">Based on 3,200+ reviews</div></div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Enquiries by Month (2026)</div></div>
+        <div class="card-body">
+          <div class="chart-wrap" id="monthly-chart"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Revenue by Car Category</div></div>
+        <div class="card-body">
+          <div class="chart-wrap" id="revenue-chart"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card mt-20">
+      <div class="card-header"><div class="card-title">Top Performing Cars</div></div>
+      <table>
+        <thead><tr><th>Car</th><th>Category</th><th>Total Bookings</th><th>Revenue</th><th>Avg Rating</th><th>Availability</th></tr></thead>
+        <tbody id="top-cars-table"></tbody>
+      </table>
+    </div>
+  </div><!-- /page-analytics -->
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PAGE: SETTINGS
+  ════════════════════════════════════════════════════════ -->
+  <div class="page" id="page-settings" style="padding:28px;">
+    <div class="page-header">
+      <h1>Settings</h1>
+      <p>Dashboard preferences and admin configuration</p>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Business Information</div></div>
+        <div class="card-body">
+          <div class="form-group"><label class="form-label">Business Name</label><input class="form-input" value="GV Cars"/></div>
+          <div class="form-group"><label class="form-label">Tagline</label><input class="form-input" value="Trusted Car Rental in Chennai — Since 2014"/></div>
+          <div class="form-group"><label class="form-label">Admin Email</label><input class="form-input" value="admin@gvcars.in"/></div>
+          <div class="form-actions"><button class="btn btn-primary" onclick="showToast('Settings saved','success')"><i class="fas fa-save"></i> Save</button></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Notification Preferences</div></div>
+        <div class="card-body">
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+              <span style="font-size:13.5px;color:var(--text-mid);">Email on new enquiry</span>
+              <input type="checkbox" checked style="width:16px;height:16px;accent-color:var(--brand);"/>
+            </label>
+            <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+              <span style="font-size:13.5px;color:var(--text-mid);">WhatsApp on new booking</span>
+              <input type="checkbox" checked style="width:16px;height:16px;accent-color:var(--brand);"/>
+            </label>
+            <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+              <span style="font-size:13.5px;color:var(--text-mid);">Daily summary email</span>
+              <input type="checkbox" style="width:16px;height:16px;accent-color:var(--brand);"/>
+            </label>
+            <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+              <span style="font-size:13.5px;color:var(--text-mid);">SMS alerts for bookings</span>
+              <input type="checkbox" style="width:16px;height:16px;accent-color:var(--brand);"/>
+            </label>
+          </div>
+          <div class="form-actions"><button class="btn btn-primary" onclick="showToast('Preferences saved','success')"><i class="fas fa-save"></i> Save Preferences</button></div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /page-settings -->
+
+</div><!-- /main -->
+
+<!-- ── TOAST AREA ────────────────────────────────────────── -->
+<div class="toast-area" id="toast-area"></div>
+
+<!-- ════════════════════════════════════════════════════════════
+     MODALS
+════════════════════════════════════════════════════════════ -->
+
+<!-- Add Enquiry Modal -->
+<div class="modal-backdrop" id="add-enquiry-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">New Enquiry</div>
+      <button class="modal-close" onclick="closeModal('add-enquiry-modal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" id="eq-name" placeholder="Rahul Sharma"/></div>
+        <div class="form-group"><label class="form-label">Phone</label><input class="form-input" id="eq-phone" placeholder="+91 98765 43210"/></div>
+      </div>
+      <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="eq-email" placeholder="you@email.com"/></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Car</label>
+          <select class="form-input" id="eq-car"></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select class="form-input" id="eq-status">
+            <option>New</option><option>Contacted</option><option>Confirmed</option><option>Completed</option><option>Cancelled</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Pickup Date</label><input type="date" class="form-input" id="eq-pickup"/></div>
+        <div class="form-group"><label class="form-label">Drop Date</label><input type="date" class="form-input" id="eq-drop"/></div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" onclick="submitEnquiry()"><i class="fas fa-paper-plane"></i> Submit</button>
+        <button class="btn btn-outline" onclick="closeModal('add-enquiry-modal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Car Modal -->
+<div class="modal-backdrop" id="add-car-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Add New Car</div>
+      <button class="modal-close" onclick="closeModal('add-car-modal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Car Name</label><input class="form-input" id="car-name" placeholder="e.g. Maruti Swift"/></div>
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select class="form-input" id="car-cat">
+            <option value="hatchback">Hatchback</option>
+            <option value="sedan">Sedan</option>
+            <option value="suv">SUV</option>
+            <option value="muv">MUV</option>
+            <option value="mini">Mini</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Price per Day (₹)</label><input type="number" class="form-input" id="car-price" placeholder="2500"/></div>
+        <div class="form-group">
+          <label class="form-label">Badge Colour</label>
+          <input type="color" class="form-input" id="car-badge-color" value="#1a6b3c" style="height:42px;padding:4px;cursor:pointer;"/>
+        </div>
+      </div>
+      <div class="form-group"><label class="form-label">Image URL</label><input class="form-input" id="car-img" placeholder="https://…"/></div>
+      <div class="form-group"><label class="form-label">Transmission</label><input class="form-input" id="car-trans" placeholder="Manual / Automatic"/></div>
+      <div class="form-group"><label class="form-label">Fuel</label><input class="form-input" id="car-fuel" placeholder="Petrol / Diesel / CNG"/></div>
+      <div class="form-group"><label class="form-label">Passengers</label><input class="form-input" id="car-pax" placeholder="4–5 Passengers"/></div>
+      <div class="form-actions">
+        <button class="btn btn-primary" onclick="submitCar()"><i class="fas fa-plus"></i> Add Car</button>
+        <button class="btn btn-outline" onclick="closeModal('add-car-modal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Car Modal -->
+<div class="modal-backdrop" id="edit-car-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Edit Car</div>
+      <button class="modal-close" onclick="closeModal('edit-car-modal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="edit-car-idx"/>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Car Name</label><input class="form-input" id="edit-car-name"/></div>
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select class="form-input" id="edit-car-cat">
+            <option value="hatchback">Hatchback</option><option value="sedan">Sedan</option>
+            <option value="suv">SUV</option><option value="muv">MUV</option><option value="mini">Mini</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Price per Day (₹)</label><input type="number" class="form-input" id="edit-car-price"/></div>
+        <div class="form-group"><label class="form-label">Badge</label><input class="form-input" id="edit-car-badge"/></div>
+      </div>
+      <div class="form-group"><label class="form-label">Image URL</label><input class="form-input" id="edit-car-img"/></div>
+      <div class="form-actions">
+        <button class="btn btn-primary" onclick="saveCarEdit()"><i class="fas fa-save"></i> Save</button>
+        <button class="btn btn-outline" onclick="closeModal('edit-car-modal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Review Modal -->
+<div class="modal-backdrop" id="add-review-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Add Customer Review</div>
+      <button class="modal-close" onclick="closeModal('add-review-modal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Reviewer Name</label><input class="form-input" id="rv-name" placeholder="Karthik S"/></div>
+        <div class="form-group">
+          <label class="form-label">Rating</label>
+          <select class="form-input" id="rv-rating">
+            <option value="5">★★★★★ (5)</option><option value="4">★★★★☆ (4)</option>
+            <option value="3">★★★☆☆ (3)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label class="form-label">Review Text</label><textarea class="form-input" id="rv-text" rows="3" placeholder="Great service…"></textarea></div>
+      <div class="form-actions">
+        <button class="btn btn-primary" onclick="submitReview()"><i class="fas fa-plus"></i> Add Review</button>
+        <button class="btn btn-outline" onclick="closeModal('add-review-modal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* ════════════════════════════════════════════════════════════
+   DATA — mirrors SITE_DATA from smilecars-redesign.html
+   Edit here; the dashboard re-renders automatically.
+════════════════════════════════════════════════════════════ */
+const SITE_DATA = {
+  contact: {
+    address: 'No. 25 & 26, Raj Enclave, 3rd Cross Street, Kathirvedu — 600066',
+    phones:  ['+91 80152 77899', '+91 80152 90099'],
+    email:   'gvcarrentals@gmail.com',
+    hours:   'Monday – Sunday: 08:00 AM – 07:00 PM',
+    whatsapp:'918015277899',
+  },
+  cars: [
+    { name:'Maruti Swift',         category:'hatchback', badge:'Hatchback', price:2500, image:'https://imgd.aeplcdn.com/664x374/n/cw/ec/159073/swift-exterior-right-front-three-quarter-2.jpeg?isig=0&q=80', available:true  },
+    { name:'Maruti WagonR',        category:'mini',      badge:'Mini',       price:2500, image:'https://imgd.aeplcdn.com/664x374/n/cw/ec/45691/wagonr-exterior-right-front-three-quarter-3.jpeg?isig=0&q=80',  available:false },
+    { name:'Toyota Innova Crysta', category:'muv',       badge:'MUV',        price:4000, image:'https://imgd.aeplcdn.com/664x374/n/cw/ec/100557/innova-crysta-exterior-right-front-three-quarter-2.jpeg?isig=0&q=80', available:true },
+    { name:'Toyota Fortuner',      category:'suv',       badge:'SUV',        price:2600, image:'https://imgd.aeplcdn.com/664x374/n/cw/ec/44709/fortuner-exterior-right-front-three-quarter-19.jpeg?isig=0&q=80', available:true },
+    { name:'Honda City',           category:'sedan',     badge:'Sedan',      price:2800, image:'https://imgd.aeplcdn.com/664x374/n/cw/ec/134287/city-exterior-right-front-three-quarter-4.jpeg?isig=0&q=80',  available:false },
+    { name:'Maruti Dzire',         category:'sedan',     badge:'Sedan',      price:2800, image:'https://imgd.aeplcdn.com/664x374/n/cw/ec/45691/dzire-exterior-right-front-three-quarter-58.jpeg?isig=0&q=80', available:true },
+    { name:'Mahindra XUV700',      category:'suv',       badge:'SUV',        price:2600, image:'https://imgd.aeplcdn.com/664x374/n/cw/ec/42355/xuv700-exterior-right-front-three-quarter.jpeg?isig=0&q=80',   available:true },
+    { name:'Kia Carens',           category:'muv',       badge:'MUV',        price:4000, image:'https://imgd.aeplcdn.com/664x374/n/cw/ec/115025/carens-exterior-right-front-three-quarter-5.jpeg?isig=0&q=80', available:true },
+  ],
+};
+
+/* Enquiry data store */
+let ENQUIRIES = [
+  { id:1,  name:'Rahul Sharma',     phone:'+91 98765 43210', email:'rahul@email.com',   car:'Toyota Fortuner',      pickup:'2026-05-26', drop:'2026-05-28', status:'New',       received:'2026-05-24' },
+  { id:2,  name:'Karthikeyan C',    phone:'+91 90001 23456', email:'karthik@email.com', car:'Honda City',           pickup:'2026-05-27', drop:'2026-05-29', status:'Contacted', received:'2026-05-23' },
+  { id:3,  name:'Priya Nair',       phone:'+91 91234 56789', email:'priya@email.com',   car:'Maruti Swift',         pickup:'2026-05-25', drop:'2026-05-25', status:'Confirmed', received:'2026-05-23' },
+  { id:4,  name:'Vijay Kumar',      phone:'+91 87654 32109', email:'vijay@email.com',   car:'Toyota Innova Crysta', pickup:'2026-05-30', drop:'2026-06-02', status:'New',       received:'2026-05-24' },
+  { id:5,  name:'Anitha S',         phone:'+91 94567 89012', email:'anitha@email.com',  car:'Mahindra XUV700',      pickup:'2026-06-01', drop:'2026-06-03', status:'New',       received:'2026-05-24' },
+  { id:6,  name:'Rajesh Muthu',     phone:'+91 96789 01234', email:'rajesh@email.com',  car:'Kia Carens',           pickup:'2026-06-05', drop:'2026-06-07', status:'Confirmed', received:'2026-05-22' },
+  { id:7,  name:'Sundar Rajan',     phone:'+91 99870 12345', email:'sundar@email.com',  car:'Maruti Dzire',         pickup:'2026-05-28', drop:'2026-05-29', status:'Completed', received:'2026-05-20' },
+  { id:8,  name:'Deepa Krishnan',   phone:'+91 88901 23456', email:'deepa@email.com',   car:'Maruti WagonR',        pickup:'2026-05-31', drop:'2026-06-01', status:'Cancelled', received:'2026-05-19' },
+  { id:9,  name:'Arjun Menon',      phone:'+91 97012 34567', email:'arjun@email.com',   car:'Toyota Fortuner',      pickup:'2026-06-10', drop:'2026-06-12', status:'New',       received:'2026-05-24' },
+  { id:10, name:'Meena Subramaniam',phone:'+91 89123 45678', email:'meena@email.com',   car:'Honda City',           pickup:'2026-06-08', drop:'2026-06-08', status:'New',       received:'2026-05-24' },
+];
+
+let filteredEnquiries = [...ENQUIRIES];
+
+/* Reviews data store */
+let REVIEWS = [
+  { name:'Dhileep',        initials:'D', rating:5, text:'Excellent service. Booking was straightforward and the vehicle was in perfect condition.' },
+  { name:'Ramachandran',   initials:'R', rating:5, text:'GV Cars went above and beyond. Clean, on-time, and professional throughout.' },
+  { name:'Raja',           initials:'R', rating:5, text:'Quick booking, clean car, no hidden charges. One of the best rental services I have used.' },
+  { name:'Vijay',          initials:'V', rating:5, text:'I use GV Cars regularly for business travel. Always on time and top quality vehicles.' },
+  { name:'Karthik',        initials:'K', rating:5, text:'Smooth experience from start to finish. Transparent pricing and a team that actually picks up the phone.' },
+];
+
+/* Activity feed data */
+const ACTIVITY = [
+  { icon:'fas fa-inbox',    bg:'#dcfce7', color:'#16a34a', text:'<strong>Rahul Sharma</strong> submitted a new enquiry for <strong>Toyota Fortuner</strong>', time:'10 min ago' },
+  { icon:'fas fa-check',    bg:'#dbeafe', color:'#2563eb', text:'Booking confirmed for <strong>Priya Nair</strong> — Maruti Swift, 25 May', time:'1 hour ago' },
+  { icon:'fas fa-rupee-sign',bg:'#fef9c3',color:'#ca8a04', text:'Payment received from <strong>Rajesh Muthu</strong> — ₹8,000', time:'3 hours ago' },
+  { icon:'fas fa-star',     bg:'#ede9fe', color:'#7c3aed', text:'New 5★ review posted by <strong>Vijay Kumar</strong>', time:'Yesterday' },
+  { icon:'fas fa-times',    bg:'#fee2e2', color:'#dc2626', text:'Booking cancelled by <strong>Deepa Krishnan</strong> — WagonR', time:'Yesterday' },
+];
+
+/* ────────────────────────────────────────────────────────────
+   NAVIGATION
+──────────────────────────────────────────────────────────── */
+function showPage(id, el) {
+  /* Hide all pages */
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+  /* Show target page */
+  const page = document.getElementById('page-' + id);
+  if (page) page.classList.add('active');
+  if (el) el.classList.add('active');
+
+  /* Update topbar title */
+  const titles = { dashboard:'Overview', enquiries:'Enquiries', fleet:'Fleet',
+    bookings:'Bookings', customers:'Customers', content:'Site Content',
+    'contact-info':'Contact Information', analytics:'Analytics', settings:'Settings' };
+  document.getElementById('topbar-title').textContent = titles[id] || id;
+
+  /* Close sidebar on mobile */
+  closeSidebar();
+}
+
+/* ────────────────────────────────────────────────────────────
+   SIDEBAR (mobile)
+──────────────────────────────────────────────────────────── */
+function openSidebar()  { document.getElementById('sidebar').classList.add('open'); document.getElementById('sidebar-overlay').classList.add('open'); }
+function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebar-overlay').classList.remove('open'); }
+
+/* ────────────────────────────────────────────────────────────
+   MODALS
+──────────────────────────────────────────────────────────── */
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+/* Close modal on backdrop click */
+document.querySelectorAll('.modal-backdrop').forEach(b => {
+  b.addEventListener('click', e => { if (e.target === b) closeModal(b.id); });
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.querySelectorAll('.modal-backdrop.open').forEach(b => closeModal(b.id));
+});
+
+/* ────────────────────────────────────────────────────────────
+   TOAST
+──────────────────────────────────────────────────────────── */
+function showToast(msg, type='info') {
+  const area = document.getElementById('toast-area');
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  const icons = { success:'fas fa-check-circle', error:'fas fa-times-circle', info:'fas fa-info-circle' };
+  t.innerHTML = `<i class="${icons[type]||'fas fa-info-circle'}"></i><span>${msg}</span>`;
+  area.appendChild(t);
+  setTimeout(() => { t.style.opacity='0'; t.style.transition='opacity .3s'; setTimeout(()=>t.remove(),300); }, 3500);
+}
+
+/* ────────────────────────────────────────────────────────────
+   STATUS BADGE HELPER
+──────────────────────────────────────────────────────────── */
+function statusBadge(status) {
+  const map = { New:'badge-blue', Contacted:'badge-yellow', Confirmed:'badge-green',
+    Completed:'badge-purple', Cancelled:'badge-red', Active:'badge-green', Available:'badge-green', Rented:'badge-yellow' };
+  return `<span class="badge ${map[status]||'badge-gray'}">${status}</span>`;
+}
+
+/* ────────────────────────────────────────────────────────────
+   RENDER: DASHBOARD ENQUIRY ROWS (5 most recent)
+──────────────────────────────────────────────────────────── */
+function renderDashboardEnquiries() {
+  const tbody = document.getElementById('dashboard-enquiry-rows');
+  tbody.innerHTML = ENQUIRIES.slice(0,5).map(eq => `
+    <tr>
+      <td>
+        <div class="flex items-center gap-8">
+          <div class="avatar">${eq.name[0]}</div>
+          <div><div style="font-size:13.5px;font-weight:600;color:var(--text);">${eq.name}</div>
+          <div style="font-size:11.5px;color:var(--text-soft);">${eq.phone}</div></div>
+        </div>
+      </td>
+      <td><span style="font-weight:600;color:var(--text);">${eq.car}</span></td>
+      <td style="font-size:12.5px;">${eq.pickup} → ${eq.drop}</td>
+      <td>${statusBadge(eq.status)}</td>
+      <td>
+        <button class="btn btn-sm btn-outline" onclick="editEnquiryStatus(${eq.id})">
+          <i class="fas fa-edit"></i>
+        </button>
+      </td>
+    </tr>`).join('');
+}
+
+/* ────────────────────────────────────────────────────────────
+   RENDER: ENQUIRIES TABLE
+──────────────────────────────────────────────────────────── */
+function renderEnquiries(list) {
+  list = list || filteredEnquiries;
+  const tbody = document.getElementById('enquiries-table-body');
+  tbody.innerHTML = list.map(eq => `
+    <tr>
+      <td style="color:var(--text-soft);font-size:12px;">#${eq.id}</td>
+      <td>
+        <div class="flex items-center gap-8">
+          <div class="avatar">${eq.name[0]}</div>
+          <div>
+            <div style="font-weight:600;color:var(--text);font-size:13.5px;">${eq.name}</div>
+            <div style="font-size:11.5px;color:var(--text-soft);">${eq.email}</div>
+          </div>
+        </div>
+      </td>
+      <td style="font-weight:600;color:var(--text);">${eq.car}</td>
+      <td style="font-size:13px;">${eq.pickup}</td>
+      <td style="font-size:13px;">${eq.drop}</td>
+      <td>${statusBadge(eq.status)}</td>
+      <td style="font-size:12px;color:var(--text-soft);">${eq.received}</td>
+      <td>
+        <div class="flex gap-8">
+          <select class="filter-select" style="padding:5px 8px;font-size:12px;"
+            onchange="updateEnquiryStatus(${eq.id},this.value)">
+            ${['New','Contacted','Confirmed','Completed','Cancelled'].map(s =>
+              `<option ${s===eq.status?'selected':''}>${s}</option>`).join('')}
+          </select>
+          <button class="btn btn-icon btn-danger" onclick="deleteEnquiry(${eq.id})" title="Delete">
+            <i class="fas fa-trash-alt" style="font-size:12px;"></i>
+          </button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+function filterEnquiries(q) {
+  q = q.toLowerCase();
+  filteredEnquiries = ENQUIRIES.filter(e =>
+    e.name.toLowerCase().includes(q) || e.car.toLowerCase().includes(q) || e.phone.includes(q)
+  );
+  renderEnquiries();
+}
+function filterEnquiriesByStatus(status) {
+  filteredEnquiries = status ? ENQUIRIES.filter(e => e.status === status) : [...ENQUIRIES];
+  renderEnquiries();
+}
+function filterEnquiriesByCar(car) {
+  filteredEnquiries = car ? ENQUIRIES.filter(e => e.car === car) : [...ENQUIRIES];
+  renderEnquiries();
+}
+function updateEnquiryStatus(id, status) {
+  const eq = ENQUIRIES.find(e => e.id === id);
+  if (eq) { eq.status = status; renderDashboardEnquiries(); renderEnquiries(); showToast(`Status updated to ${status}`,'success'); }
+}
+function deleteEnquiry(id) {
+  if (!confirm('Delete this enquiry?')) return;
+  ENQUIRIES = ENQUIRIES.filter(e => e.id !== id);
+  filteredEnquiries = filteredEnquiries.filter(e => e.id !== id);
+  renderEnquiries(); renderDashboardEnquiries();
+  document.getElementById('enquiry-badge').textContent = ENQUIRIES.filter(e=>e.status==='New').length;
+  showToast('Enquiry deleted','error');
+}
+
+/* ────────────────────────────────────────────────────────────
+   SUBMIT ENQUIRY (from modal)
+──────────────────────────────────────────────────────────── */
+function submitEnquiry() {
+  const name = document.getElementById('eq-name').value.trim();
+  const phone = document.getElementById('eq-phone').value.trim();
+  if (!name || !phone) { showToast('Name and phone are required','error'); return; }
+  const newEq = {
+    id: ENQUIRIES.length + 1,
+    name, phone,
+    email:  document.getElementById('eq-email').value.trim(),
+    car:    document.getElementById('eq-car').value,
+    pickup: document.getElementById('eq-pickup').value,
+    drop:   document.getElementById('eq-drop').value,
+    status: document.getElementById('eq-status').value,
+    received: new Date().toISOString().slice(0,10),
+  };
+  ENQUIRIES.unshift(newEq);
+  filteredEnquiries = [...ENQUIRIES];
+  renderEnquiries(); renderDashboardEnquiries();
+  document.getElementById('enquiry-badge').textContent = ENQUIRIES.filter(e=>e.status==='New').length;
+  closeModal('add-enquiry-modal');
+  showToast('Enquiry added successfully','success');
+}
+
+/* ────────────────────────────────────────────────────────────
+   RENDER: FLEET CARDS
+──────────────────────────────────────────────────────────── */
+function renderFleetCards(nameFilter, catFilter) {
+  nameFilter = (nameFilter||'').toLowerCase();
+  catFilter  = (catFilter||'').toLowerCase();
+  const grid = document.getElementById('fleet-cards-grid');
+  const filtered = SITE_DATA.cars.filter(c =>
+    (!nameFilter || c.name.toLowerCase().includes(nameFilter) || c.category.includes(nameFilter)) &&
+    (!catFilter  || c.category === catFilter)
+  );
+  grid.innerHTML = filtered.map((car, i) => `
+    <div class="fleet-card">
+      <img class="fleet-img" src="${car.image}" alt="${car.name}"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="fleet-img-placeholder" style="display:none;"><i class="fas fa-car"></i></div>
+      <div class="fleet-body">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div>
+            <div class="fleet-name">${car.name}</div>
+            <div class="fleet-cat">${car.badge} · ${car.category}</div>
+          </div>
+          ${statusBadge(car.available ? 'Available' : 'Rented')}
+        </div>
+        <div class="fleet-price" style="margin-top:8px;">₹${car.price.toLocaleString('en-IN')} <span>/ day</span></div>
+        <div class="fleet-actions">
+          <button class="btn btn-sm btn-outline" onclick="openEditCar(${SITE_DATA.cars.indexOf(car)})">
+            <i class="fas fa-edit"></i> Edit
+          </button>
+          <button class="btn btn-sm" style="background:${car.available?'#fee2e2':'#dcfce7'};color:${car.available?'#dc2626':'#16a34a'};border:none;"
+            onclick="toggleAvailability(${SITE_DATA.cars.indexOf(car)})">
+            <i class="fas fa-${car.available?'times':'check'}"></i>
+            ${car.available ? 'Mark Rented' : 'Mark Available'}
+          </button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+let _fleetNameFilter = '', _fleetCatFilter = '';
+function filterFleetCards(name, cat) {
+  if (name !== undefined) _fleetNameFilter = name;
+  if (cat  !== undefined) _fleetCatFilter  = cat;
+  renderFleetCards(_fleetNameFilter, _fleetCatFilter);
+}
+function toggleAvailability(idx) {
+  SITE_DATA.cars[idx].available = !SITE_DATA.cars[idx].available;
+  renderFleetCards(_fleetNameFilter, _fleetCatFilter);
+  renderFleetStatus();
+  showToast(`${SITE_DATA.cars[idx].name} marked ${SITE_DATA.cars[idx].available?'available':'rented'}`,'success');
+}
+function openEditCar(idx) {
+  const car = SITE_DATA.cars[idx];
+  document.getElementById('edit-car-idx').value   = idx;
+  document.getElementById('edit-car-name').value  = car.name;
+  document.getElementById('edit-car-cat').value   = car.category;
+  document.getElementById('edit-car-price').value = car.price;
+  document.getElementById('edit-car-badge').value = car.badge;
+  document.getElementById('edit-car-img').value   = car.image;
+  openModal('edit-car-modal');
+}
+function saveCarEdit() {
+  const idx = parseInt(document.getElementById('edit-car-idx').value);
+  SITE_DATA.cars[idx].name     = document.getElementById('edit-car-name').value;
+  SITE_DATA.cars[idx].category = document.getElementById('edit-car-cat').value;
+  SITE_DATA.cars[idx].price    = parseInt(document.getElementById('edit-car-price').value)||SITE_DATA.cars[idx].price;
+  SITE_DATA.cars[idx].badge    = document.getElementById('edit-car-badge').value;
+  SITE_DATA.cars[idx].image    = document.getElementById('edit-car-img').value;
+  closeModal('edit-car-modal');
+  renderFleetCards(); showToast('Car updated successfully','success');
+}
+function submitCar() {
+  const name = document.getElementById('car-name').value.trim();
+  if (!name) { showToast('Car name is required','error'); return; }
+  SITE_DATA.cars.push({
+    name, category: document.getElementById('car-cat').value,
+    badge: document.getElementById('car-cat').options[document.getElementById('car-cat').selectedIndex].text,
+    price: parseInt(document.getElementById('car-price').value)||2500,
+    image: document.getElementById('car-img').value||'',
+    available: true,
+  });
+  renderFleetCards(); closeModal('add-car-modal');
+  showToast(`${name} added to fleet`,'success');
+}
+
+/* ────────────────────────────────────────────────────────────
+   RENDER: BOOKINGS TABLE
+──────────────────────────────────────────────────────────── */
+function renderBookings() {
+  const confirmed = ENQUIRIES.filter(e => e.status === 'Confirmed' || e.status === 'Completed');
+  const tbody = document.getElementById('bookings-table-body');
+  tbody.innerHTML = confirmed.map(eq => {
+    const car = SITE_DATA.cars.find(c => c.name === eq.car);
+    const days = Math.max(1, Math.ceil((new Date(eq.drop)-new Date(eq.pickup))/(86400000)) + 1);
+    const amt  = car ? '₹' + (car.price * days).toLocaleString('en-IN') : '—';
+    return `
+      <tr>
+        <td style="color:var(--text-soft);font-size:12px;">#${eq.id}</td>
+        <td>
+          <div class="flex items-center gap-8">
+            <div class="avatar">${eq.name[0]}</div>
+            <div style="font-weight:600;font-size:13.5px;color:var(--text);">${eq.name}</div>
+          </div>
+        </td>
+        <td style="font-weight:600;">${eq.car}</td>
+        <td style="font-size:13px;">${eq.pickup}</td>
+        <td style="font-size:13px;">${eq.drop}</td>
+        <td style="font-weight:700;">${days}</td>
+        <td style="font-weight:700;color:var(--brand);">${amt}</td>
+        <td>${statusBadge(eq.status)}</td>
+        <td>
+          <button class="btn btn-sm btn-outline" onclick="showToast('Booking details — coming soon','info')">
+            <i class="fas fa-eye"></i>
+          </button>
+        </td>
+      </tr>`;
+  }).join('') || '<tr><td colspan="9" style="text-align:center;color:var(--text-soft);padding:32px;">No confirmed bookings yet.</td></tr>';
+}
+
+/* ────────────────────────────────────────────────────────────
+   RENDER: CUSTOMERS TABLE
+──────────────────────────────────────────────────────────── */
+function buildCustomers() {
+  const map = {};
+  ENQUIRIES.forEach(eq => {
+    if (!map[eq.email]) map[eq.email] = { name:eq.name, phone:eq.phone, email:eq.email, bookings:0, last:'—', active:false };
+    if (eq.status==='Confirmed'||eq.status==='Completed') { map[eq.email].bookings++; map[eq.email].last=eq.pickup; map[eq.email].active=true; }
+  });
+  return Object.values(map);
+}
+function renderCustomers(list) {
+  list = list || buildCustomers();
+  document.getElementById('customers-table-body').innerHTML = list.map(c => `
+    <tr>
+      <td>
+        <div class="flex items-center gap-8">
+          <div class="avatar">${c.name[0]}</div>
+          <div style="font-weight:600;font-size:13.5px;color:var(--text);">${c.name}</div>
+        </div>
+      </td>
+      <td style="font-size:13px;">${c.phone}</td>
+      <td style="font-size:13px;">${c.email}</td>
+      <td style="font-weight:700;text-align:center;">${c.bookings}</td>
+      <td style="font-size:13px;">${c.last}</td>
+      <td>${statusBadge(c.active?'Active':'New')}</td>
+    </tr>`).join('');
+}
+function filterCustomers(q) {
+  q = q.toLowerCase();
+  renderCustomers(buildCustomers().filter(c =>
+    c.name.toLowerCase().includes(q) || c.email.toLowerCase().includes(q) || c.phone.includes(q)
+  ));
+}
+
+/* ────────────────────────────────────────────────────────────
+   RENDER: CATEGORY BARS (dashboard)
+──────────────────────────────────────────────────────────── */
+function renderCategoryBars() {
+  const counts = {};
+  ENQUIRIES.forEach(e => {
+    const car = SITE_DATA.cars.find(c => c.name === e.car);
+    if (car) counts[car.category] = (counts[car.category]||0) + 1;
+  });
+  const max = Math.max(...Object.values(counts), 1);
+  const colors = { suv:'#1a6b3c', sedan:'#3b82f6', muv:'#f59e0b', hatchback:'#8b5cf6', mini:'#ef4444' };
+  document.getElementById('category-bars').innerHTML = Object.entries(counts)
+    .sort((a,b)=>b[1]-a[1])
+    .map(([cat,n]) => `
+      <div class="bar-row">
+        <div class="bar-label" style="text-transform:capitalize;">${cat}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${(n/max)*100}%;background:${colors[cat]||'var(--brand)'}"></div></div>
+        <div class="bar-val">${n}</div>
+      </div>`).join('');
+}
+
+/* ────────────────────────────────────────────────────────────
+   RENDER: FLEET STATUS LIST (dashboard)
+──────────────────────────────────────────────────────────── */
+function renderFleetStatus() {
+  document.getElementById('fleet-status-list').innerHTML = SITE_DATA.cars.map(car => `
+    <div class="mini-metric">
+      <div class="mini-metric-label">
+        <i class="fas fa-car"></i>
+        <span>${car.name}</span>
+        <span style="font-size:11px;color:var(--text-soft);">${car.badge}</span>
+      </div>
+      <div class="flex items-center gap-8">
+        <span style="font-size:13px;font-weight:700;color:var(--brand);">₹${car.price.toLocaleString('en-IN')}</span>
+        ${statusBadge(car.available?'Available':'Rented')}
+      </div>
+    </div>`).join('');
+}
+
+/* ────────────────────────────────────────────────────────────
+   RENDER: ACTIVITY FEED (dashboard)
+──────────────────────────────────────────────────────────── */
+function renderActivityFeed() {
+  document.getElementById('activity-feed').innerHTML = ACTIVITY.map(a => `
+    <div class="activity-item">
+      <div class="activity-icon" style="background:${a.bg};color:${a.color};">
+        <i class="${a.icon}"></i>
+      </div>
+      <div>
+        <div class="activity-text">${a.text}</div>
+        <div class="activity-time">${a.time}</div>
+      </div>
+    </div>`).join('');
+}
+
+/* ────────────────────────────────────────────────────────────
+   RENDER: ANALYTICS CHARTS
+──────────────────────────────────────────────────────────── */
+function renderAnalytics() {
+  /* Monthly enquiries */
+  const monthly = [
+    ['Jan',8],['Feb',11],['Mar',14],['Apr',10],['May',18],['Jun',0],
+  ];
+  const maxM = Math.max(...monthly.map(m=>m[1]),1);
+  document.getElementById('monthly-chart').innerHTML = monthly.map(([m,n]) => `
+    <div class="bar-row">
+      <div class="bar-label">${m}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${(n/maxM)*100}%;"></div></div>
+      <div class="bar-val">${n}</div>
+    </div>`).join('');
+
+  /* Revenue by category */
+  const rev = [
+    { cat:'SUV', val:48000 }, { cat:'MUV', val:36000 },
+    { cat:'Sedan', val:24000 }, { cat:'Hatchback', val:18000 }, { cat:'Mini', val:12000 },
+  ];
+  const maxR = Math.max(...rev.map(r=>r.val));
+  const colorsRev = ['#1a6b3c','#f59e0b','#3b82f6','#8b5cf6','#ef4444'];
+  document.getElementById('revenue-chart').innerHTML = rev.map((r,i) => `
+    <div class="bar-row">
+      <div class="bar-label" style="text-transform:capitalize;">${r.cat}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${(r.val/maxR)*100}%;background:${colorsRev[i]};"></div></div>
+      <div class="bar-val" style="font-size:11px;">₹${(r.val/1000).toFixed(0)}k</div>
+    </div>`).join('');
+
+  /* Top cars table */
+  const topCars = [
+    { name:'Toyota Fortuner', cat:'SUV',       bookings:14, rev:36400, rating:4.9, avail:'Available' },
+    { name:'Honda City',      cat:'Sedan',      bookings:11, rev:30800, rating:4.8, avail:'Rented'    },
+    { name:'Toyota Innova',   cat:'MUV',        bookings:9,  rev:36000, rating:4.9, avail:'Available' },
+    { name:'Maruti Swift',    cat:'Hatchback',  bookings:12, rev:30000, rating:4.7, avail:'Available' },
+    { name:'Mahindra XUV700', cat:'SUV',        bookings:8,  rev:20800, rating:4.8, avail:'Available' },
+  ];
+  document.getElementById('top-cars-table').innerHTML = topCars.map(c => `
+    <tr>
+      <td style="font-weight:600;color:var(--text);">${c.name}</td>
+      <td>${statusBadge(c.cat)}</td>
+      <td style="text-align:center;font-weight:700;">${c.bookings}</td>
+      <td style="font-weight:700;color:var(--brand);">₹${c.rev.toLocaleString('en-IN')}</td>
+      <td style="font-weight:700;">⭐ ${c.rating}</td>
+      <td>${statusBadge(c.avail)}</td>
+    </tr>`).join('');
+}
+
+/* ────────────────────────────────────────────────────────────
+   RENDER: REVIEWS EDITOR (site content page)
+──────────────────────────────────────────────────────────── */
+function renderReviews() {
+  document.getElementById('reviews-editor').innerHTML = REVIEWS.map((r,i) => `
+    <div style="display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid var(--border);">
+      <div class="avatar" style="flex-shrink:0;">${r.initials}</div>
+      <div style="flex:1;">
+        <div style="font-weight:600;font-size:13.5px;color:var(--text);">${r.name}</div>
+        <div style="color:var(--accent);font-size:13px;margin:2px 0;">${'★'.repeat(r.rating)}</div>
+        <div style="font-size:13px;color:var(--text-mid);">${r.text}</div>
+      </div>
+      <button class="btn btn-icon btn-danger" onclick="deleteReview(${i})" title="Delete">
+        <i class="fas fa-trash-alt" style="font-size:12px;"></i>
+      </button>
+    </div>`).join('');
+}
+function deleteReview(i) {
+  REVIEWS.splice(i,1); renderReviews(); showToast('Review deleted','error');
+}
+function submitReview() {
+  const name = document.getElementById('rv-name').value.trim();
+  const text = document.getElementById('rv-text').value.trim();
+  if (!name||!text) { showToast('Name and review text required','error'); return; }
+  REVIEWS.push({ name, initials:name[0], rating:parseInt(document.getElementById('rv-rating').value)||5, text });
+  renderReviews(); closeModal('add-review-modal'); showToast('Review added','success');
+}
+
+/* ────────────────────────────────────────────────────────────
+   RENDER: STATS EDITOR (site content page)
+──────────────────────────────────────────────────────────── */
+function renderStatsEditor() {
+  const stats = [
+    { label:'Years in Business', value:'10+' },
+    { label:'Happy Clients',     value:'99%' },
+    { label:'Customer Rating',   value:'4.8★' },
+    { label:'Vehicle Categories',value:'4' },
+    { label:'Customer Support',  value:'24/7' },
+  ];
+  document.getElementById('stats-editor').innerHTML = stats.map((s,i) => `
+    <div style="display:grid;grid-template-columns:1fr 100px;gap:10px;margin-bottom:10px;align-items:end;">
+      <div class="form-group" style="margin:0;">
+        <label class="form-label">Label ${i+1}</label>
+        <input class="form-input" value="${s.label}" style="font-size:13px;"/>
+      </div>
+      <div class="form-group" style="margin:0;">
+        <label class="form-label">Value</label>
+        <input class="form-input" value="${s.value}" style="font-size:13px;"/>
+      </div>
+    </div>`).join('') + `<button class="btn btn-primary btn-sm" style="margin-top:8px;" onclick="showToast('Stats saved','success')"><i class="fas fa-save"></i> Save</button>`;
+}
+
+/* ────────────────────────────────────────────────────────────
+   RENDER: CONTACT PREVIEW
+──────────────────────────────────────────────────────────── */
+function renderContactPreview() {
+  const c = SITE_DATA.contact;
+  document.getElementById('contact-preview').innerHTML = `
+    <div class="info-row">
+      <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+      <div><div class="info-label">Address</div><div class="info-value">${c.address}</div></div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+      <div><div class="info-label">Phone</div>${c.phones.map(p=>`<div class="info-value"><a href="tel:${p}">${p}</a></div>`).join('')}</div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon"><i class="fas fa-envelope"></i></div>
+      <div><div class="info-label">Email</div><div class="info-value"><a href="mailto:${c.email}">${c.email}</a></div></div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon"><i class="fas fa-clock"></i></div>
+      <div><div class="info-label">Hours</div><div class="info-value">${c.hours}</div></div>
+    </div>
+    <div class="info-row" style="border-bottom:none;">
+      <div class="info-icon"><i class="fab fa-whatsapp"></i></div>
+      <div><div class="info-label">WhatsApp</div><div class="info-value"><a href="https://wa.me/${c.whatsapp}">${c.whatsapp}</a></div></div>
+    </div>`;
+}
+
+function saveContactInfo() {
+  SITE_DATA.contact.address     = document.getElementById('ci-address').value;
+  SITE_DATA.contact.phones[0]   = document.getElementById('ci-phone1').value;
+  SITE_DATA.contact.phones[1]   = document.getElementById('ci-phone2').value;
+  SITE_DATA.contact.email       = document.getElementById('ci-email').value;
+  SITE_DATA.contact.whatsapp    = document.getElementById('ci-wa').value;
+  SITE_DATA.contact.hours       = `Monday – Sunday: ${document.getElementById('ci-open').value} – ${document.getElementById('ci-close').value}`;
+  renderContactPreview();
+  showToast('Contact info saved. Update SITE_DATA in smilecars-redesign.html to publish.','success');
+}
+
+/* ────────────────────────────────────────────────────────────
+   POPULATE CAR SELECTS
+──────────────────────────────────────────────────────────── */
+function populateCarSelects() {
+  const opts = SITE_DATA.cars.map(c=>`<option>${c.name}</option>`).join('');
+  document.getElementById('eq-car').innerHTML = opts;
+  const filterSel = document.getElementById('car-filter-select');
+  SITE_DATA.cars.forEach(c => {
+    const o = document.createElement('option'); o.value = c.name; o.textContent = c.name;
+    filterSel.appendChild(o);
+  });
+}
+
+/* ────────────────────────────────────────────────────────────
+   GLOBAL SEARCH (topbar)
+──────────────────────────────────────────────────────────── */
+function globalSearch(q) {
+  if (!q) return;
+  q = q.toLowerCase();
+  const match = ENQUIRIES.find(e => e.name.toLowerCase().includes(q) || e.car.toLowerCase().includes(q));
+  if (match) { showPage('enquiries', document.querySelector('[onclick*=enquiries]')); filterEnquiries(q); }
+}
+
+/* ────────────────────────────────────────────────────────────
+   INIT
+──────────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  populateCarSelects();
+  renderDashboardEnquiries();
+  renderCategoryBars();
+  renderActivityFeed();
+  renderFleetStatus();
+  renderEnquiries();
+  renderFleetCards();
+  renderBookings();
+  renderCustomers();
+  renderAnalytics();
+  renderReviews();
+  renderStatsEditor();
+  renderContactPreview();
+});
+</script>
+</body>
+</html>
